@@ -1,31 +1,40 @@
 <?php $title = 'Mon blog'; ?>
 
 <?php ob_start(); ?>
-    <h1>Mon super blog !</h1>
+    <h1>Blog de Jean Forteroche!</h1>
     <p>Derniers billets du blog :</p>
 
-
+<div class="container">
+<div class="row">
 <?php
+
 while ($data = $posts->fetch())
 {
     ?>
-    <div class="news">
-        <h3>
-            <?= htmlspecialchars($data['title']) ?>
-            <em>le <?= $data['created_at_fr'] ?></em>
 
-        </h3>
+            <div class="col-md-4">
 
-        <p>
-            <?= nl2br(htmlspecialchars($data['content'])) ?>
-            <br />
+                    <h3>
+                        <?= htmlspecialchars($data['title']) ?>
+                        <em>le <?= $data['created_at_fr'] ?></em>
 
-        </p>
-    </div>
+                    </h3>
+
+                    <p>
+                        <?= nl2br(htmlspecialchars(substr($data['content'], 0, 200))) ?>
+                        <br />
+                        <a href="index.php?action=post&amp;id=<?= $data['id'] ?>" class="btn btn-xs btn-primary">Commentaires</a>
+                    </p>
+
+
+            </div>
     <?php
 }
+
 $posts->closeCursor();
 ?>
+</div>
+</div>
 <?php $content = ob_get_clean(); ?>
 
-<?php require('template/default.php'); ?>
+<?php require('template/layout.php'); ?>
