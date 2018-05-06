@@ -23,7 +23,8 @@ while ($data = $posts->fetch())
                     <p>
                         <?= nl2br(htmlspecialchars(substr($data['content'], 0, 200))) ?>
                         <br />
-                        <a href="index.php?action=post&amp;id=<?= $data['id'] ?>" class="btn btn-xs btn-primary">Commentaires</a>
+                        <a href="index.php?action=post&amp;id=<?= $data['id'] ?>" class="btn btn-xs btn-primary">Lire la suite...</a>
+
                     </p>
 
 

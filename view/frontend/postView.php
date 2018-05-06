@@ -1,4 +1,4 @@
-<?php $title = 'Mon blog'; ?>
+<?php $title = htmlspecialchars($post['title']); ?>
 
 <?php ob_start(); ?>
     <h1>Blog de Jean Forteroche!</h1>
@@ -23,6 +23,7 @@
 
     <h2>Commentaires</h2>
 
+
     <?php
     while ($comment = $comments->fetch())
     {
@@ -34,6 +35,9 @@
         <?php
     }
     ?>
+                 <p>
+                     <a href="index.php?action=addCommentDisplay&amp;id=<?= $post['id'] ?>" class="btn btn-xs btn-primary">Poster un nouveau commentaire...</a>
+                 </p>
              </div>
 
     </div>
