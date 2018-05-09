@@ -6,14 +6,14 @@
 
     <div class="row">
         <div class="container">
-        <h3>
-            <?= htmlspecialchars($post['title']) ?>
-            <em>le <?= $post['created_at_fr'] ?></em>
-        </h3>
+            <h3>
+                <?= htmlspecialchars($post['title']) ?>
+                <em>le <?= $post['created_at_fr'] ?></em>
+            </h3>
 
-        <p>
-            <?= nl2br(htmlspecialchars($post['content'])) ?>
-        </p>
+            <p>
+                <?= nl2br(htmlspecialchars($post['content'])) ?>
+            </p>
         </div>
     </div>
 
@@ -29,7 +29,8 @@
     {
         ?>
         <div class="row">
-        <p><strong><?= htmlspecialchars($comment['username']) ?></strong> le <?= $comment['created_comment_at_fr'] ?></p>
+        <p><strong><?= htmlspecialchars($comment['username']) ?></strong> le <?= $comment['created_comment_at_fr'] ?>
+            (<a href="index.php?action=upDateCommentDisplay&amp;id=<?= $comment['id'] ?>" class="btn btn-xs btn-primary">modifier</a>)</p>
         <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
         </div>
         <?php

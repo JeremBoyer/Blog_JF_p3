@@ -13,21 +13,23 @@ class CommentManager extends Manager
                                   FROM comment 
                                   LEFT JOIN user 
                                   ON comment.user_id_fk = user.id
-                                  WHERE post_id_fk = ? 
-                                  ORDER BY created_at DESC');
+                                  WHERE comment.post_id_fk = ? 
+                                  ORDER BY comment.created_at DESC');
         $comments->execute(array($postId));
 
         return $comments;
     }
 
-    public function getComment($commentId)
+    public function getComment($getCommentId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, comment, DATE_FORMAT(created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_at_fr FROM comment WHERE id = ?');
-        $req->execute(array($commentId));
-        $comment = $req->fetch();
+        $req = $db->prepare('SELECT comment.id, comment.comment, DATE_FORMAT(comment.created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_getComment_at_fr 
+                            FROM comment 
+                            WHERE id = ?');
+        $req->execute(array($getCommentId));
+        $getComment = $req->fetch();
 
-        return $comment;
+        return $getComment;
     }
 
     public function postComment($postId, $user, $comment)
@@ -39,13 +41,43 @@ class CommentManager extends Manager
         return $affectedLines;
     }
 
-    public function upDateComment($commentId, $comment)
+    public function postAndComment($commentId){
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT post.id, post.content, post.title, DATE_FORMAT(post.created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_at_fr,
+                              comment.id, comment.comment, DATE_FORMAT(comment.created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_comment_at_fr 
+                              FROM post 
+                              LEFT JOIN comment 
+                              ON post.id = comment.post_id_fk 
+                              WHERE comment.id = ? 
+                              ');
+        $postAndComment = $req->execute(array($commentId));
+        return $postAndComment;
+    }
+
+    public function upDateComment($commentId, $newComment)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('UPDATE comment SET comment.comment=? , comment.updated_at=NOW() WHERE comment.id=?');
-        $affectedComments = $comments->execute(array($commentId, $comment));
+        $comment = $db->prepare('UPDATE comment SET comment.comment = ?, comment.updated_at=NOW() WHERE comment.id=?');
+        $upDatedComments = $comment->execute(array($commentId, $newComment));
 
-        return $affectedComments;
+
+        return $upDatedComments;
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

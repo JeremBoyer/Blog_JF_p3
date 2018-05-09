@@ -17,6 +17,28 @@ function listPosts()
     require('view/frontend/homeView.php');
 }
 
+function addPostDisplay()
+{
+    $postManager = new PostManager();
+    $posts = $postManager->getPosts();
+
+    require('view/frontend/addPostView.php');
+}
+
+function addPost($postTitle, $postContent, $userId, $categoryId)
+{
+    $postManager = new PostManager();
+
+    $affectedPost = $postManager->postPost($postTitle, $postContent, $userId, $categoryId);
+
+    if ($affectedPost === false) {
+        die('Impossible d\'ajouter le commentaire !');
+    } else {
+        header('Location: index.php?action=addPostDisplay');
+    }
+
+}
+
 function post()
 {
     $postManager = new PostManager();
@@ -46,8 +68,47 @@ function addComment($postId, $user, $comment)
 
     if ($affectedLines === false) {
         die('Impossible d\'ajouter le commentaire !');
-    }
-    else {
-        header('Location: index.php?action=post&id=' . $postId);
+    } else {
+        header('Location: index.php?action=addCommentDisplay&id=' . $postId);
     }
 }
+
+function upDateCommentDisplay()
+{
+    $commentManager = new CommentManager();
+    $commentManagerbis = new CommentManager();
+
+
+    $data = $commentManager->getComment($_GET['id']);
+
+    $comments = $commentManagerbis->getComments($_GET['id']);
+
+    require('view/frontend/upDateCommentView.php');
+}
+
+function upDaComment($commentId,$newComment)
+{
+    $commentManager = new CommentManager();
+
+    $upDatedComments = $commentManager->upDateComment($commentId,$newComment);
+
+    if ($upDatedComments === false) {
+        die('Impossible de modifier le commentaire !');
+    } else {
+        header('Location: index.php?action=upDateCommentDisplay&id=' . $commentId);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -35,6 +35,15 @@ class PostManager extends Manager
         return $post;
     }
 
+    public function postPost($postTitle, $postContent, $userId, $categoryId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('INSERT INTO post(post.title, post.content, post.user_id_fk, post.category_id_fk, post.created_at) VALUES (?,?,?,?,NOW())');
+        $affectedPost = $req->execute(array($postTitle, $postContent, $userId, $categoryId));
+
+        return $affectedPost;
+    }
+
 
 
 

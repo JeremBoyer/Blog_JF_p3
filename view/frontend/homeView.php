@@ -1,9 +1,9 @@
-<?php $title = 'Mon blog'; ?>
+<?php $title = 'Blog de Jean Forteroche'; ?>
 
 <?php ob_start(); ?>
     <h1>Blog de Jean Forteroche!</h1>
     <p>Derniers billets du blog :</p>
-
+<div ><a href="index.php?action=addPostDisplay" class="btn btn-xs btn-primary">Lire la suite...</a></div>
 <div class="container">
 <div class="row">
 <?php
@@ -33,6 +33,7 @@ while ($data = $posts->fetch())
 }
 
 $posts->closeCursor();
+
 ?>
 </div>
 </div>
