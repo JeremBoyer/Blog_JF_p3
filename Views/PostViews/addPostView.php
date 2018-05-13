@@ -64,4 +64,4 @@
     </div>
 <?php $content = ob_get_clean(); ?>
 
-<?php require('template/layout.php'); ?>
+<?php require('Views/layout.php'); ?>

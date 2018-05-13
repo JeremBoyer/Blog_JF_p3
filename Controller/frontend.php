@@ -76,21 +76,22 @@ function addComment($postId, $user, $comment)
 function upDateCommentDisplay()
 {
     $commentManager = new CommentManager();
-    $commentManagerbis = new CommentManager();
+    $postManager = new PostManager();
 
 
-    $data = $commentManager->getComment($_GET['id']);
+    $comment = $commentManager->getComment($_GET['id']);
 
-    $comments = $commentManagerbis->getComments($_GET['id']);
+    $post = $postManager->getPost($comment['post_id_fk']);
+
 
     require('view/frontend/upDateCommentView.php');
 }
 
-function upDaComment($commentId,$newComment)
+function updateComment($newComment,$commentId)
 {
     $commentManager = new CommentManager();
 
-    $upDatedComments = $commentManager->upDateComment($commentId,$newComment);
+    $upDatedComments = $commentManager->upDateComment($newComment,$commentId);
 
     if ($upDatedComments === false) {
         die('Impossible de modifier le commentaire !');
@@ -99,6 +100,51 @@ function upDaComment($commentId,$newComment)
     }
 }
 
+function upDatePostDisplay($postID)
+{
+    $postManager = new PostManager();
+    $post = $postManager->getPost($postID);
+
+
+    require('view/frontend/upDatePostView.php');
+}
+
+function editPost($postId, $postTitle, $postContent)
+{
+    $postManager = new PostManager();
+
+    $upDatedPost = $postManager->upDatePost($postId, $postTitle, $postContent);
+
+    if ($upDatedPost === false) {
+        die('Impossible de modifier l\'articles');
+    } else {
+        header('Location: index.php?action=upDatePostDisplay&id=' . $postId);
+    }
+}
+
+function erasePost($deletePId)
+{
+    $postManager = new PostManager();
+    $affectedPost = $postManager->deletePost($deletePId);
+
+    if ($affectedPost === false) {
+        die('Impossible de supprimer l\'articles');
+    } else {
+       echo 'Votre article a bien été supprimer';
+    }
+}
+
+function eraseComment($deleteCId)
+{
+    $commentManager = new CommentManager();
+    $affectedComment = $commentManager->deleteComment($deleteCId);
+
+    if ($affectedComment === false) {
+        die('Impossible de supprimer le commentaire');
+    } else {
+        echo 'Votre article a bien été supprimer';
+    }
+}
 
 
 

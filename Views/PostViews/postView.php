@@ -30,9 +30,15 @@
         ?>
         <div class="row">
         <p><strong><?= htmlspecialchars($comment['username']) ?></strong> le <?= $comment['created_comment_at_fr'] ?>
-            (<a href="index.php?action=upDateCommentDisplay&amp;id=<?= $comment['id'] ?>" class="btn btn-xs btn-primary">modifier</a>)</p>
+            (<a href="index.php?action=updateCommentDisplay&amp;id=<?= $comment['id'] ?>" class="btn btn-xs btn-primary">modifier</a>)</p>
         <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
+            <p>
+                <a href="index.php?action=deleteComment&amp;id=<?= $comment['id'] ?>" class="btn btn-info btn-lg">
+                    <span class="glyphicon glyphicon-trash"></span>
+                </a>
+            </p>
         </div>
+
         <?php
     }
     ?>
@@ -45,4 +51,4 @@
 
 <?php $content = ob_get_clean(); ?>
 
-<?php require('template/layout.php'); ?>
+<?php require('Views/layout.php'); ?>

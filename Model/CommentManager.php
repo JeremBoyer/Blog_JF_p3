@@ -23,7 +23,7 @@ class CommentManager extends Manager
     public function getComment($getCommentId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT comment.id, comment.comment, DATE_FORMAT(comment.created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_getComment_at_fr 
+        $req = $db->prepare('SELECT *
                             FROM comment 
                             WHERE id = ?');
         $req->execute(array($getCommentId));
@@ -32,7 +32,8 @@ class CommentManager extends Manager
         return $getComment;
     }
 
-    public function postComment($postId, $user, $comment)
+
+    public function addComment($postId, $user, $comment)
     {
         $db = $this->dbConnect();
         $comments = $db->prepare('INSERT INTO comment(comment.post_id_fk, comment.user_id_fk, comment.comment, comment.created_at) VALUES(?, ?, ?, NOW())');
@@ -41,27 +42,22 @@ class CommentManager extends Manager
         return $affectedLines;
     }
 
-    public function postAndComment($commentId){
-        $db = $this->dbConnect();
-        $req = $db->prepare('SELECT post.id, post.content, post.title, DATE_FORMAT(post.created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_at_fr,
-                              comment.id, comment.comment, DATE_FORMAT(comment.created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_comment_at_fr 
-                              FROM post 
-                              LEFT JOIN comment 
-                              ON post.id = comment.post_id_fk 
-                              WHERE comment.id = ? 
-                              ');
-        $postAndComment = $req->execute(array($commentId));
-        return $postAndComment;
-    }
-
-    public function upDateComment($commentId, $newComment)
+    public function updateComment($newComment, $commentId)
     {
         $db = $this->dbConnect();
         $comment = $db->prepare('UPDATE comment SET comment.comment = ?, comment.updated_at=NOW() WHERE comment.id=?');
-        $upDatedComments = $comment->execute(array($commentId, $newComment));
+        $upDatedComments = $comment->execute(array($newComment, $commentId));
 
 
         return $upDatedComments;
+    }
+
+    public function deleteComment($deleteCId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM comment WHERE id = ?');
+        $delete = $req->execute(array($deleteCId));
+
     }
 
 }

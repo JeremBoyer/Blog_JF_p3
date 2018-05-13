@@ -1,6 +1,8 @@
 <?php
 
-require ('controller/frontend.php');
+require ('Controller/CommentController.php');
+require ('Controller/PostController.php');
+
 
 try {
     if (isset($_GET['action'])) {
@@ -13,13 +15,35 @@ try {
             } else {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
-        } elseif ($_GET['action'] == 'addPostDisplay'){
+        } elseif ($_GET['action'] == 'addPostDisplay') {
             addPostDisplay();
-        } elseif ($_GET['action'] == 'addPost'){
+        } elseif ($_GET['action'] == 'addPost') {
             if (!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['user_id_fk']) && !empty($_POST['category_id_fk'])) {
                 addPost($_POST['title'], $_POST['content'], $_POST['user_id_fk'], $_POST['category_id_fk']);
             } else {
                 echo 'Erreur : tous les champs ne sont pas remplis !';
+            }
+        } elseif ($_GET['action'] == 'updatePostDisplay') {
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                updatePostDisplay($_GET['id']);
+            } else {
+                throw new Exception('Aucun identifiant de billet envoyé');
+            }
+        } elseif ($_GET['action'] == 'updatePost'){
+            if (isset($_GET['id']) && $_GET['id'] > 0 ){
+                if (!empty($_POST['title']) && !empty($_POST['content'])) {
+                    updatePost($_GET['id'], $_POST['title'], $_POST['content']);
+                } else {
+                    echo 'Erreur : tous les champs ne sont pas remplis, donc le commentaire n\'est pas modifié !';
+                }
+            } else {
+                echo 'Erreur : aucun identifiant de billet envoyé';
+            }
+        } elseif($_GET['action'] == 'deletePost'){
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                deletePost($_GET['id']);
+            } else {
+                throw new Exception('Le billet ne peut être supprimer');
             }
         } elseif ($_GET['action'] == 'addCommentDisplay') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
@@ -37,21 +61,27 @@ try {
             } else {
                 echo 'Erreur : aucun identifiant de billet envoyé';
             }
-        } elseif ($_GET['action'] == 'upDateCommentDisplay'){
+        } elseif ($_GET['action'] == 'updateCommentDisplay'){
             if ((isset($_GET['id']) && $_GET['id'] > 0)) {
-                upDateCommentDisplay();
+                updateCommentDisplay();
             } else {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
-        } elseif ($_GET['action'] == 'upDaComment') {
+        } elseif ($_GET['action'] == 'updateComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 if (!empty($_POST['comment'])) {
-                    upDaComment($_GET['id'], $_POST['comment']);
+                    updateComment($_POST['comment'], $_GET['id']);
                 } else {
                     echo 'Erreur : tous les champs ne sont pas remplis, donc le commentaire n\'est pas modifié !';
                 }
             } else {
                 echo 'Erreur : aucun identifiant de billet envoyé';
+            }
+        } elseif ($_GET['action'] == 'deleteComment') {
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                deleteComment($_GET['id']);
+            } else {
+                throw new Exception('Le Commentaire ne peut être supprimer');
             }
         }
     } else {
