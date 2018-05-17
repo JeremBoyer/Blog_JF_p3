@@ -78,3 +78,15 @@ function deletePost($deletePId)
         echo 'Votre article a bien été supprimer';
     }
 }
+
+function deleteSoftPost($deletePId)
+{
+    $postManager = new PostManager();
+    $deletedPost = $postManager->deleteSoftPost($deletePId);
+
+    if ($deletedPost === false) {
+        die('Impossible de supprimer l\'articles');
+    } else {
+        echo 'Votre article a bien été supprimer';
+    }
+}

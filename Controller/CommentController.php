@@ -63,3 +63,15 @@ function deleteComment($deleteCId)
         echo 'Votre article a bien été supprimer';
     }
 }
+
+function deleteSoftComment($deleteCId)
+{
+    $commentManager = new CommentManager();
+    $deletedComment = $commentManager->deleteSoftComment($deleteCId);
+
+    if ($deletedComment === false) {
+        die('Impossible de supprimer l\'articles');
+    } else {
+        echo 'Votre commentaire a bien été supprimer';
+    }
+}

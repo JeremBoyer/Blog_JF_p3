@@ -22,9 +22,7 @@ while ($data = $posts->fetch())
                     </h3>
 
                     <p>
-                        <a href="index.php?action=deletePost&amp;id=<?= $data['id'] ?>" class="btn btn-info btn-lg">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </a>
+                        <a href="index.php?action=deleteSoftPost&amp;id=<?= $data['id'] ?>" class="btn btn-info btn-lg"><span class="glyphicon glyphicon-trash"></span>delete</a>
                     </p>
 
 

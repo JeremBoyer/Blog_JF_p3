@@ -33,7 +33,7 @@
             (<a href="index.php?action=updateCommentDisplay&amp;id=<?= $comment['id'] ?>" class="btn btn-xs btn-primary">modifier</a>)</p>
         <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
             <p>
-                <a href="index.php?action=deleteComment&amp;id=<?= $comment['id'] ?>" class="btn btn-info btn-lg">
+                <a href="index.php?action=deleteSoftComment&amp;id=<?= $comment['id'] ?>" class="btn btn-info btn-lg">
                     <span class="glyphicon glyphicon-trash"></span>
                 </a>
             </p>

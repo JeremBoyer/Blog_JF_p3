@@ -21,8 +21,8 @@
 
         </div>
         <div>
-            <label for="content">Article</label><br />
-            <textarea id="content" name="content"></textarea>
+            <label for="text">Article</label><br />
+            <textarea id="mytextarea" name="text"></textarea>
         </div>
         <div>
             <input type="submit" />

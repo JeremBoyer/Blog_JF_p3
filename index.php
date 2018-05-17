@@ -39,6 +39,12 @@ try {
             } else {
                 echo 'Erreur : aucun identifiant de billet envoyé';
             }
+        } elseif($_GET['action'] == 'deleteSoftPost'){
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                deletesoftPost($_GET['id']);
+            } else {
+                throw new Exception('Le billet ne peut être supprimer');
+            }
         } elseif($_GET['action'] == 'deletePost'){
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 deletePost($_GET['id']);
@@ -80,6 +86,12 @@ try {
         } elseif ($_GET['action'] == 'deleteComment') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 deleteComment($_GET['id']);
+            } else {
+                throw new Exception('Le Commentaire ne peut être supprimer');
+            }
+        } elseif ($_GET['action'] == 'deleteSoftComment') {
+            if (isset($_GET['id']) && $_GET['id'] > 0) {
+                deleteSoftComment($_GET['id']);
             } else {
                 throw new Exception('Le Commentaire ne peut être supprimer');
             }
