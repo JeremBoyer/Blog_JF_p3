@@ -4,7 +4,7 @@
     <h1>Blog de Jean Forteroche!</h1>
     <p>Derniers billets du blog :</p>
 
-<?php var_dump($_SESSION);
+<?php
 if(isset($_SESSION['error']) || isset($_SESSION['success'])) {
         $alertType = 'success';
         $message = $_SESSION['success'];
@@ -13,7 +13,7 @@ if(isset($_SESSION['error']) || isset($_SESSION['success'])) {
             $alertType = 'danger';
             $message = $_SESSION['error'];
         }
-
+        session_destroy();
     ?>
 
     <div class="alert alert-<?= $alertType?>" role="alert">
@@ -22,29 +22,42 @@ if(isset($_SESSION['error']) || isset($_SESSION['success'])) {
     <?php
 }
 ?>
-    <form action="index.php?action=addPost" method="post">
-        <div>
-            <label for="title">Titre</label><br />
-            <input type="text" id="title" name="title" />
-        </div>
-        <div>
-            <label for="user_id_fk">Utilisateur</label><br />
-            <input type="text" id="user_id_fk" name="user_id_fk" />
-        </div>
-        <div>
-            <label for="category_id_fk">Categorie</label><br />
-            <input type="radio" id="Got" name="category_id_fk" value="1" />Got</br>
-            <input type="radio" id="SamL" name="category_id_fk" value="2" />SamL</br>
-            <input type="radio" id="BreakingBad" name="category_id_fk" value="3" />BreakingBad</br>
 
+    <form action="index.php?action=addPost" method="post">
+        <div class="form-group">
+            <label for="title">Titre</label><br />
+            <input class="form-control" type="text" id="title" name="title" />
         </div>
-        <div>
+        <div class="form-group">
+            <label for="user_id_fk">Utilisateur</label><br />
+            <input class="form-control" type="text" id="user_id_fk" name="user_id_fk" />
+        </div>
+        <div class="form-group">
+            <label for="category_id_fk">Categorie</label><br />
+
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="radio" id="Got" name="category_id_fk" value="1" /> Got</br>
+                </label>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="radio" id="SamL" name="category_id_fk" value="2" /> SamL</br>
+                </label>
+            </div>
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" type="radio" id="BreakingBad" name="category_id_fk" value="3" /> BreakingBad</br>
+                </label>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="text">Article</label><br />
             <textarea id="mytextarea" name="content"></textarea>
         </div>
         <div>
 
-            <input type="submit" />
+            <input type="submit" class="btn btn-dark"/>
         </div>
     </form>
 
