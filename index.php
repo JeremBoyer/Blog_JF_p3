@@ -22,14 +22,15 @@ try {
             } else {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
-        } elseif ($_GET['action'] == 'addPostDisplay') {
-            addPostDisplay();
         } elseif ($_GET['action'] == 'addPost') {
-            if (!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['user_id_fk']) && !empty($_POST['category_id_fk'])) {
-                addPost($_POST['title'], $_POST['content'], $_POST['user_id_fk'], $_POST['category_id_fk']);
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                if (!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['user_id_fk']) && !empty($_POST['category_id_fk'])) {
+                    addPost($_POST['title'], $_POST['content'], $_POST['user_id_fk'], $_POST['category_id_fk']);
+                } else {
+                    echo 'Erreur : tous les champs ne sont pas remplis !';
+                }
             } else {
-                var_dump($_POST['title'], $_POST['content'], $_POST['user_id_fk'], $_POST['category_id_fk']);
-                echo 'Erreur : tous les champs ne sont pas remplis !';
+                addPost();
             }
         } elseif ($_GET['action'] == 'updatePostDisplay') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {

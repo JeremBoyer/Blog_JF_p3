@@ -29,27 +29,22 @@ function post()
     require('Views/PostViews/postView.php');
 }
 
-function addPostDisplay()
+function addPost($postTitle = null, $postContent = null, $userId = null, $categoryId = null)
 {
     $postManager = new PostManager();
     $posts = $postManager->getPosts();
     session_start();
-    require('Views/PostViews/addPostView.php');
-}
 
-function addPost($postTitle, $postContent, $userId, $categoryId)
-{
-    $postManager = new PostManager();
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $affectedPost = $postManager->addPost($postTitle, $postContent, $userId, $categoryId);
 
-    $affectedPost = $postManager->addPost($postTitle, $postContent, $userId, $categoryId);
-    session_start();
-    if ($affectedPost === false) {
-        $_SESSION['error']= 'Impossible d\'ajouter un article !';
-    } else {
-        $_SESSION['success'] = 'Votre article a été ajouté =)!';
+        if ($affectedPost === false) {
+            $_SESSION['error'] = 'Impossible d\'ajouter un article !';
+        } else {
+            $_SESSION['success'] = 'Votre article a été ajouté =)!';
+        }
     }
-
-        header('Location: index.php?action=addPostDisplay');
+    require('Views/PostViews/addPostView.php');
 }
 
 function upDatePostDisplay($postID)

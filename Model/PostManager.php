@@ -62,14 +62,14 @@ class PostManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE post 
-                                      SET title = ?, content = ?, updated_at = NOW() 
-                                      WHERE deleted_at IS NULL && id = ?');
+                                      SET title = :title, content = :content, updated_at = NOW() 
+                                      WHERE deleted_at IS NULL && id = :id');
 
-        $req->bindParam(1,$postTitle, \PDO::PARAM_STR);
-        $req->bindParam(2,$postContent, \PDO::PARAM_STR);
-        $req->bindParam(3,$postId, \PDO::PARAM_INT);
+        $req->bindParam(':title',$postTitle, \PDO::PARAM_STR);
+        $req->bindParam(':content',$postContent, \PDO::PARAM_STR);
+        $req->bindParam(':id',$postId, \PDO::PARAM_INT);
 
-        $upDatedPost = $req->execute(array($postTitle, $postContent, $postId));
+        $upDatedPost = $req->execute();
 
         return $upDatedPost;
     }

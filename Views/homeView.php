@@ -6,7 +6,7 @@
 
 <?php ob_start(); ?>
     <h1>Blog de Jean Forteroche!</h1>
-    <div><a href="index.php?action=addPostDisplay" class="btn btn-xs btn-primary"><i class="fas fa-feather"></i> Ajouter un article</a></div>
+    <div><a href="index.php?action=addPost" class="btn btn-xs btn-primary"><i class="fas fa-feather"></i> Ajouter un article</a></div>
 
     <p>Derniers billets du blog :</p>
     <div class="container">
