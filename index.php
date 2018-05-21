@@ -2,13 +2,20 @@
 
 require ('Controller/CommentController.php');
 require ('Controller/PostController.php');
-
+require ('Controller/CategoryController.php');
 
 try {
     if (isset($_GET['action'])) {
 
         if ($_GET['action'] == 'listPosts') {
             listPosts();
+        } elseif ($_GET['action'] == 'getPostsCategory') {
+            if (isset($_GET['category_id_fk']) && $_GET['category_id_fk'] > 0) {
+                getPostsCategory($_GET['category_id_fk']);
+                var_dump($_GET['category_id_fk']);
+            } else {
+                throw new Exception('Aucun identifiant de billet envoyé');
+            }
         } elseif ($_GET['action'] == 'post') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 post();
@@ -21,6 +28,7 @@ try {
             if (!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['user_id_fk']) && !empty($_POST['category_id_fk'])) {
                 addPost($_POST['title'], $_POST['content'], $_POST['user_id_fk'], $_POST['category_id_fk']);
             } else {
+                var_dump($_POST['title'], $_POST['content'], $_POST['user_id_fk'], $_POST['category_id_fk']);
                 echo 'Erreur : tous les champs ne sont pas remplis !';
             }
         } elseif ($_GET['action'] == 'updatePostDisplay') {

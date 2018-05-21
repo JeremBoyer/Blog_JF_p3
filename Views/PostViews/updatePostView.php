@@ -13,7 +13,7 @@
 
             <div>
                 <label for="content">Article</label><br />
-                <textarea id="content" name="content"> <?= $post['content']?></textarea>
+                <textarea id="mytextarea" name="content"> <?= $post['content']?></textarea>
             </div>
             <div>
                 <input type="submit" />

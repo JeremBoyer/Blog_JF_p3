@@ -34,7 +34,7 @@
         <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
             <p>
                 <a href="index.php?action=deleteSoftComment&amp;id=<?= $comment['id'] ?>" class="btn btn-info btn-lg">
-                    <span class="glyphicon glyphicon-trash"></span>
+                    <span class="glyphicon glyphicon-trash"></span>Delete
                 </a>
             </p>
         </div>

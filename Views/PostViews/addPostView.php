@@ -4,6 +4,24 @@
     <h1>Blog de Jean Forteroche!</h1>
     <p>Derniers billets du blog :</p>
 
+<?php var_dump($_SESSION);
+if(isset($_SESSION['error']) || isset($_SESSION['success'])) {
+        $alertType = 'success';
+        $message = $_SESSION['success'];
+        //$alertType = isset($_SESSION['error']) ? 'danger' : null;
+        if(isset($_SESSION['error'])){
+            $alertType = 'danger';
+            $message = $_SESSION['error'];
+        }
+
+    ?>
+
+    <div class="alert alert-<?= $alertType?>" role="alert">
+        <?= $message ?>
+    </div>
+    <?php
+}
+?>
     <form action="index.php?action=addPost" method="post">
         <div>
             <label for="title">Titre</label><br />
@@ -22,9 +40,10 @@
         </div>
         <div>
             <label for="text">Article</label><br />
-            <textarea id="mytextarea" name="text"></textarea>
+            <textarea id="mytextarea" name="content"></textarea>
         </div>
         <div>
+
             <input type="submit" />
         </div>
     </form>
@@ -42,7 +61,7 @@
 
                     <h3>
                         <?= htmlspecialchars($data['title']) ?>
-                        <em>le <?= $data['created_at_fr'] ?></em>
+                        <em>le <?= $data['created_at'] ?></em>
 
                     </h3>
 

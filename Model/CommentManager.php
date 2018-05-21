@@ -1,7 +1,7 @@
 <?php
 namespace Blog\Model;
 
-require_once ("model/Manager.php");
+require_once ("Model/Manager.php");
 
 class CommentManager extends Manager
 {
@@ -16,6 +16,8 @@ class CommentManager extends Manager
                                   WHERE comment.deleted_at IS NULL && comment.post_id_fk = ? 
                                   ORDER BY comment.created_at DESC');
         $comments->execute(array($postId));
+        var_dump($comments);
+        var_dump($postId);
 
         return $comments;
     }

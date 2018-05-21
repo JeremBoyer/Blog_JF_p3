@@ -2,7 +2,7 @@
 namespace Blog\Model;
 
 
-require_once("model/Manager.php");
+require_once("Model/Manager.php");
 
 /**
  * Class PostManager
@@ -21,7 +21,7 @@ class PostManager extends Manager
     {
         $db = $this->dbConnect();
 
-        $req = $db->query('SELECT id, title, content, DATE_FORMAT(created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_at_fr 
+        $req = $db->query('SELECT *
                                     FROM post 
                                     WHERE deleted_at IS NULL
                                     ORDER BY created_at 

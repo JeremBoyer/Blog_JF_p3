@@ -2,13 +2,17 @@
 
 use Blog\Model\PostManager;
 use Blog\Model\CommentManager;
+use Blog\Model\CategoryManager;
 
 require_once('Model/PostManager.php');
 require_once('Model/CommentManager.php');
+require_once('Model/CategoryManager.php');
 
 function listPosts()
 {
     $postManager = new PostManager();
+    $categoryManager = new CategoryManager();
+    $categories = $categoryManager->listCategory();
     $posts = $postManager->getPosts();
 
     require('Views/homeView.php');
@@ -29,7 +33,7 @@ function addPostDisplay()
 {
     $postManager = new PostManager();
     $posts = $postManager->getPosts();
-
+    session_start();
     require('Views/PostViews/addPostView.php');
 }
 
@@ -38,12 +42,14 @@ function addPost($postTitle, $postContent, $userId, $categoryId)
     $postManager = new PostManager();
 
     $affectedPost = $postManager->addPost($postTitle, $postContent, $userId, $categoryId);
-
+    session_start();
     if ($affectedPost === false) {
-        die('Impossible d\'ajouter le commentaire !');
+        $_SESSION['error']= 'Impossible d\'ajouter un article !';
     } else {
-        header('Location: index.php?action=addPostDisplay');
+        $_SESSION['success'] = 'Votre article a été ajouté =)!';
     }
+
+        header('Location: index.php?action=addPostDisplay');
 }
 
 function upDatePostDisplay($postID)
