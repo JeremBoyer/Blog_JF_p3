@@ -3,6 +3,7 @@
 require ('Controller/CommentController.php');
 require ('Controller/PostController.php');
 require ('Controller/CategoryController.php');
+require ('Controller/UserController.php');
 
 try {
     if (isset($_GET['action'])) {
@@ -103,6 +104,17 @@ try {
                 deleteSoftComment($_GET['id']);
             } else {
                 throw new Exception('Le Commentaire ne peut être supprimer');
+            }
+        } elseif ($_GET['action'] == 'signUp') {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['pass']) && !empty($_POST['role'])) {
+                    signUp($_POST['username'], $_POST['email'], $_POST['pass'], $_POST['role']);
+                } else {
+                    var_dump($_POST['username'], $_POST['email'], $_POST['pass'], $_POST['role']);
+                    echo 'Erreur : tous les champs ne sont pas remplis !';
+                }
+            } else {
+                signUp();
             }
         }
     } else {
