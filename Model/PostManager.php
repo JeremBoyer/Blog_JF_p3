@@ -34,8 +34,11 @@ class PostManager extends Manager
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT id, title, content, category_id_fk, DATE_FORMAT(created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_at_fr 
                                       FROM post 
-                                      WHERE deleted_at IS NULL && id = ?');
-        $req->execute(array($postId));
+                                      WHERE deleted_at IS NULL && id = :id');
+
+        $req->bindParam(':id',$postId, \PDO::PARAM_INT);
+
+        $req->execute();
         $post = $req->fetch();
 
         return $post;
@@ -45,14 +48,14 @@ class PostManager extends Manager
     public function addPost($postTitle, $postContent, $userId, $categoryId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('INSERT INTO post(post.title, post.content, post.user_id_fk, post.category_id_fk, post.created_at) VALUES (?,?,?,?,NOW())');
+        $req = $db->prepare('INSERT INTO post(post.title, post.content, post.user_id_fk, post.category_id_fk, post.created_at) VALUES (:title, :content, :user_id_fk, :category_id_fk,NOW())');
 
-        $req->bindParam(1,$postTitle, \PDO::PARAM_STR);
-        $req->bindParam(2,$postContent, \PDO::PARAM_STR);
-        $req->bindParam(3,$userId, \PDO::PARAM_INT);
-        $req->bindParam(4,$categoryId, \PDO::PARAM_INT);
+        $req->bindParam(':title',$postTitle, \PDO::PARAM_STR);
+        $req->bindParam(':content',$postContent, \PDO::PARAM_STR);
+        $req->bindParam(':user_id_fk',$userId, \PDO::PARAM_INT);
+        $req->bindParam(':category_id_fk',$categoryId, \PDO::PARAM_INT);
 
-        $affectedPost = $req->execute(array($postTitle, $postContent, $userId, $categoryId));
+        $affectedPost = $req->execute();
 
         return $affectedPost;
     }
@@ -77,17 +80,21 @@ class PostManager extends Manager
     public function deletePost($deletePId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('DELETE FROM post WHERE id = ?');
-        $delete = $req->execute(array($deletePId));
+        $req = $db->prepare('DELETE FROM post WHERE id = :id');
 
+        $req->bindParam(':id',$deletePId, \PDO::PARAM_INT);
+
+        $delete = $req->execute();
     }
 
-    public function deleteSoftPost($deletePid)
+    public function deleteSoftPost($deletePId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('UPDATE post SET deleted_at = NOW() WHERE id = ?');
+        $req = $db->prepare('UPDATE post SET deleted_at = NOW() WHERE id = :id');
 
-        $deleteSoft = $req->execute(array($deletePid));
+        $req->bindParam(':id',$deletePId, \PDO::PARAM_INT);
+
+        $deleteSoft = $req->execute();
     }
 
 

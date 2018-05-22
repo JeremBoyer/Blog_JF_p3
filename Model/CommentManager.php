@@ -13,11 +13,12 @@ class CommentManager extends Manager
                                   FROM comment 
                                   LEFT JOIN user 
                                   ON comment.user_id_fk = user.id
-                                  WHERE comment.deleted_at IS NULL && comment.post_id_fk = ? 
+                                  WHERE comment.deleted_at IS NULL && comment.post_id_fk = :id 
                                   ORDER BY comment.created_at DESC');
-        $comments->execute(array($postId));
-        var_dump($comments);
-        var_dump($postId);
+
+        $comments->bindParam(':id',$postId, \PDO::PARAM_INT);
+
+        $comments->execute();
 
         return $comments;
     }
@@ -27,8 +28,11 @@ class CommentManager extends Manager
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT *
                             FROM comment 
-                            WHERE deleted_at IS NULL && id = ?');
-        $req->execute(array($getCommentId));
+                            WHERE deleted_at IS NULL && id = :id');
+
+        $req->bindParam(':id',$getCommentId, \PDO::PARAM_INT);
+
+        $req->execute();
         $getComment = $req->fetch();
 
         return $getComment;
@@ -38,13 +42,13 @@ class CommentManager extends Manager
     public function addComment($postId, $user, $comment)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('INSERT INTO comment(comment.post_id_fk, comment.user_id_fk, comment.comment, comment.created_at) VALUES(?, ?, ?, NOW())');
+        $comments = $db->prepare('INSERT INTO comment(comment.post_id_fk, comment.user_id_fk, comment.comment, comment.created_at) VALUES(:post_idfk, :user_id_fk, :comment, NOW())');
 
-        $comments->bindParam(1,$postId, \PDO::PARAM_INT);
-        $comments->bindParam(2,$user, \PDO::PARAM_INT);
-        $comments->bindParam(3,$comment, \PDO::PARAM_STR);
+        $comments->bindParam(':post_id_fk',$postId, \PDO::PARAM_INT);
+        $comments->bindParam(':user',$user, \PDO::PARAM_INT);
+        $comments->bindParam(':comment',$comment, \PDO::PARAM_STR);
 
-        $affectedLines = $comments->execute(array($postId, $user, $comment));
+        $affectedLines = $comments->execute();
 
         return $affectedLines;
     }
@@ -53,11 +57,11 @@ class CommentManager extends Manager
     {
         $db = $this->dbConnect();
         $comment = $db->prepare('UPDATE comment 
-                                          SET comment.comment = ?, comment.updated_at=NOW() 
-                                          WHERE deleted_at IS NULL && comment.id=?');
+                                          SET comment.comment = :comment, comment.updated_at=NOW() 
+                                          WHERE deleted_at IS NULL && comment.id = :id');
 
-        $comment->bindParam(1,$newComment, \PDO::PARAM_STR);
-        $comment->bindParam(2,$commentId, \PDO::PARAM_INT);
+        $comment->bindParam(':comment',$newComment, \PDO::PARAM_STR);
+        $comment->bindParam(':id',$commentId, \PDO::PARAM_INT);
 
         $upDatedComments = $comment->execute(array($newComment, $commentId));
 
@@ -68,8 +72,11 @@ class CommentManager extends Manager
     public function deleteComment($deleteCId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('DELETE FROM comment WHERE id = ?');
-        $delete = $req->execute(array($deleteCId));
+        $req = $db->prepare('DELETE FROM comment WHERE id = :id');
+
+        $req->bindParam(':id',$deleteCId, \PDO::PARAM_INT);
+
+        $delete = $req->execute();
     }
 
     public function deleteSoftComment($deleteCId)
@@ -77,9 +84,11 @@ class CommentManager extends Manager
         $db = $this->dbConnect();
         $req = $db->prepare('UPDATE comment 
                                       SET deleted_at = NOW() 
-                                      WHERE id = ?');
+                                      WHERE id = :id');
 
-        $deleteSoft = $req->execute(array($deleteCId));
+        $req->bindParam(':id',$deleteCId, \PDO::PARAM_INT);
+
+        $deleteSoft = $req->execute();
     }
 
 }
