@@ -47,25 +47,23 @@ function addPost($postTitle = null, $postContent = null, $userId = null, $catego
     require('Views/PostViews/addPostView.php');
 }
 
-function upDatePostDisplay($postID)
-{
-    $postManager = new PostManager();
-    $post = $postManager->getPost($postID);
-
-    require('Views/PostViews/updatePostView.php');
-}
-
-function updatePost($postId, $postTitle, $postContent)
+function updatePost($postId, $postTitle = null, $postContent = null)
 {
     $postManager = new PostManager();
 
-    $upDatedPost = $postManager->updatePost($postId, $postTitle, $postContent);
+    session_start();
 
-    if ($upDatedPost === false) {
-        die('Impossible de modifier l\'articles');
-    } else {
-        header('Location: index.php?action=updatePostDisplay&id=' . $postId);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $upDatedPost = $postManager->updatePost($postId, $postTitle, $postContent);
+        if ($upDatedPost === false) {
+            $_SESSION['error'] = 'Impossible d\'ajouter un article !';
+        } else {
+            $_SESSION['success'] = 'Votre article a été ajouté =)!';
+        }
     }
+    $post = $postManager->getPost($postId);
+    require('Views/PostViews/updatePostView.php');
+
 }
 
 function deletePost($deletePId)

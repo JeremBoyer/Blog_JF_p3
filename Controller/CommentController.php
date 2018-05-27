@@ -16,26 +16,34 @@ function addCommentDisplay()
     require('Views/CommentViews/addCommentView.php');
 }
 
-function addComment($postId, $user, $comment)
+function addComment($postId = null, $user = null , $comment = null)
 {
+    $postManager = new PostManager();
     $commentManager = new CommentManager();
+    $post = $postManager->getPost($_GET['id']);
+    session_start();
 
-    $affectedLines = $commentManager->addComment($postId, $user, $comment);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $affectedLines = $commentManager->addComment($postId, $user, $comment);
 
-    if ($affectedLines === false) {
-        die('Impossible d\'ajouter le commentaire !');
-    } else {
-        header('Location: index.php?action=addCommentDisplay&id=' . $postId);
+        if ($affectedLines === false) {
+            $_SESSION['error'] = 'Impossible d\'ajouter le commentaire !';
+        } else {
+            $_SESSION['success'] = 'Votre commentaire a été ajouté =)!';
+        }
     }
+
+    $comments = $commentManager->getComments($_GET['id']);
+    require('Views/CommentViews/addCommentView.php');
 }
 
 function upDateCommentDisplay()
 {
     $commentManager = new CommentManager();
-    $postManager = new PostManager();
 
-    $comment = $commentManager->getComment($_GET['id']);
-    $post = $postManager->getPost($comment['post_id_fk']);
+
+
+
 
     require('Views/CommentViews/updateCommentView.php');
 }
@@ -43,13 +51,22 @@ function upDateCommentDisplay()
 function updateComment($newComment,$commentId)
 {
     $commentManager = new CommentManager();
-    $upDatedComments = $commentManager->updateComment($newComment,$commentId);
+    $postManager = new PostManager();
 
-    if ($upDatedComments === false) {
-        die('Impossible de modifier le commentaire !');
-    } else {
-        header('Location: index.php?action=updateCommentDisplay&id=' . $commentId);
+    session_start();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $upDatedComments = $commentManager->updateComment($newComment,$commentId);
+
+        if ($upDatedComments === false) {
+            $_SESSION['error'] = 'Impossible de modifier le commentaire !';
+        } else {
+            $_SESSION['success'] = 'Votre commentaire a été modifié =)!';
+        }
     }
+    $comment = $commentManager->getComment($_GET['id']);
+    $post = $postManager->getPost($comment['post_id_fk']);
+    require('Views/CommentViews/updateCommentView.php');
 }
 
 function deleteComment($deleteCId)

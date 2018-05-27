@@ -4,20 +4,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $title ?></title>
-    <link href="public/css/style.css" rel="stylesheet" />
     <!-- Bootstrap core CSS -->
-    <!--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet">-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="Public/bootstrap/bootstrap.min.css" rel="stylesheet"/>
+    <!-- Custom CSS -->
+    <link href="Public/css/style.css" rel="stylesheet" />
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Cantarell|Great+Vibes|Roboto+Slab" rel="stylesheet">
+
+    <!-- Icon -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
     <!-- Jquery CDN GOOGLE-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-    <!--<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=wg9zl6bathf9ajn9pjnf4a5nf5ycgso37vsvyi1u73avj6j8"></script>-->
+    <!-- Bootstrap core JS -->
+    <script src="Public/bootstrap/popper.min.js"></script>
+    <script src="Public/bootstrap/bootstrap.min.js"></script>
+
     <script src="Public/js/1-tinyMCE-simple/tinymce/tinymce.min.js"></script>
-    <!--<script src="Public/js/2-tinyMCE-advanced/tinymce/tinymce.min.js"></script>-->
     <script src="Public/js/1-tinyMCE-simple/tinymce/jquery.tinymce.min.js"></script>
-    <!--<script src="Public/js/2-tinyMCE-advanced/tinymce/jquery.tinymce.min.js"></script>-->
     <script type="text/javascript">
         tinymce.init({
 
@@ -41,17 +47,38 @@
 </head>
 
 <body>
-
-    <nav class="navbar navbar-expand-md bg-dark navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="index.php">Blog de Jean Forteroche</a>
+    <!-- Header -->
+    <section>
+        <nav class="navbar navbar-expand-md bg-dark navbar-fixed-top">
+            <div class="container">
+                <a href="index.php" class="logo"> Jean Forteroche</a>
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.php"> Accueil </a>
+                    <a class="navbar-brand" href="index.php"> Livres </a>
+                    <a class="navbar-brand" href="index.php"> Présentation de l'auteur </a>
+                    <a class="navbar-brand" href="index.php"> Connexion </a>
+                </div>
             </div>
-        </div>
-    </nav>
-    <div class="container">
+        </nav>
+    </section>
+    <!-- End Header -->
+
+
+
+    <!-- About -->
+
+    <!-- End About -->
+
+    <!-- Content -->
+    <div class="container-fluid content">
         <?= $content ?>
     </div>
+    <!-- End Content -->
 
+    <!-- Footer -->
+    <footer class="container-fluid footer">
+
+    </footer>
+    <!-- End Footer -->
 </body>
 </html>

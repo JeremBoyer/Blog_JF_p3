@@ -42,10 +42,10 @@ class CommentManager extends Manager
     public function addComment($postId, $user, $comment)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('INSERT INTO comment(comment.post_id_fk, comment.user_id_fk, comment.comment, comment.created_at) VALUES(:post_idfk, :user_id_fk, :comment, NOW())');
+        $comments = $db->prepare('INSERT INTO comment(comment.post_id_fk, comment.user_id_fk, comment.comment, comment.created_at) VALUES(:post_id_fk, :user_id_fk, :comment, NOW())');
 
         $comments->bindParam(':post_id_fk',$postId, \PDO::PARAM_INT);
-        $comments->bindParam(':user',$user, \PDO::PARAM_INT);
+        $comments->bindParam(':user_id_fk',$user, \PDO::PARAM_INT);
         $comments->bindParam(':comment',$comment, \PDO::PARAM_STR);
 
         $affectedLines = $comments->execute();
@@ -63,7 +63,7 @@ class CommentManager extends Manager
         $comment->bindParam(':comment',$newComment, \PDO::PARAM_STR);
         $comment->bindParam(':id',$commentId, \PDO::PARAM_INT);
 
-        $upDatedComments = $comment->execute(array($newComment, $commentId));
+        $upDatedComments = $comment->execute();
 
 
         return $upDatedComments;

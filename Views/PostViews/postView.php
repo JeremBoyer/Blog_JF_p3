@@ -1,53 +1,82 @@
 <?php $title = htmlspecialchars($post['title']); ?>
 
 <?php ob_start(); ?>
-    <h1>Blog de Jean Forteroche!</h1>
-    <p><a href="index.php" class="btn btn-xs btn-primary">Retour à la liste des billets</a></p>
+<h1>Blog de Jean Forteroche!</h1>
+<p><a href="index.php" class="btn btn-xs btn-primary">Retour à la liste des billets</a></p>
 
-    <div class="row">
-        <div class="container">
+<div class="row">
+    <div class="container card">
+        <div class="card-header">
             <h3>
                 <?= htmlspecialchars($post['title']) ?>
-                <em>le <?= $post['created_at_fr'] ?></em>
             </h3>
+            <div class="text-muted">
+                <em>le <?= $post['created_at_fr'] ?></em>
+            </div>
+        </div>
 
+        <div class="card-body">
             <p>
-                <?= nl2br(htmlspecialchars($post['content'])) ?>
+                <?= ($post['content']) ?>
             </p>
         </div>
     </div>
+</div>
 
 
-    <div class="col-md-offset-2 col-md-8">
-         <div class="container">
+<div class="container">
+    <div class="comment-tabs">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a href="#comments-logout" role="tab" data-toggle="tab"><h4
+                            class="reviews text-capitalize">Comments</h4></a></li>
+            <li><a href="#add-comment" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Add comment</h4>
+                </a></li>
+        </ul>
 
-    <h2>Commentaires</h2>
 
+        <div class="tab-content">
+            <ul class="media-list">
 
-    <?php
-    while ($comment = $comments->fetch())
-    {
-        ?>
-        <div class="row">
-        <p><strong><?= htmlspecialchars($comment['username']) ?></strong> le <?= $comment['created_comment_at_fr'] ?>
-            (<a href="index.php?action=updateCommentDisplay&amp;id=<?= $comment['id'] ?>" class="btn btn-xs btn-primary">modifier</a>)</p>
-        <p><?= nl2br(htmlspecialchars($comment['comment'])) ?></p>
-            <p>
-                <a href="index.php?action=deleteSoftComment&amp;id=<?= $comment['id'] ?>" class="btn btn-info btn-lg">
-                    <span class="glyphicon glyphicon-trash"></span>Delete
-                </a>
-            </p>
+                <?php
+                while ($comment = $comments->fetch()) {
+                    ?>
+                    <li class="media">
+                        <div class="media-body row">
+                            <div class="col-md-8 bodyComment">
+                                <h4 class="media-heading text-uppercase reviews"><?= htmlspecialchars($comment['username']) ?> </h4>
+
+                                <p class="media-comment">
+                                    <?= nl2br(htmlspecialchars($comment['comment'])) ?>
+                                </p>
+
+                            </div>
+                            <div class="col-md-4 headComment">
+                                <p> <?= $comment['created_comment_at_fr'] ?>
+                                (<a href="index.php?action=updateCommentDisplay&amp;id=<?= $comment['id'] ?>"
+                                    class="btn btn-xs btn-primary">modifier</a>)</p>
+
+                                <a href="index.php?action=deleteSoftComment&amp;id=<?= $comment['id'] ?>"
+                                   class="btn btn-info btn-lg">
+                                    <span class="glyphicon glyphicon-trash"></span>Delete
+                                </a>
+                            </div>
+
+                        </div>
+                    </li>
+                    <hr>
+
+                    <?php
+                }
+                ?>
+                <p>
+                    <a href="index.php?action=addComment&amp;id=<?= $post['id'] ?>"
+                       class="btn btn-xs btn-primary">Poster un nouveau commentaire...</a>
+                </p>
+            </ul>
         </div>
-
-        <?php
-    }
-    ?>
-                 <p>
-                     <a href="index.php?action=addCommentDisplay&amp;id=<?= $post['id'] ?>" class="btn btn-xs btn-primary">Poster un nouveau commentaire...</a>
-                 </p>
-             </div>
-
     </div>
+</div>
+
 
 <?php $content = ob_get_clean(); ?>
 

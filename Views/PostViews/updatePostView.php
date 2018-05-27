@@ -1,25 +1,45 @@
 <?php $title = 'Blog de Jean Forteroche'; ?>
 
 <?php ob_start(); ?>
-<h1>Blog de Jean Forteroche!</h1>
+<h1>Modifiez votre article!</h1>
     <p>Derniers billets du blog :</p>
 
+<?php
+if(isset($_SESSION['error']) || isset($_SESSION['success'])) {
+    $alertType = 'success';
+    $message = $_SESSION['success'];
+    //$alertType = isset($_SESSION['error']) ? 'danger' : null;
+    if(isset($_SESSION['error'])){
+        $alertType = 'danger';
+        $message = $_SESSION['error'];
+    }
+    session_destroy();
+    ?>
+
+    <div class="alert alert-<?= $alertType?>" role="alert">
+        <?= $message ?>
+    </div>
+    <?php
+}
+?>
+
+    <div class="container updatePostForm">
+
         <form action="index.php?action=updatePost&amp;id=<?= $post['id'] ?>" method="post">
-            <div>
+            <div class="form-group">
                 <label for="title">Titre</label><br />
-                <input type="text" id="title" name="title" value="<?= $post['title']?>" />
+                <input class="form-control" type="text" id="title" name="title" value="<?= $post['title']?>" />
             </div>
-
-
-            <div>
+            <div class="form-group">
                 <label for="content">Article</label><br />
                 <textarea id="mytextarea" name="content"> <?= $post['content']?></textarea>
             </div>
-            <div>
-                <input type="submit" />
+            <hr>
+            <div class="form-group">
+                <input class="btn btn-primary btn-block" type="submit" />
             </div>
         </form>
-
+    </div>
 
 <?php $content = ob_get_clean(); ?>
 

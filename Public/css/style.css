@@ -1,17 +1,135 @@
+/*
+font-family: 'Roboto Slab', serif;
+font-family: 'Great Vibes', cursive;
+font-family: 'Cantarell', sans-serif;
+*/
+body, html {
+    padding: 0;
+    margin: 0;
+}
 
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #17a2b8;
+}
+
+.container-fluid {
+    padding: 0;
+}
 
 h1
 {
     text-align: center;
 }
 
-[class*="col-"], footer {
-    
-    text-align: center;
+h3 {
+    font-weight: bold;
 }
 
 a
 {
     text-decoration: none;
-    color: blue;
 }
+
+/* Header */
+.logo
+{
+    font-family: 'Great Vibes', cursive;
+    font-size: 3em;
+    color: #ffffff;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Banner */
+.banner {
+
+}
+ .inner-banner {
+     font-family: 'Roboto Slab', serif;
+     position: absolute;
+     margin-top: 30px;
+     max-width: 80%;
+     min-height: 20%;
+     min-width: 30%;
+     opacity: 50%;
+ }
+
+#subTitleBanner {
+    text-align: left;
+}
+
+ #wordAuth {
+     font-style: italic;
+     text-align: justify;
+ }
+
+ #imgBanner {
+     width: 100%;
+     max-width: 100%;
+ }
+
+
+
+
+
+/* Home */
+.card-header {
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+#subTitle {
+    text-align: center;
+}
+
+.listPostAt {
+    font-size: 0.5em;
+    text-align: right;
+    padding: 0;
+}
+
+.postList .innerhtml {
+    text-decoration : none;
+    text-decoration-color : inherit;
+    text-decoration-style : solid;
+    text-indent : 0;
+    text-shadow : none;
+    text-transform : none;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 1em;
+    background-color: #ffffff;
+}
+
+/* PostView */
+.headComment {
+    text-align: right;
+}
+
+.bodyComment {
+    text-align: left;
+}
+
+/* Test*/
+/*
+    Image credits:
+    uifaces.com (http://uifaces.com/authorized)
+*/
+
+
+.reviews {
+    color: #555;
+    font-weight: bold;
+    margin: 10px auto 20px;
+}
+.notes {
+    color: #999;
+    font-size: 12px;
+}
+

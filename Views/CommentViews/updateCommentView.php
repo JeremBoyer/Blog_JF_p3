@@ -3,37 +3,57 @@
 <?php ob_start(); ?>
     <h1>Blog de Jean Forteroche!</h1>
     <p><a href="index.php" class="btn btn-xs btn-primary">Retour à la liste des billets</a></p>
-
+<div class="container">
     <div class="row">
-        <div class="container">
-            <h3> <?= $post['title']?></h3>
-            <p>
-                <?= $post['content'];?>
-            </p>
+        <div class="container card">
+            <div class="card-header">
+                <h3>
+                    <?= htmlspecialchars($post['title']) ?>
+                </h3>
+                <div class="text-muted">
+                    <em>le <?= $post['created_at_fr'] ?></em>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <p>
+                    <?= ($post['content']) ?>
+                </p>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="col-md-offset-2 col-md-8">
         <div class="container">
+            <?php
+            if(isset($_SESSION['error']) || isset($_SESSION['success'])) {
+                $alertType = 'success';
+                $message = $_SESSION['success'];
+                //$alertType = isset($_SESSION['error']) ? 'danger' : null;
+                if(isset($_SESSION['error'])){
+                    $alertType = 'danger';
+                    $message = $_SESSION['error'];
+                }
+                session_destroy();
+                ?>
 
-
-
-            <h2>Commentaires</h2>
-
+                <div class="alert alert-<?= $alertType?>" role="alert">
+                    <?= $message ?>
+                </div>
+                <?php
+            }
+            ?>
             <form action="index.php?action=updateComment&amp;id=<?= $comment['id'] ?>" method="post">
-                <div>
-                    <label for='comment'>Commentaire</label><br />
-                    <textarea id='comment' name='comment' ><?= $comment['comment'] ?></textarea>
-                </div>
-                <div>
-                    <input type="submit" />
-                </div>
+                    <div class="form-group">
+                        <label for="comment"><h2>Modifiez le commentaire</h2></label><br />
+                        <textarea class="form-control" id="comment" name="comment" ><?= $comment['comment'] ?></textarea>
+                    </div>
+                    <div>
+                        <input class="btn btn-primary" type="submit" />
+                    </div>
             </form>
-
-
         </div>
 
-    </div>
 
 <?php $content = ob_get_clean(); ?>
 

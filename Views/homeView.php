@@ -5,11 +5,36 @@
 ?>
 
 <?php ob_start(); ?>
-    <h1>Blog de Jean Forteroche!</h1>
-    <div><a href="index.php?action=addPost" class="btn btn-xs btn-primary"><i class="fas fa-feather"></i> Ajouter un article</a></div>
 
-    <p>Derniers billets du blog :</p>
-    <div class="container">
+    <!-- Banner -->
+    <section class="container-fluid banner">
+        <div class="ban">
+            <div class="container">
+                <div class="inner-banner jumbotron">
+                    <div class="row"></div>
+                        <div class="col-md-9">
+                            <h2 class="display-3"> Bienvenue sur le blog de Jean Forteroche</h2>
+                            <hr>
+                            <h4 id="subTitleBanner">
+                                Le mot de l'auteur :
+                            </h4>
+                            <p id="wordAuth">
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tortor libero, ultrices eget magna non, blandit sodales eros. Nulla dignissim sit amet augue sed rutrum. Pellentesque mi velit, dignissim non arcu nec, vulputate ultricies arcu. Ut tempor est in neque varius tempus. Nulla eu feugiat elit. Pellentesque ornare massa a nulla tincidunt molestie. Quisque vel dui mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce malesuada molestie nunc, quis blandit turpis. Vivamus id bibendum dolor. Sed nibh nibh, mattis ac gravida viverra, pretium ac lacus. Donec neque dui, fermentum et arcu sit amet, venenatis mattis risus. Proin non pretium erat. Suspendisse quis est dolor. Ut fringilla urna ut nunc commodo ornare. Vivamus maximus cursus libero, eget elementum nunc..."
+                            </p>
+                        </div>
+                        <div class="col-md-3">
+
+                        </div>
+                </div>
+            </div>
+            <img id="imgBanner" src="Public/picture/ban.jpg" alt=" Banner " />
+        </div>
+
+    </section>
+    <!-- End Banner -->
+
+    <h2 id="subTitle">Derniers billets du blog :</h2>
+    <div class="container-fluid">
         <div class="row">
             <!--Side Bar-->
             <div class="col-lg-3">
@@ -33,43 +58,32 @@
                     ?>
                 </div>
             </div>
+            <!-- Extracts -->
             <div class="col-lg-9">
                 <div class="row">
-                    <?php
 
+                    <?php
                     while ($data = $posts->fetch()) {
                         ?>
 
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
-                                <div class="card-header">
+                                <div class="card-header bg-info text-white">
+                                    <em class="text-muted listPostAt">le <?php $date = new DateTime($data['created_at']);
+                                        echo $date->format('d-m-Y H:i:s'); ?>
+                                    </em>
 
-                                <h3>
-                                    <a href="index.php?action=getPostsCategory&amp;category_id_fk=<?= $data['category_id_fk'] ?>"
-                                       class="btn btn-xs btn-primary"><?= $data['category_id_fk'] ?></a>
-                                    <?= htmlspecialchars($data['title']) ?>
-                                    <em>le <?php $date = new DateTime($data['created_at']);
-                                            echo $date->format('d-m-Y H:i:s'); ?></em>
-                                    <a href="index.php?action=updatePostDisplay&amp;id=<?= $data['id'] ?>"
-                                       class="btn btn-xs btn-primary"><i class="fas fa-pencil-alt"></i> Modifier l'article</a>
-
-                                </h3>
-
+                                    <h3>
+                                        <?= ($data['title']) ?>
+                                    </h3>
                                 </div>
 
+                                <div class="postList">
                                 <p>
-                                    <a href="index.php?action=deleteSoftPost&amp;id=<?= $data['id'] ?>"
-                                       class="btn btn-warning btn-xs"><i class="fas fa-trash-alt"></i> Désactiver</a>
-                                    <a href="index.php?action=deletePost&amp;id=<?= $data['id'] ?>"
-                                       class="btn btn-danger btn-xs"><i class="fas fa-trash-alt"></i> Supprimer</a>
-                                </p>
-
-
-                                <p>
-                                    <?= nl2br(htmlspecialchars(substr($data['content'], 0, 200))) ?>
+                                    <?= (substr($data['content'], 0, 200)) ?>
                                     <br/>
-
                                 </p>
+                                </div>
                                 <div class="card-footer">
                                     <a href="index.php?action=post&amp;id=<?= $data['id'] ?>"
                                        class="btn btn-xs btn-primary">Lire la suite...</a>
