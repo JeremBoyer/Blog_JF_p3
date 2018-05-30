@@ -12,7 +12,6 @@ function signUp($username = null, $email = null, $pass = null, $role = null)
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $addUser = $userManager->signUp($username, $email, $pass, $role);
-        var_dump($username, $email, $pass, $role);
 
         if ($addUser === false) {
             $_SESSION['error'] = 'Impossible d\'ajouter un article !';

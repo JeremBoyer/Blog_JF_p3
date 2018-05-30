@@ -4,6 +4,7 @@ require ('Controller/CommentController.php');
 require ('Controller/PostController.php');
 require ('Controller/CategoryController.php');
 require ('Controller/UserController.php');
+require ('Controller/ReportController.php');
 
 try {
     if (isset($_GET['action'])) {
@@ -19,6 +20,12 @@ try {
         } elseif ($_GET['action'] == 'post') {
             if (isset($_GET['id']) && $_GET['id'] > 0) {
                 post();
+            } else {
+                throw new Exception('Aucun identifiant de billet envoyé');
+            }
+        } elseif ($_GET['action'] == 'report') {
+            if (isset($_GET['id_comment_pfk']) && $_GET['id_comment_pfk'] > 0) {
+                report($_GET['id_comment_pfk']);
             } else {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }

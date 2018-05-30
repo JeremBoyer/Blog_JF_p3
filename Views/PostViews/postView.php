@@ -59,6 +59,11 @@
                                    class="btn btn-info btn-lg">
                                     <span class="glyphicon glyphicon-trash"></span>Delete
                                 </a>
+
+                                <a href="index.php?action=report&amp;id_comment_pfk=<?= $comment['id'] ?>"
+                                   class="btn btn-info btn-xs">
+                                    <span class="glyphicon glyphicon-trash"></span>report
+                                </a>
                             </div>
 
                         </div>

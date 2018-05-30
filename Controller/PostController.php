@@ -3,10 +3,12 @@
 use Blog\Model\PostManager;
 use Blog\Model\CommentManager;
 use Blog\Model\CategoryManager;
+use Blog\Model\ReportManager;
 
 require_once('Model/PostManager.php');
 require_once('Model/CommentManager.php');
 require_once('Model/CategoryManager.php');
+require_once ('Model/ReportManager.php');
 
 function listPosts()
 {
