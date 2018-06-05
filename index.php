@@ -111,19 +111,72 @@ try {
             }
         } elseif ($_GET['action'] == 'signUp') {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['pass']) && !empty($_POST['role'])) {
-                    signUp($_POST['username'], $_POST['email'], $_POST['pass'], $_POST['role']);
+                $username = htmlspecialchars($_POST['username']);
+                $mail = htmlspecialchars($_POST['email']);
+                $mail2 = htmlspecialchars($_POST['confirmation_mail']);
+                $pass = sha1($_POST['pass']);
+                $pass2 = sha1($_POST['confirmation_pass']);
+                if (!empty($_POST['username']) &&
+                    !empty($_POST['email']) &&
+                    !empty($_POST['pass']) &&
+                    !empty($_POST['role'])) {
+                    $usernameLength = strlen($username);
+                    if($username <= 255) {
+                        if($mail == $mail2) {
+                            if(filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+                                $checkMail = checkMail($mail);
+                                if($checkMail == 0) {
+                                    if ($pass == $pass2) {
+                                        signUp($_POST['username'], $_POST['email'], $_POST['pass'], $_POST['role']);
+                                    } else {
+                                        $e = "Vos mots de passe ne correspondent pas";
+                                    }
+                                } else {
+                                    $e = "Votre mot de passe est dejà utilisé";
+                                }
+                            } else {
+                                $e = "Vos mots de passe ne correspondent pas";
+                            }
+                        } else {
+                            $e = "Vos emails ne correspondent pas";
+                        }
+                    } else {
+                        $e = "Votre pseudo est beaucoup trop long!";
+                    }
+
                 } else {
-                    var_dump($_POST['username'], $_POST['email'], $_POST['pass'], $_POST['role']);
                     echo 'Erreur : tous les champs ne sont pas remplis !';
                 }
             } else {
                 signUp();
+            }
+        } elseif ($_GET['action'] == 'profile') {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                if (!empty($_POST['username']) &&
+                    !empty($_POST['email']) &&
+                    !empty($_POST['pass'])) {
+                    profile($_GET['id'], $_POST['username'], $_POST['email'], $_POST['pass']);
+                } else {
+                    echo 'Erreur : tous les champs ne sont pas remplis !';
+                }
+            } else {
+                profile($_GET['id']);
+            }
+        }elseif ($_GET['action'] == 'logIn') {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+                if (!empty($_POST['email']) &&
+                    !empty($_POST['pass'])) {
+                    $checkUser = logIn($_POST['email'], $_POST['pass']);
+                } else {
+                    echo 'Erreur : tous les champs ne sont pas remplis !';
+                }
+            } else {
+                logIn();
             }
         }
     } else {
         listPosts();
     }
 } catch(Exception $e){
-    echo 'Erreur :';
+    echo 'Erreur :' . $e;
 }

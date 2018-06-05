@@ -2,7 +2,6 @@
 
 <?php ob_start(); ?>
 <h1>Blog de Jean Forteroche!</h1>
-<p>Derniers billets du blog :</p>
 
 <?php
 if (isset($_SESSION['error']) || isset($_SESSION['success'])) {
@@ -22,6 +21,7 @@ if (isset($_SESSION['error']) || isset($_SESSION['success'])) {
     <?php
 }
 ?>
+<div class="container">
 <div class="card card-outline-secondary">
     <div class="card-header">
         <h3>Inscription</h3>
@@ -43,7 +43,16 @@ if (isset($_SESSION['error']) || isset($_SESSION['success'])) {
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="fas fa-at"></i></span>
                     </div>
-                    <input class="form-control" type="text" id="email" name="email"/>
+                    <input class="form-control" type="email" id="email" name="email"/>
+                </div>
+            </div>
+            <div>
+                <label for="confirmation_mail">Confirmation de l'email</label><br/>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-at"></i></span>
+                    </div>
+                    <input class="form-control" type="email" id="confirmation_mail" name="confirmation_mail"/>
                 </div>
             </div>
             <div>
@@ -53,6 +62,15 @@ if (isset($_SESSION['error']) || isset($_SESSION['success'])) {
                         <span class="input-group-text"><i class="fas fa-key"></i></span>
                     </div>
                     <input class="form-control" type="password" id="pass" name="pass"/>
+                </div>
+            </div>
+            <div>
+                <label for="confirmation_pass">Confirmation du password</label><br/>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-key"></i></span>
+                    </div>
+                    <input class="form-control" type="password" id="confirmation_pass" name="confirmation_pass"/>
                 </div>
             </div>
             <div>
@@ -67,10 +85,11 @@ if (isset($_SESSION['error']) || isset($_SESSION['success'])) {
             </div>
             <div>
                 <hr>
-                <input type="submit" class="btn btn-dark btn-block"/>
+                <input type="submit" class="btn btn-dark btn-block" value="S'inscrire"/>
             </div>
         </form>
     </div>
+</div>
 </div>
 
 <?php $content = ob_get_clean(); ?>

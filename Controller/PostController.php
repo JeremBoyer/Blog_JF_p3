@@ -35,7 +35,6 @@ function addPost($postTitle = null, $postContent = null, $userId = null, $catego
 {
     $postManager = new PostManager();
     $posts = $postManager->getPosts();
-    session_start();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $affectedPost = $postManager->addPost($postTitle, $postContent, $userId, $categoryId);
@@ -52,8 +51,6 @@ function addPost($postTitle = null, $postContent = null, $userId = null, $catego
 function updatePost($postId, $postTitle = null, $postContent = null)
 {
     $postManager = new PostManager();
-
-    session_start();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $upDatedPost = $postManager->updatePost($postId, $postTitle, $postContent);

@@ -21,7 +21,6 @@ function addComment($postId = null, $user = null , $comment = null)
     $postManager = new PostManager();
     $commentManager = new CommentManager();
     $post = $postManager->getPost($_GET['id']);
-    session_start();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $affectedLines = $commentManager->addComment($postId, $user, $comment);
@@ -53,7 +52,6 @@ function updateComment($newComment,$commentId)
     $commentManager = new CommentManager();
     $postManager = new PostManager();
 
-    session_start();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $upDatedComments = $commentManager->updateComment($newComment,$commentId);

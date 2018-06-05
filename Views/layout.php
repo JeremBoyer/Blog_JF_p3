@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,6 +60,14 @@
                     <a class="navbar-brand" href="index.php"> Livres </a>
                     <a class="navbar-brand" href="index.php"> Présentation de l'auteur </a>
                     <a class="navbar-brand" href="index.php"> Connexion </a>
+                    <?php
+                        if(isset($_SESSION['user'])) {
+                    ?>
+                            <a class="navbar-brand" href="index.php"> Profil </a>
+                    <?php
+                        }
+                    ?>
+                    ?>
                 </div>
             </div>
         </nav>
