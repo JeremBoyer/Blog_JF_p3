@@ -162,7 +162,7 @@ try {
             } else {
                 profile($_GET['id']);
             }
-        }elseif ($_GET['action'] == 'logIn') {
+        } elseif ($_GET['action'] == 'logIn') {
             if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 if (!empty($_POST['email']) &&
                     !empty($_POST['pass'])) {
@@ -173,6 +173,8 @@ try {
             } else {
                 logIn();
             }
+        } elseif ($_GET['action'] == 'logOut') {
+            logOut();
         }
     } else {
         listPosts();

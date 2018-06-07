@@ -8,7 +8,6 @@
 if(isset($_SESSION['error']) || isset($_SESSION['success'])) {
         $alertType = 'success';
         $message = $_SESSION['success'];
-        //$alertType = isset($_SESSION['error']) ? 'danger' : null;
         if(isset($_SESSION['error'])){
             $alertType = 'danger';
             $message = $_SESSION['error'];

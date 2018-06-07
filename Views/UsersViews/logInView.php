@@ -5,21 +5,8 @@
     <p>Derniers billets du blog :</p>
 
 <?php
-if (isset($_SESSION['error']) || isset($_SESSION['success'])) {
-    $alertType = 'success';
-    $message = $_SESSION['success'];
-    //$alertType = isset($_SESSION['error']) ? 'danger' : null;
-    if (isset($_SESSION['error'])) {
-        $alertType = 'danger';
-        $message = $_SESSION['error'];
-    }
-    unset($_SESSION['error'], $_SESSION['success']);
-    ?>
-
-    <div class="alert alert-<?= $alertType ?>" role="alert">
-        <?= $message ?>
-    </div>
-    <?php
+if(isset($flash)){
+$flash->flash();
 }
 ?>
     <div class="container">

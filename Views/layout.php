@@ -60,6 +60,8 @@ session_start();
                     <a class="navbar-brand" href="index.php"> Livres </a>
                     <a class="navbar-brand" href="index.php"> Présentation de l'auteur </a>
                     <a class="navbar-brand" href="index.php"> Connexion </a>
+                    <a class="navbar-brand" href="index.php?action=logOut"> Deconnexion </a>
+
                     <?php
                         if(isset($_SESSION['user'])) {
                     ?>
