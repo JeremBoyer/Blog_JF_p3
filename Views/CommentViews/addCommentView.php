@@ -25,21 +25,8 @@
 <div class="container-fluid">
         <div class="container">
             <?php
-            if(isset($_SESSION['error']) || isset($_SESSION['success'])) {
-                $alertType = 'success';
-                $message = $_SESSION['success'];
-                //$alertType = isset($_SESSION['error']) ? 'danger' : null;
-                if(isset($_SESSION['error'])){
-                    $alertType = 'danger';
-                    $message = $_SESSION['error'];
-                }
-                session_destroy();
-                ?>
-
-                <div class="alert alert-<?= $alertType?>" role="alert">
-                    <?= $message ?>
-                </div>
-                <?php
+            if(isset($flash)){
+            $flash->flash();
             }
             ?>
             <h2>Commentaires</h2>

@@ -1,8 +1,7 @@
 <?php
-
 use Blog\Model\CategoryManager;
 
-require_once ('Model/CategoryManager.php');
+require_once('Model/CategoryManager.php');
 
 function getPostsCategory($categoryId)
 {

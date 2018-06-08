@@ -3,8 +3,10 @@
 use Blog\Model\PostManager;
 use Blog\Model\CommentManager;
 use Blog\Model\CategoryManager;
-use Blog\Model\ReportManager;
+use \Blog\Model\Paging;
 
+require('Services/FlashService.php');
+require_once('Services/Paging.php');
 require_once('Model/PostManager.php');
 require_once('Model/CommentManager.php');
 require_once('Model/CategoryManager.php');
@@ -36,13 +38,14 @@ function addPost($postTitle = null, $postContent = null, $userId = null, $catego
     $postManager = new PostManager();
     $posts = $postManager->getPosts();
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $affectedPost = $postManager->addPost($postTitle, $postContent, $userId, $categoryId);
+        $flash = new FlashService();
 
-        if ($affectedPost === false) {
-            $_SESSION['error'] = 'Impossible d\'ajouter un article !';
+        if($affectedPost === false) {
+            $flash->setFlash('Impossible d\'ajouter un article !', 'danger');
         } else {
-            $_SESSION['success'] = 'Votre article a été ajouté =)!';
+            $flash->setFlash('Votre article a été ajouté =)!', 'success');
         }
     }
     require('Views/PostViews/addPostView.php');
@@ -52,12 +55,14 @@ function updatePost($postId, $postTitle = null, $postContent = null)
 {
     $postManager = new PostManager();
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $upDatedPost = $postManager->updatePost($postId, $postTitle, $postContent);
-        if ($upDatedPost === false) {
-            $_SESSION['error'] = 'Impossible d\'ajouter un article !';
+        $flash = new FlashService();
+
+        if($upDatedPost === false) {
+            $flash->setFlash('Impossible de modifier un article !', 'success');
         } else {
-            $_SESSION['success'] = 'Votre article a été ajouté =)!';
+            $flash->setFlash('Votre article a été modifié =)!', 'success');
         }
     }
     $post = $postManager->getPost($postId);
@@ -69,11 +74,12 @@ function deletePost($deletePId)
 {
     $postManager = new PostManager();
     $affectedPost = $postManager->deletePost($deletePId);
+    $flash = new FlashService();
 
-    if ($affectedPost === false) {
-        die('Impossible de supprimer l\'articles');
+    if($affectedPost === false) {
+        $flash->setFlash('Impossible de supprimer l\'article', 'danger');
     } else {
-        echo 'Votre article a bien été supprimer';
+        $flash->setFlash('Votre article a bien été supprimé', 'success');
     }
 }
 
@@ -81,10 +87,11 @@ function deleteSoftPost($deletePId)
 {
     $postManager = new PostManager();
     $deletedPost = $postManager->deleteSoftPost($deletePId);
+    $flash = new FlashService();
 
-    if ($deletedPost === false) {
-        die('Impossible de supprimer l\'articles');
+    if($deletedPost === false) {
+        $flash->setFlash('Impossible de désactiver l\'article', 'danger');
     } else {
-        echo 'Votre article a bien été supprimer';
+        $flash->setFlash('Votre article a bien été désactivé', 'success');
     }
 }

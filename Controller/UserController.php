@@ -32,11 +32,10 @@ function profile($userId, $username = null, $email = null, $pass = null)
 
         $session = new FlashService();
         if ($addUser === false) {
-            $session->setFlash('Impossible de vous inscrire :', 'danger');
+            $session->setFlash('Impossible de modfier votre profile', 'danger');
 
-            $_SESSION['error'] = 'Impossible d\'ajouter un article !';
         } else {
-            $_SESSION['success'] = 'Vous avez modifié votre profil =)!';
+            $session->setFlash('Vous avez modifié votre profil =)!', 'success');
         }
     }
 

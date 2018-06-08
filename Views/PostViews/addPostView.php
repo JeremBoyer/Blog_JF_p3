@@ -4,23 +4,11 @@
     <h1>Blog de Jean Forteroche!</h1>
     <p>Derniers billets du blog :</p>
 
-<?php
-if(isset($_SESSION['error']) || isset($_SESSION['success'])) {
-        $alertType = 'success';
-        $message = $_SESSION['success'];
-        if(isset($_SESSION['error'])){
-            $alertType = 'danger';
-            $message = $_SESSION['error'];
-        }
-        session_destroy();
-    ?>
-
-    <div class="alert alert-<?= $alertType?>" role="alert">
-        <?= $message ?>
-    </div>
     <?php
-}
-?>
+    if(isset($flash)){
+    $flash->flash();
+    }
+    ?>
 
     <form action="index.php?action=addPost" method="post">
         <div class="form-group">
