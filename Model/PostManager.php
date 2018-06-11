@@ -12,12 +12,30 @@ require_once("Model/Manager.php");
  */
 class PostManager extends Manager
 {
+
+
     /**
      * @return bool|\PDOStatement
      *
      * Query to select the last five posts
      */
-    public function getPosts()
+    public function getPosts($currentPage)
+    {
+        $db = $this->dbConnect();
+
+        $postPerPage = 6;
+        $start = ($currentPage-1)*$postPerPage;
+
+        $req = $db->query('SELECT *
+                                    FROM post 
+                                    WHERE deleted_at IS NULL
+                                    ORDER BY created_at 
+                                    DESC LIMIT ' . $start  . ', ' . $postPerPage );
+        $req->execute();
+        return $req;
+    }
+
+    public function listPost()
     {
         $db = $this->dbConnect();
 
@@ -25,9 +43,11 @@ class PostManager extends Manager
                                     FROM post 
                                     WHERE deleted_at IS NULL
                                     ORDER BY created_at 
-                                    DESC LIMIT 0, 6');
+                                    DESC');
+        $req->execute();
         return $req;
     }
+
 
     public function getPost($postId)
     {

@@ -2,7 +2,7 @@
 
 use Blog\Model\UserManager;
 
-require 'Services/FlashService.php';
+require_once 'Services/Flash.php';
 require_once 'Model/UserManager.php';
 
 
@@ -12,7 +12,7 @@ function signUp($username = null, $email = null, $pass = null, $role = null)
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $addUser = $userManager->signUp($username, $email, $pass, $role);
 
-        $session = new FlashService();
+        $session = new Flash();
         if ($addUser === false) {
             $session->setFlash('Impossible de vous inscrire :', 'danger');
 
@@ -30,7 +30,7 @@ function profile($userId, $username = null, $email = null, $pass = null)
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $addUser = $userManager->profile($userId, $username, $email, $pass);
 
-        $session = new FlashService();
+        $session = new Flash();
         if ($addUser === false) {
             $session->setFlash('Impossible de modfier votre profile', 'danger');
 
@@ -49,7 +49,7 @@ function logIn($email = null, $pass = null)
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $user = $userManager->logIn($email, $pass);
-        $flash = new FlashService();
+        $flash = new Flash();
 
         if ($user === false) {
             $flash->setFlash('Votre mot de passe ou votre mot de passe ne correspondent pas!', 'danger');
@@ -60,7 +60,8 @@ function logIn($email = null, $pass = null)
             $_SESSION['user'] = [
                 'id' => $user['id'],
                 'username' => $user['username'],
-                'email' => $user['email']
+                'email' => $user['email'],
+                'role' => $user['role']
             ];
 
         }
@@ -80,7 +81,7 @@ function checkMail($email)
 
 function logOut()
 {
-    $flash = new FlashService();
+    $flash = new Flash();
 
     unset($_SESSION['user']);
 

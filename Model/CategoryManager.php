@@ -21,7 +21,7 @@ class CategoryManager extends Manager
 
         $posts->bindParam(1,$categoryId, \PDO::PARAM_INT);
 
-        $posts->execute(array($categoryId));
+        $posts->execute();
 
         return $posts;
     }

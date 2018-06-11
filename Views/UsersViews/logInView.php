@@ -12,7 +12,14 @@ $flash->flash();
     <div class="container">
         <div class="card card-outline-secondary">
             <div class="card-header">
-                <h3>Connexion</h3>
+
+                    <div class="text-left">
+                        <h3>    Connexion</h3>
+                    </div>
+                    <div class="text-muted text-right">
+                        <a class="text-muted text-right" href="index.php?action=signUp"><span class="text-left text-muted">Pas encore membre? Inscrivez-vous ici.</span></a>
+                    </div>
+
             </div>
             <div class="card-body">
                 <form action="index.php?action=logIn" method="post">

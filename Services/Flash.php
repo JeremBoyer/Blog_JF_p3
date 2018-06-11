@@ -1,21 +1,12 @@
 <?php
 
-class FlashService
+class Flash
 {
     public function __construct()
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
-    }
-
-    public function get($message, $default = null)
-    {
-
-        if (!empty($_SESSION)) {
-            return $_SESSION[$message];
-        }
-        return $default;
     }
 
     public function setFlash($message, $type = 'danger')

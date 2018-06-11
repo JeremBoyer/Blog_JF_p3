@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -53,24 +55,50 @@ session_start();
     <!-- Header -->
     <section>
         <nav class="navbar navbar-expand-md bg-dark navbar-fixed-top">
-            <div class="container">
+            <div class="container collapse navbar-collapse">
                 <a href="index.php" class="logo"> Jean Forteroche</a>
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="index.php"> Accueil </a>
-                    <a class="navbar-brand" href="index.php"> Livres </a>
-                    <a class="navbar-brand" href="index.php"> Présentation de l'auteur </a>
-                    <a class="navbar-brand" href="index.php"> Connexion </a>
-                    <a class="navbar-brand" href="index.php?action=logOut"> Deconnexion </a>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php"> Accueil </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php"> Livres </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php"> Présentation de l'auteur </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?action=addPost"> Ajouter un article </a>
+                    </li>
+                    <?php
+                    if(empty($_SESSION['user'])) {
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?action=logIn"> Connexion </a>
+                    </li>
+                    <?php
+                    }
+                    ?>
 
                     <?php
                         if(isset($_SESSION['user'])) {
                     ?>
-                            <a class="navbar-brand" href="index.php"> Profil </a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $_SESSION['user']['username']?></a>
+                        <div class="dropdown-menu">
+                            <a class="nav-link dropdown-item" href="index.php?action=profile"> Profil </a>
+
+                            <a class="nav-link dropdown-item" href="index.php?action=logOut"> Deconnexion </a>
+
+                            <a href="index.php?action=addPost" class="nav-link dropdown-item"><i class="fas fa-feather"></i> Ajouter un article</a>
+                        </div>
+                    </li>
+
                     <?php
                         }
                     ?>
-                    ?>
-                </div>
+
+                </ul>
             </div>
         </nav>
     </section>

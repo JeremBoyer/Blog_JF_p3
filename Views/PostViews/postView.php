@@ -13,6 +13,15 @@
             <div class="text-muted">
                 <em>le <?= $post['created_at_fr'] ?></em>
             </div>
+            <?php
+                if(Authentication::isLogged()){
+            ?>
+            <div>
+                <p><a href="index.php?action=updatePost&amp;id=<?= $post['id'] ?>" >Modifier l'article</a></p>
+            </div>
+            <?php
+                }
+            ?>
         </div>
 
         <div class="card-body">
@@ -52,18 +61,23 @@
                             </div>
                             <div class="col-md-4 headComment">
                                 <p> <?= $comment['created_comment_at_fr'] ?>
-                                (<a href="index.php?action=updateCommentDisplay&amp;id=<?= $comment['id'] ?>"
-                                    class="btn btn-xs btn-primary">modifier</a>)</p>
+                                    <a href="index.php?action=updateComment&amp;id=<?= $comment['id'] ?>"
+                                       class="btn btn-xs btn-primary">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
+                                    <a href="index.php?action=deleteSoftComment&amp;id=<?= $comment['id'] ?>"
+                                       class="btn btn-danger btn-xs">
+                                        <i class="far fa-trash-alt"></i>
+                                    </a>
+                                    <a href="index.php?action=report&amp;id_comment_pfk=<?= $comment['id'] ?>"
+                                       class="btn btn-warning btn-xs">
+                                        <i class="far fa-flag"></i>
+                                    </a>
+                                </p>
 
-                                <a href="index.php?action=deleteSoftComment&amp;id=<?= $comment['id'] ?>"
-                                   class="btn btn-info btn-lg">
-                                    <span class="glyphicon glyphicon-trash"></span>Delete
-                                </a>
 
-                                <a href="index.php?action=report&amp;id_comment_pfk=<?= $comment['id'] ?>"
-                                   class="btn btn-info btn-xs">
-                                    <span class="glyphicon glyphicon-trash"></span>report
-                                </a>
+
+
                             </div>
 
                         </div>
