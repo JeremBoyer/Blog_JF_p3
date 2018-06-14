@@ -62,13 +62,37 @@ while ($comment = $comments->fetch())
             </div>
             <div class="col-md-4 headComment">
                 <p> <?= $comment['created_comment_at_fr'] ?>
-                    (<a href="index.php?action=updateCommentDisplay&amp;id=<?= $comment['id'] ?>"
-                        class="btn btn-xs btn-primary">modifier</a>)</p>
+                    <a href="index.php?action=updateComment&amp;id=<?= $comment['id'] ?>"
+                       class="btn btn-xs btn-primary">
+                        <i class="fas fa-pencil-alt"></i>
+                    </a>
+                    <a href="index.php?action=deleteSoftComment&amp;id=<?= $comment['id'] ?>"
+                       class="btn btn-danger btn-xs">
+                        <i class="far fa-trash-alt"></i>
+                    </a>
+                    <?php
+                        if (Authentication::isLogged()) {
 
-                <a href="index.php?action=deleteSoftComment&amp;id=<?= $comment['id'] ?>"
-                   class="btn btn-info btn-lg">
-                    <span class="glyphicon glyphicon-trash"></span>Delete
-                </a>
+                            $isReport = $reportManager->checkReport(intval($comment['id']), $_SESSION['user']['id']);
+                            if ($isReport == false) {
+                                ?>
+                                <a href="index.php?action=report&amp;id_comment_pfk=<?= $comment['id'] ?>"
+                                   class="btn btn-warning btn-xs">
+                                    <i class="far fa-flag"></i>
+                                </a>
+                                <?php
+                            } else {
+                                ?>
+                                <p><em>Vous avez signalé ce commentaires!</em></p>
+                                <?php
+                            }
+                        }
+                    ?>
+
+
+
+
+
             </div>
 
         </div>

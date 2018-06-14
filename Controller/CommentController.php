@@ -1,16 +1,19 @@
 <?php
 use Blog\Model\PostManager;
 use Blog\Model\CommentManager;
+use Blog\Model\ReportManager;
 
 
 require_once('Model/PostManager.php');
 require_once('Model/CommentManager.php');
+require_once ('Model/ReportManager.php');
 
-function addComment($postId = null, $user = null , $comment = null)
+function addComment($postId = null, $user = null , $comment = null, $commentId = null, $userId = null)
 {
     $postManager = new PostManager();
     $commentManager = new CommentManager();
     $post = $postManager->getPost($_GET['id']);
+    $reportManager = new ReportManager();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $affectedLines = $commentManager->addComment($postId, $user, $comment);
@@ -22,7 +25,10 @@ function addComment($postId = null, $user = null , $comment = null)
             $flash->setFlash('Votre commentaire a été ajouté =)!', 'success');
         }
     }
+
+
     $comments = $commentManager->getComments($_GET['id']);
+
     require('Views/CommentViews/addCommentView.php');
 }
 

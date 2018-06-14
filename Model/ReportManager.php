@@ -22,6 +22,21 @@ class ReportManager extends Manager
         return $postReport;
     }
 
+    public function checkReport($commentId, $userId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT *
+                                      FROM report_comment
+                                      WHERE id_comment_pfk = :id_comment_pfk && id_user_pfk = :id_user_pfk
+                                      ');
+        $req->bindParam(':id_comment_pfk', $commentId, \PDO::PARAM_INT);
+        $req->bindParam(':id_user_pfk', $userId, \PDO::PARAM_INT);
+
+        $req->execute();
+        $checkReport = $req->fetch();
+        return $checkReport;
+    }
+
     public function report($commentId)
     {
         $db = $this->dbConnect();

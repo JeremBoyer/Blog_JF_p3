@@ -1,7 +1,7 @@
 <?php $title = 'Blog de Jean Forteroche'; ?>
 
 <?php ob_start(); ?>
-    <h1>Blog de Jean Forteroche!</h1>
+    <h1>Ajoutez un article.</h1>
     <p>Derniers billets du blog :</p>
 
     <?php
@@ -69,13 +69,13 @@
 
 
                     <h3>
-                        <?= htmlspecialchars($data['title']) ?>
+                        <?= $data['title'] ?>
                         <em>le <?= $data['created_at'] ?></em>
 
                     </h3>
 
                     <p>
-                        <?= nl2br(htmlspecialchars(substr($data['content'], 0, 200))) ?>
+                        <?= (substr($data['content'], 0, 200)) ?>...
                         <br />
                         <a href="index.php?action=post&amp;id=<?= $data['id'] ?>" class="btn btn-xs btn-primary">Lire la suite...</a>
 

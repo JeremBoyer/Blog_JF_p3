@@ -69,15 +69,24 @@
                                        class="btn btn-danger btn-xs">
                                         <i class="far fa-trash-alt"></i>
                                     </a>
-                                    <a href="index.php?action=report&amp;id_comment_pfk=<?= $comment['id'] ?>"
-                                       class="btn btn-warning btn-xs">
-                                        <i class="far fa-flag"></i>
-                                    </a>
-                                </p>
+                            <?php
+                                if (Authentication::isLogged()) {
 
-
-
-
+                                $isReport = $reportManager->checkReport(intval($comment['id']), $_SESSION['user']['id']);
+                                    if ($isReport == false) {
+                                        ?>
+                                        <a href="index.php?action=report&amp;id_comment_pfk=<?= $comment['id'] ?>"
+                                           class="btn btn-warning btn-xs">
+                                            <i class="far fa-flag"></i>
+                                        </a>
+                                        <?php
+                                    } else {
+                                    ?>
+                                <p><em>Vous avez signalé ce commentaires!</em></p>
+                                <?php
+                                    }
+                                }
+                                ?>
                             </div>
 
                         </div>

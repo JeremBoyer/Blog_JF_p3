@@ -7,17 +7,37 @@
 
     <!-- Banner -->
 
-    <div class="jumbotron">
+    <div class="ban">
+        <div class="caption">
+            <div class="container jumbotron" id="jumbo">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h2 class="display-5"> Bienvenue sur le blog de Jean Forteroche</h2>
+                        <hr>
+                        <h4>
+                            Le mot de l'auteur :
+                        </h4>
+                        <blockquote class="blockquote">
+                            <p>
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tortor libero, ultrices eget magna non, blandit sodales eros. Nulla dignissim sit amet augue sed rutrum. Pellentesque mi velit, dignissim non arcu nec, vulputate ultricies arcu. Ut tempor est in neque varius tempus. Nulla eu feugiat elit. Pellentesque ornare massa a nulla tincidunt molestie. Quisque vel dui mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce malesuada molestie nunc, quis blandit turpis. Vivamus id bibendum dolor. Sed nibh nibh, mattis ac gravida viverra, pretium ac lacus. Donec neque dui, fermentum et arcu sit amet, venenatis mattis risus. Proin non pretium erat. "
+                            </p>
+                            <footer class="blockquote-footer text-dark"> <cite title="Source Title"><strong>Jean Forteroche</strong></cite></footer>
+                        </blockquote>
+                    </div>
+                    <div class="col-md-3">
+                        <img src="Public/picture/portrait.jpg" class="img-fluid float-right" alt="Responsive image" />
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <button type="button" class="btn btn-outline-primary">Primary</button>
+                </div>
 
-        <div class="container">
-            <h1 class="display-4">Hello, world!</h1>
-            <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-            <hr class="my-4">
-            <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+
+            </div>
         </div>
-        <img id="imgBanner" src="Public/picture/ban.jpg" alt=" Banner " />
     </div>
+
+
     <!--
         <section class="container-fluid banner">
             <div class="ban">
@@ -76,29 +96,29 @@
                 <div class="row">
 
                     <?php
-                    while ($data = $posts->fetch()) {
+                    while ($post = $posts->fetch()) {
                         ?>
 
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
                                 <div class="card-header bg-info text-white">
-                                    <em class="text-muted listPostAt">le <?php $date = new DateTime($data['created_at']);
+                                    <em class="text-muted listPostAt">le <?php $date = new DateTime($post['created_at']);
                                         echo $date->format('d-m-Y H:i:s'); ?>
                                     </em>
 
                                     <h3>
-                                        <?= ($data['title']) ?>
+                                        <?= ($post['title']) ?>
                                     </h3>
                                 </div>
 
                                 <div class="postList">
                                 <p>
-                                    <?= (substr($data['content'], 0, 200)) ?>
+                                    <?= (substr($post['content'], 0, 200)) ?>
                                     <br/>
                                 </p>
                                 </div>
                                 <div class="card-footer">
-                                    <a href="index.php?action=post&amp;id=<?= $data['id'] ?>"
+                                    <a href="index.php?action=post&amp;id=<?= $post['id'] ?>"
                                        class="btn btn-xs btn-primary">Lire la suite...</a>
 
                                 </div>

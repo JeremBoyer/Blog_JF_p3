@@ -67,17 +67,21 @@ if (session_status() === PHP_SESSION_NONE) {
                     <li class="nav-item">
                         <a class="nav-link" href="index.php"> Présentation de l'auteur </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=addPost"> Ajouter un article </a>
-                    </li>
                     <?php
-                    if(empty($_SESSION['user'])) {
+                        if (Authentication::isAdmin()) {
+                    ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php?action=addPost"> Ajouter un article </a>
+                            </li>
+                    <?php
+                        }
+                        if(empty($_SESSION['user'])) {
                     ?>
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?action=logIn"> Connexion </a>
                     </li>
                     <?php
-                    }
+                        }
                     ?>
 
                     <?php
@@ -108,12 +112,13 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <!-- About -->
 
+
     <!-- End About -->
 
     <!-- Content -->
-    <div class="container-fluid content">
+    <!--<div class="container-fluid content">-->
         <?= $content ?>
-    </div>
+    <!--</div>-->
     <!-- End Content -->
 
     <!-- Footer -->

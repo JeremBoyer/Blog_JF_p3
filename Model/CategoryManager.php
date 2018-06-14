@@ -16,8 +16,8 @@ class CategoryManager extends Manager
                                     LEFT JOIN category
                                     ON post.category_id_fk = category.id
                                     WHERE post.deleted_at IS NULL && post.category_id_fk = ?
-                                    ORDER BY post.created_at 
-                                    DESC LIMIT 0, 6');
+                                    ORDER BY post.created_at
+                                    ');
 
         $posts->bindParam(1,$categoryId, \PDO::PARAM_INT);
 
@@ -30,11 +30,23 @@ class CategoryManager extends Manager
     {
         $db = $this->dbConnect();
 
-        $cats = $db->prepare('SELECT *
+        $category = $db->prepare('SELECT *
                                       FROM category');
 
-        $cats->execute();
-        return $cats;
+        $category->execute();
+        return $category;
+    }
+
+    public function getCategory()
+    {
+        $db = $this->dbConnect();
+
+        $req = $db->prepare('SELECT *
+                                      FROM category');
+
+        $req->execute();
+        $category = $req->fetch();
+        return $category;
     }
 
 }
