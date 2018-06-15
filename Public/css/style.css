@@ -103,19 +103,38 @@ body, html {
 .caption {
     position: absolute;
     left: 0;
-    top: 20%;
+    top: 10%;
     width: 100%;
     color: #000;
 }
+
 #jumbo {
     background: rgba(63, 191, 191, 0.5);
 }
+
 .caption .border {
     background-color: red;
     color: #fff;
     padding: 18px;
     font-size: 25px;
     letter-spacing: 10px;
+}
+
+.section-btn {
+    margin-left: -.25rem;
+    margin-right: -.25rem;
+    //
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+    border-radius: .25rem;
 }
 
 
@@ -161,6 +180,11 @@ body, html {
 
 .bodyComment {
     text-align: left;
+}
+
+.media-body {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12), 0 8px 11px rgba(0, 0, 0, 0.15);
+
 }
 
 /* Test*/

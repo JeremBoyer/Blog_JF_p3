@@ -24,6 +24,7 @@ class UserManager extends Manager
     public function signUp($username, $email, $pass, $role)
     {
         $db = $this->dbConnect();
+        $pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
 
         $req = $db->prepare('INSERT INTO user(username, email, pass, role, register_at ) VALUES (:username, :email, :pass, :role, NOW())');
 
@@ -54,14 +55,13 @@ class UserManager extends Manager
         return $profile;
     }
 
-    public function logIn($email, $pass)
+    public function logIn($email)
     {
         $db = $this->dbConnect();
 
-        $req = $db->prepare('SELECT * FROM user WHERE email = :email AND pass = :pass');
+        $req = $db->prepare('SELECT * FROM user WHERE email = :email');
 
         $req->bindParam(':email',$email, \PDO::PARAM_STR);
-        $req->bindParam(':pass',$pass, \PDO::PARAM_STR);
 
         $req->execute();
         $user = $req->fetch();

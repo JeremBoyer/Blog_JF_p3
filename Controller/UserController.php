@@ -17,7 +17,7 @@ function signUp($username = null, $email = null, $pass = null, $role = null)
             $session->setFlash('Impossible de vous inscrire :', 'danger');
 
         } else {
-            $session->setFlash('Votre profil a été crée =) !', 'success');
+            $session->setFlash('Votre profil a été crée =)', 'success');
         }
     }
     require('Views/UsersViews/signUpView.php');
@@ -43,27 +43,32 @@ function profile($userId, $username = null, $email = null, $pass = null)
     require('Views/UsersViews/profileView.php');
 }
 
-function logIn($email = null, $pass = null)
+function logIn($email = null)
 {
     $userManager = new UserManager();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $user = $userManager->logIn($email, $pass);
+        $user = $userManager->logIn($email);
         $flash = new Flash();
 
+        $isPasswordCorrect = password_verify($_POST['pass'], $user['pass']);
         if ($user === false) {
-            $flash->setFlash('Votre mot de passe ou votre mot de passe ne correspondent pas!', 'danger');
+            $flash->setFlash('Votre mail ne correspond pas !', 'danger');
+
+        } elseif($isPasswordCorrect === false) {
+            $flash->setFlash('Votre mot de passe n\'est pas valide!', 'danger');
 
         } else {
             $flash->setFlash('Vous êtes connecté =)!', 'success');
 
             $_SESSION['user'] = [
-                'id' => $user['id'],
+                'id'       => $user['id'],
                 'username' => $user['username'],
-                'email' => $user['email'],
-                'role' => $user['role']
+                'email'    => $user['email'],
+                'role'     => $user['role']
             ];
 
+            header('Location: index.php');
         }
     }
 

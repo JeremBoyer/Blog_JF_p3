@@ -29,7 +29,6 @@
             $flash->flash();
             }
             ?>
-            <h2>Commentaires</h2>
 
             <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
                 <div class="form-group">
@@ -38,21 +37,22 @@
                 </div>
                 <div class="form-group">
                     <label for="comment">Commentaire</label><br />
-                    <textarea class="form-control" id="comment" name="comment" placeholder="Votre commentaire..."></textarea>
+                    <textarea class="form-control" id="mytextarea" name="comment" placeholder="Votre commentaire..."></textarea>
                 </div>
                 <div>
                     <input class="btn btn-primary" type="submit" />
                 </div>
             </form>
+<hr>
 
-
+            <h2>Les commentaires</h2>
 <?php
 while ($comment = $comments->fetch())
 {
     ?>
     <li class="media">
         <div class="media-body row">
-            <div class="col-md-8 bodyComment">
+            <div class="col-md-7 bodyComment">
                 <h4 class="media-heading text-uppercase reviews"><?= htmlspecialchars($comment['username']) ?> </h4>
 
                 <p class="media-comment">
@@ -60,8 +60,8 @@ while ($comment = $comments->fetch())
                 </p>
 
             </div>
-            <div class="col-md-4 headComment">
-                <p> <?= $comment['created_comment_at_fr'] ?>
+            <div class="col-md-5 headComment">
+                <p> <i class="far fa-clock"></i><?= $comment['created_comment_at_fr'] ?>
                     <a href="index.php?action=updateComment&amp;id=<?= $comment['id'] ?>"
                        class="btn btn-xs btn-primary">
                         <i class="fas fa-pencil-alt"></i>
@@ -75,16 +75,16 @@ while ($comment = $comments->fetch())
 
                             $isReport = $reportManager->checkReport(intval($comment['id']), $_SESSION['user']['id']);
                             if ($isReport == false) {
-                                ?>
+                    ?>
                                 <a href="index.php?action=report&amp;id_comment_pfk=<?= $comment['id'] ?>"
                                    class="btn btn-warning btn-xs">
                                     <i class="far fa-flag"></i>
                                 </a>
-                                <?php
+                    <?php
                             } else {
-                                ?>
+                    ?>
                                 <p><em>Vous avez signalé ce commentaires!</em></p>
-                                <?php
+                    <?php
                             }
                         }
                     ?>

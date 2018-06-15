@@ -30,84 +30,6 @@ try {
             } else {
                 throw new Exception('Aucun identifiant de billet envoyé');
             }
-        } elseif ($_GET['action'] == 'report') {
-            if (isset($_GET['id_comment_pfk']) && $_GET['id_comment_pfk'] > 0) {
-                report($_GET['id_comment_pfk']);
-            } else {
-                throw new Exception('Aucun identifiant de billet envoyé');
-            }
-        } elseif ($_GET['action'] == 'addPost') {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                if (!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['user_id_fk']) && !empty($_POST['category_id_fk'])) {
-                    addPost($_POST['title'], $_POST['content'], $_POST['user_id_fk'], $_POST['category_id_fk']);
-                } else {
-                    echo 'Erreur : tous les champs ne sont pas remplis !';
-                }
-            } else {
-                addPost(null);
-            }
-        } elseif ($_GET['action'] == 'updatePost'){
-            if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-                if (!empty($_POST['title']) && !empty($_POST['content'])) {
-                    updatePost($_GET['id'], $_POST['title'], $_POST['content']);
-                } else {
-                    echo 'Erreur : tous les champs ne sont pas remplis, donc le post n\'est pas modifié !';
-                }
-            } elseif (isset($_GET['id']) && $_GET['id'] > 0 ) {
-                if (Authentication::isAdmin()) {
-                    updatePost($_GET['id']);
-                    } else {
-                    header('Location: index.php?action=logIn');
-                }
-            } else {
-                throw new Exception('Aucun identifiant de billet envoyé');
-            }
-        } elseif($_GET['action'] == 'deleteSoftPost'){
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                deletesoftPost($_GET['id']);
-            } else {
-                throw new Exception('Le billet ne peut être supprimer');
-            }
-        } elseif($_GET['action'] == 'deletePost'){
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                deletePost($_GET['id']);
-            } else {
-                throw new Exception('Le billet ne peut être supprimer');
-            }
-        } elseif ($_GET['action'] == 'addComment') {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                if (!empty($_POST['user_id_fk']) && !empty($_POST['comment'])) {
-                    addComment($_GET['id'], $_POST['user_id_fk'], $_POST['comment']);
-                } else {
-                    echo 'Erreur : tous les champs ne sont pas remplis !';
-                }
-            } elseif (isset($_GET['id']) && $_GET['id'] > 0) {
-                addComment($_GET['id']);
-            } else {
-                throw new Exception('Aucun identifiant de billet envoyé');
-            }
-        } elseif ($_GET['action'] == 'updateComment') {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                if (!empty($_POST['comment'])) {
-                    updateComment($_POST['comment'], $_GET['id']);
-                } else {
-                    echo 'Erreur : tous les champs ne sont pas remplis, donc le commentaire n\'est pas modifié !';
-                }
-            } elseif (isset($_GET['id']) && $_GET['id'] > 0) {
-                updateComment(null, $_GET['id']);
-            }
-        } elseif ($_GET['action'] == 'deleteComment') {
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                deleteComment($_GET['id']);
-            } else {
-                throw new Exception('Le Commentaire ne peut être supprimer');
-            }
-        } elseif ($_GET['action'] == 'deleteSoftComment') {
-            if (isset($_GET['id']) && $_GET['id'] > 0) {
-                deleteSoftComment($_GET['id']);
-            } else {
-                throw new Exception('Le Commentaire ne peut être supprimer');
-            }
         } elseif ($_GET['action'] == 'signUp') {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $username = htmlspecialchars($_POST['username']);
@@ -149,23 +71,10 @@ try {
             } else {
                 signUp();
             }
-        } elseif ($_GET['action'] == 'profile') {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                if (!empty($_POST['username']) &&
-                    !empty($_POST['email']) &&
-                    !empty($_POST['pass'])) {
-                    profile($_GET['id'], $_POST['username'], $_POST['email'], $_POST['pass']);
-                } else {
-                    echo 'Erreur : tous les champs ne sont pas remplis !';
-                }
-            } else {
-                profile($_GET['id']);
-            }
         } elseif ($_GET['action'] == 'logIn') {
             if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-                if (!empty($_POST['email']) &&
-                    !empty($_POST['pass'])) {
-                    $checkUser = logIn($_POST['email'], $_POST['pass']);
+                if (!empty($_POST['email'])) {
+                    $checkUser = logIn($_POST['email']);
                 } else {
                     echo 'Erreur : tous les champs ne sont pas remplis !';
                 }
@@ -174,6 +83,99 @@ try {
             }
         } elseif ($_GET['action'] == 'logOut') {
             logOut();
+        } elseif (Authentication::isLogged()) {
+            if ($_GET['action'] == 'addComment') {
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    if (!empty($_POST['user_id_fk']) && !empty($_POST['comment'])) {
+                        addComment($_GET['id'], $_POST['user_id_fk'], $_POST['comment']);
+                    } else {
+                        echo 'Erreur : tous les champs ne sont pas remplis !';
+                    }
+                } elseif (isset($_GET['id']) && $_GET['id'] > 0) {
+                    addComment($_GET['id']);
+                } else {
+                    throw new Exception('Aucun identifiant de billet envoyé');
+                }
+            } elseif ($_GET['action'] == 'updateComment') {
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    if (!empty($_POST['comment'])) {
+                        updateComment($_POST['comment'], $_GET['id']);
+                    } else {
+                        echo 'Erreur : tous les champs ne sont pas remplis, donc le commentaire n\'est pas modifié !';
+                    }
+                } elseif (isset($_GET['id']) && $_GET['id'] > 0) {
+                    updateComment(null, $_GET['id']);
+                }
+            } elseif ($_GET['action'] == 'deleteSoftComment') {
+                if (isset($_GET['id']) && $_GET['id'] > 0) {
+                    deleteSoftComment($_GET['id']);
+                } else {
+                    throw new Exception('Le Commentaire ne peut être supprimer');
+                }
+            } elseif ($_GET['action'] == 'profile') {
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    if (!empty($_POST['username']) &&
+                        !empty($_POST['email'])) {
+                        profile($_GET['id'], $_POST['username'], $_POST['email'], $_POST['pass']);
+                    } else {
+                        echo 'Erreur : tous les champs ne sont pas remplis !';
+                    }
+                } else {
+                    profile($_GET['id']);
+                }
+            } elseif ($_GET['action'] == 'report') {
+                if (isset($_GET['id_comment_pfk']) && $_GET['id_comment_pfk'] > 0) {
+                    report($_GET['id_comment_pfk'], $_SESSION['user']['id']);
+                } else {
+                    throw new Exception('Aucun identifiant de billet envoyé');
+                }
+            } elseif (Authentication::isAdmin()) {
+                if ($_GET['action'] == 'addPost') {
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        if (!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['user_id_fk']) && !empty($_POST['category_id_fk'])) {
+                            addPost($_POST['title'], $_POST['content'], $_POST['user_id_fk'], $_POST['category_id_fk']);
+                        } else {
+                            echo 'Erreur : tous les champs ne sont pas remplis !';
+                        }
+                    } else {
+                        addPost(null);
+                    }
+                } elseif ($_GET['action'] == 'updatePost'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+                        if (!empty($_POST['title']) && !empty($_POST['content'])) {
+                            updatePost($_GET['id'], $_POST['title'], $_POST['content']);
+                        } else {
+                            echo 'Erreur : tous les champs ne sont pas remplis, donc le post n\'est pas modifié !';
+                        }
+                    } elseif (isset($_GET['id']) && $_GET['id'] > 0 ) {
+                        if (Authentication::isAdmin()) {
+                            updatePost($_GET['id']);
+                        } else {
+                            header('Location: index.php?action=logIn');
+                        }
+                    } else {
+                        throw new Exception('Aucun identifiant de billet envoyé');
+                    }
+                } elseif($_GET['action'] == 'deleteSoftPost'){
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        deletesoftPost($_GET['id']);
+                    } else {
+                        throw new Exception('Le billet ne peut être supprimer');
+                    }
+                } elseif($_GET['action'] == 'deletePost'){
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        deletePost($_GET['id']);
+                    } else {
+                        throw new Exception('Le billet ne peut être supprimer');
+                    }
+                } elseif ($_GET['action'] == 'deleteComment') {
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        deleteComment($_GET['id']);
+                    } else {
+                        throw new Exception('Le Commentaire ne peut être supprimer');
+                    }
+                }
+            }
         }
     } else {
         $currentPage = 1;

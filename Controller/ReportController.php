@@ -3,11 +3,11 @@ use Blog\Model\ReportManager;
 
 require_once 'Model/ReportManager.php';
 
-function report($commentId)
+function report($commentId, $userId)
 {
 
     $reportManager = new ReportManager();
-    $report = $reportManager->report($commentId);
+    $report = $reportManager->report($commentId, $userId);
 
     $postReport = $reportManager->getPostReport($commentId);
 

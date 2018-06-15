@@ -1,6 +1,5 @@
 <?php
     $title = 'Blog de Jean Forteroche';
-
 ?>
 
 <?php ob_start(); ?>
@@ -9,7 +8,7 @@
 
     <div class="ban">
         <div class="caption">
-            <div class="container jumbotron" id="jumbo">
+            <div class="container jumbotron text-center" id="jumbo">
                 <div class="row">
                     <div class="col-md-9">
                         <h2 class="display-5"> Bienvenue sur le blog de Jean Forteroche</h2>
@@ -17,7 +16,7 @@
                         <h4>
                             Le mot de l'auteur :
                         </h4>
-                        <blockquote class="blockquote">
+                        <blockquote class="blockquote text-justify">
                             <p>
                                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tortor libero, ultrices eget magna non, blandit sodales eros. Nulla dignissim sit amet augue sed rutrum. Pellentesque mi velit, dignissim non arcu nec, vulputate ultricies arcu. Ut tempor est in neque varius tempus. Nulla eu feugiat elit. Pellentesque ornare massa a nulla tincidunt molestie. Quisque vel dui mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce malesuada molestie nunc, quis blandit turpis. Vivamus id bibendum dolor. Sed nibh nibh, mattis ac gravida viverra, pretium ac lacus. Donec neque dui, fermentum et arcu sit amet, venenatis mattis risus. Proin non pretium erat. "
                             </p>
@@ -28,42 +27,15 @@
                         <img src="Public/picture/portrait.jpg" class="img-fluid float-right" alt="Responsive image" />
                     </div>
                 </div>
-                <div class="row text-center">
-                    <button type="button" class="btn btn-outline-primary">Primary</button>
+                <div class="section-btn">
+                    <a type="button" href="" class="btn btn-primary">Plus d'info sur l'auteur</a>
+                    <a type="button" href="" class="btn btn-outline-primary ">Les oeuvres</a>
                 </div>
 
 
             </div>
         </div>
     </div>
-
-
-    <!--
-        <section class="container-fluid banner">
-            <div class="ban">
-                <div class="container">
-                    <div class="inner-banner jumbotron">
-                        <div class="row"></div>
-                            <div class="col-md-9">
-                                <h2 class="display-3"> Bienvenue sur le blog de Jean Forteroche</h2>
-                                <hr>
-                                <h4 id="subTitleBanner">
-                                    Le mot de l'auteur :
-                                </h4>
-                                <p id="wordAuth">
-                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tortor libero, ultrices eget magna non, blandit sodales eros. Nulla dignissim sit amet augue sed rutrum. Pellentesque mi velit, dignissim non arcu nec, vulputate ultricies arcu. Ut tempor est in neque varius tempus. Nulla eu feugiat elit. Pellentesque ornare massa a nulla tincidunt molestie. Quisque vel dui mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce malesuada molestie nunc, quis blandit turpis. Vivamus id bibendum dolor. Sed nibh nibh, mattis ac gravida viverra, pretium ac lacus. Donec neque dui, fermentum et arcu sit amet, venenatis mattis risus. Proin non pretium erat. Suspendisse quis est dolor. Ut fringilla urna ut nunc commodo ornare. Vivamus maximus cursus libero, eget elementum nunc..."
-                                </p>
-                            </div>
-                            <div class="col-md-3">
-
-                            </div>
-                    </div>
-                </div>
-                <img id="imgBanner" src="Public/picture/ban.jpg" alt=" Banner " />
-            </div>
-
-        </section>
-        -->
         <!-- End Banner -->
 
     <h2 id="subTitle">Derniers billets du blog :</h2>

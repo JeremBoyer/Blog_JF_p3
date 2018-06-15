@@ -1,15 +1,19 @@
-<?php $title = 'Blog de Jean Forteroche'; ?>
+<?php
+$title = 'Blog de Jean Forteroche';
+
+?>
 
 <?php ob_start(); ?>
     <h1>Ajoutez un article.</h1>
     <p>Derniers billets du blog :</p>
 
-    <?php
-    if(isset($flash)){
-    $flash->flash();
-    }
-    ?>
+
     <div class="container">
+        <?php
+        if(isset($flash)){
+            $flash->flash();
+        }
+        ?>
     <form action="index.php?action=addPost" method="post">
         <div class="form-group">
             <label for="title">Titre</label><br />

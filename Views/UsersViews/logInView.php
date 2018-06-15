@@ -1,14 +1,16 @@
-<?php $title = 'Blog de Jean Forteroche'; ?>
+<?php
+$title = 'Blog de Jean Forteroche';
+?>
 
 <?php ob_start(); ?>
     <h1>Blog de Jean Forteroche!</h1>
     <p>Derniers billets du blog :</p>
-
 <?php
 if(isset($flash)){
-$flash->flash();
+    $flash->flash();
 }
 ?>
+
     <div class="container">
         <div class="card card-outline-secondary">
             <div class="card-header">

@@ -80,6 +80,10 @@ if (session_status() === PHP_SESSION_NONE) {
                     <li class="nav-item">
                         <a class="nav-link" href="index.php?action=logIn"> Connexion </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?action=signUp"> Inscription </a>
+                    </li>
                     <?php
                         }
                     ?>
@@ -90,9 +94,9 @@ if (session_status() === PHP_SESSION_NONE) {
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $_SESSION['user']['username']?></a>
                         <div class="dropdown-menu">
-                            <a class="nav-link dropdown-item" href="index.php?action=profile"> Profil </a>
+                            <a class="nav-link dropdown-item" href="index.php?action=profile&amp;id=<?= $_SESSION['user']['id']?>"><i class="fas fa-user"></i> Profil </a>
 
-                            <a class="nav-link dropdown-item" href="index.php?action=logOut"> Deconnexion </a>
+                            <a class="nav-link dropdown-item" href="index.php?action=logOut"><i class="fas fa-sign-out-alt"></i> Deconnexion </a>
 
                             <a href="index.php?action=addPost" class="nav-link dropdown-item"><i class="fas fa-feather"></i> Ajouter un article</a>
                         </div>

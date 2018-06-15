@@ -36,9 +36,9 @@
 <div class="container">
     <div class="comment-tabs">
         <ul class="nav nav-tabs" role="tablist">
-            <li class="active"><a href="#comments-logout" role="tab" data-toggle="tab"><h4
-                            class="reviews text-capitalize">Comments</h4></a></li>
-            <li><a href="#add-comment" role="tab" data-toggle="tab"><h4 class="reviews text-capitalize">Add comment</h4>
+            <li class="active"><a><h4
+                            class="reviews text-capitalize">Les commentaires</h4></a></li>
+            <li><a href="index.php?action=addComment&amp;id=<?= $post['id'] ?>"><h4 ><i class="far fa-plus-square"></i></h4>
                 </a></li>
         </ul>
 
@@ -51,7 +51,7 @@
                     ?>
                     <li class="media">
                         <div class="media-body row">
-                            <div class="col-md-8 bodyComment">
+                            <div class="col-md-7 bodyComment">
                                 <h4 class="media-heading text-uppercase reviews"><?= htmlspecialchars($comment['username']) ?> </h4>
 
                                 <p class="media-comment">
@@ -59,8 +59,8 @@
                                 </p>
 
                             </div>
-                            <div class="col-md-4 headComment">
-                                <p> <?= $comment['created_comment_at_fr'] ?>
+                            <div class="col-md-5 headComment">
+                                <p> <i class="far fa-clock"></i><?= $comment['created_comment_at_fr'] ?>
                                     <a href="index.php?action=updateComment&amp;id=<?= $comment['id'] ?>"
                                        class="btn btn-xs btn-primary">
                                         <i class="fas fa-pencil-alt"></i>
@@ -79,14 +79,14 @@
                                            class="btn btn-warning btn-xs">
                                             <i class="far fa-flag"></i>
                                         </a>
-                                        <?php
+                            <?php
                                     } else {
-                                    ?>
+                            ?>
                                 <p><em>Vous avez signalé ce commentaires!</em></p>
-                                <?php
+                            <?php
                                     }
                                 }
-                                ?>
+                            ?>
                             </div>
 
                         </div>

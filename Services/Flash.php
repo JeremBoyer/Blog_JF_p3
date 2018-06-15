@@ -19,11 +19,11 @@ class Flash
 
     public function flash()
     {
-        if(isset($_SESSION['flash'])){
+        if (isset($_SESSION['flash'])) {
     ?>
         <div class="container">
             <div class="alert alert-<?= $_SESSION['flash']['type'] ?>" role="alert">
-                <?= $_SESSION['flash']['message'] ?>
+                <?php echo $_SESSION['flash']['message'] ?>
             </div>
         </div>
     <?php
