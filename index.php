@@ -9,6 +9,7 @@ require ('Controller/PostController.php');
 require ('Controller/CategoryController.php');
 require ('Controller/UserController.php');
 require ('Controller/ReportController.php');
+require ('Controller/AdminController.php');
 
 try {
     if (isset($_GET['action'])) {
@@ -174,6 +175,8 @@ try {
                     } else {
                         throw new Exception('Le Commentaire ne peut être supprimer');
                     }
+                } elseif ($_GET['action'] == 'dashBoard') {
+                    dashBoard();
                 }
             }
         }
