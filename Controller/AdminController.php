@@ -3,14 +3,16 @@ use Blog\Model\UserManager;
 use Blog\Model\PostManager;
 use Blog\Model\CommentManager;
 use Blog\Model\ReportManager;
+use Blog\Model\AdminManager;
+use Blog\Model\Paging;
 
 /*require_once('Services/Flash.php');
-require_once('Services/Paging.php');
 require_once ('Services/Authentication.php');
-
 require_once('Model/CategoryManager.php');
 require_once ('Model/ReportManager.php');*/
 
+require_once('Services/Paging.php');
+require_once ('Model/AdminManager.php');
 require_once ('Model/ReportManager.php');
 require_once('Model/CommentManager.php');
 require_once('Model/PostManager.php');
@@ -18,17 +20,32 @@ require_once ('Model/UserManager.php');
 
 function dashBoard()
 {
-    $userManager = new UserManager();
-    $postManager = new PostManager();
-    $commentManager = new CommentManager();
-    $reportManager =  new Blog\Model\ReportManager();
+    $userAdminManager = new AdminManager();
+    $postAdminManager = new AdminManager();
+    $commentAdminManager = new AdminManager();
+    $reportAdminManager =  new AdminManager();
 
-    $nbPosts = $postManager->nbPosts();
+    $nbPosts = $postAdminManager->nbPosts();
 
-    $nbComments = $commentManager->nbComments();
+    $nbComments = $commentAdminManager->nbComments();
 
-    $nbUsers = $userManager->nbUsers();
+    $nbUsers = $userAdminManager->nbUsers();
 
-    $nbReported = $reportManager->nbReported();
-    require ('Views/AdminViews/DashBoardViews.php');
+    $nbReported = $reportAdminManager->nbReported();
+    require ('Views/AdminViews/DashBoardView.php');
+}
+
+function getModeration($page)
+{
+    $adminManager = new AdminManager();
+    $reportManager = new ReportManager();
+    $reportAdmin = new AdminManager();
+    $nbReportManager = new AdminManager();
+    $pagingService = new Paging();
+
+
+    $comments = $adminManager->getModeration($page);
+    $totalPages = $pagingService->getCommentPaging();
+
+    require ('Views/AdminViews/ModeratorView.php');
 }

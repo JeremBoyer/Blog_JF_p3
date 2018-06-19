@@ -177,6 +177,14 @@ try {
                     }
                 } elseif ($_GET['action'] == 'dashBoard') {
                     dashBoard();
+                } elseif ($_GET['action'] == 'getModeration') {
+                    if(!empty($_GET['page']) AND $_GET['page'] > 0 ) {
+                        $page = intval($_GET['page']);
+                        getModeration($page);
+                    } else {
+                        $currentPage = 1;
+                        getModeration($currentPage);
+                    }
                 }
             }
         }

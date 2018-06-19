@@ -119,16 +119,5 @@ class PostManager extends Manager
 
     // Administration
 
-    public function nbPosts()
-    {
-        $db = $this->dbConnect();
-        $req = $db->query('SELECT COUNT(*) AS nbPosts
-                                      FROM post');
-
-        $req->execute();
-        $nbPost = $req->fetch();
-        return $nbPost;
-    }
-
 
 }

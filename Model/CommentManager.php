@@ -93,18 +93,6 @@ class CommentManager extends Manager
 
     //Administration
 
-    public function nbComments()
-    {
-        $db = $this->dbConnect();
-        $req = $db->query('SELECT COUNT(*) AS nbComments
-                                    FROM comment
-                                    ');
-        $req->execute();
-
-        $nbComments = $req->fetch();
-
-        return $nbComments;
-    }
 
 }
 

@@ -46,36 +46,10 @@ a
 }
 
 /* Banner */
-/*.banner {
 
-}
- .inner-banner {
-     font-family: 'Roboto Slab', serif;
-     position: absolute;
-     margin-top: 30px;
-     max-width: 80%;
-     min-height: 20%;
-     min-width: 30%;
-     opacity: 50%;
- }
-
-#subTitleBanner {
-    text-align: left;
-}
-
- #wordAuth {
-     font-style: italic;
-     text-align: justify;
- }
-
- #imgBanner {
-     width: 100%;
-     max-width: 100%;
- }*/
 body, html {
     height: 100%;
     margin: 0;
-    color: #777;
 }
 
 .ban {
@@ -369,7 +343,7 @@ body.fixed-nav {
         margin-top: 56px;
     }
     #mainNav .navbar-collapse .navbar-sidenav > .nav-item {
-        width: 250px;
+        width: 150px;
         padding: 0;
     }
     #mainNav .navbar-collapse .navbar-sidenav > .nav-item > .nav-link {

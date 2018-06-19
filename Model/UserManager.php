@@ -85,18 +85,5 @@ class UserManager extends Manager
         return $checkuser;
     }
 
-    // Administration
-
-    public function nbUsers()
-    {
-        $db = $this->dbConnect();
-
-        $req = $db->prepare('SELECT COUNT(*) AS nbUsers
-                                       FROM user');
-
-        $req->execute();
-        $nbUsers = $req->fetch();
-        return $nbUsers;
-    }
 
 }

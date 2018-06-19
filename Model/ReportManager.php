@@ -66,16 +66,5 @@ class ReportManager extends Manager
 
     // admin
 
-    public function nbReported()
-    {
-        $db = $this->dbConnect();
-        $req = $db->query('SELECT COUNT(*) AS nbReported
-                                    FROM report_comment
-                                    ');
-        $req->execute();
 
-        $nbComments = $req->fetch();
-
-        return $nbComments;
-    }
 }
