@@ -34,7 +34,8 @@
                             <h3><?= $post['postTitle'] ?></h3>
                         </div>
                         <div class="text-right">
-                            <em>le <?= $post['created_at'] ?></em>
+                            <em>le <?php $date = new DateTime($post['created_at']);
+                                echo $date->format('d-m-Y H:i:s'); ?></em>
                         </div>
                     <p><?= $post['content'] ?></p>
 

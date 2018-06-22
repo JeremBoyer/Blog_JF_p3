@@ -11,7 +11,8 @@
                     <?= htmlspecialchars($post['title']) ?>
                 </h3>
                 <div class="text-muted">
-                    <em>le <?= $post['created_at_fr'] ?></em>
+                    <em>le <?php $date = new DateTime($post['created_at_fr']);
+                        echo $date->format('d-m-Y H:i:s'); ?></em>
                 </div>
             </div>
 
@@ -32,11 +33,11 @@
 
             <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
                 <div class="form-group">
-                    <label for="user_id_fk">Auteur</label><br />
-                    <input class="form-control" type="text" id="user_id_fk" name="user_id_fk" placeholder="Auteur"/>
+                    <label for="user_id_fk"></label><br />
+                    <input class="form-control" type="hidden" id="user_id_fk" name="user_id_fk" value="<?=$_SESSION['user']['id']?>"/>
                 </div>
                 <div class="form-group">
-                    <label for="comment">Commentaire</label><br />
+                    <label for="comment"><h3>Commentaire</h3></label><br />
                     <textarea class="form-control" id="mytextarea" name="comment" placeholder="Votre commentaire..."></textarea>
                 </div>
                 <div>
@@ -56,12 +57,13 @@ while ($comment = $comments->fetch())
                 <h4 class="media-heading text-uppercase reviews"><?= htmlspecialchars($comment['username']) ?> </h4>
 
                 <p class="media-comment">
-                    <?= nl2br(htmlspecialchars($comment['comment'])) ?>
+                    <?= $comment['comment'] ?>
                 </p>
 
             </div>
             <div class="col-md-5 headComment">
-                <p> <i class="far fa-clock"></i><?= $comment['created_comment_at_fr'] ?>
+                <p> <i class="far fa-clock"></i> <?php $date = new DateTime($comment['created_comment_at_fr']);
+                    echo $date->format('d-m-Y H:i:s'); ?>
                     <a href="index.php?action=updateComment&amp;id=<?= $comment['id'] ?>"
                        class="btn btn-xs btn-primary">
                         <i class="fas fa-pencil-alt"></i>

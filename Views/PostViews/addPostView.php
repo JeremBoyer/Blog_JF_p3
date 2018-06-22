@@ -15,18 +15,15 @@ $title = 'Blog de Jean Forteroche';
         ?>
     <form action="index.php?action=addPost" method="post">
         <div class="form-group">
-            <label for="title">Titre</label><br />
+            <label for="title"><h3>Titre</h3></label><br />
             <input class="form-control" type="text" id="title" name="title" />
         </div>
         <div class="form-group">
-            <label for="user_id_fk">Utilisateur</label><br />
-            <input class="form-control" type="text" id="user_id_fk" name="user_id_fk" />
+            <label for="user_id_fk"></label><br />
+            <input class="form-control" type="hidden" id="user_id_fk" name="user_id_fk" value="<?= $_SESSION['user']['id']?>" />
         </div>
         <div class="form-group">
-            <label for="category_id_fk">Categorie</label><br />
-
-
-                <h3>Livres :</h3>
+            <label for="category_id_fk"><h3>Livres :</h3></label><br />
                 <?php
                 while ($category = $categories->fetch()) {
                     ?>
@@ -50,7 +47,7 @@ $title = 'Blog de Jean Forteroche';
 
         </div>
         <div class="form-group">
-            <label for="text">Article</label><br />
+            <label for="text"><h3>Article</h3></label><br />
             <textarea id="mytextarea" name="content"></textarea>
         </div>
         <div>
@@ -65,22 +62,23 @@ $title = 'Blog de Jean Forteroche';
 
             <?php
 
-            while ($data = $posts->fetch())
+            while ($post = $posts->fetch())
             {
                 ?>
         <div class="row">
 
 
                     <h3>
-                        <?= $data['title'] ?>
-                        <em>le <?= $data['created_at'] ?></em>
+                        <?= $post['title'] ?>
+                        <em>le <?php $date = new DateTime($post['created_at']);
+                            echo $date->format('d-m-Y H:i:s'); ?></em>
 
                     </h3>
 
                     <p>
-                        <?= (substr($data['content'], 0, 200)) ?>...
+                        <?= (substr($post['content'], 0, 200)) ?>...
                         <br />
-                        <a href="index.php?action=post&amp;id=<?= $data['id'] ?>" class="btn btn-xs btn-primary">Lire la suite...</a>
+                        <a href="index.php?action=post&amp;id=<?= $post['id'] ?>" class="btn btn-xs btn-primary">Lire la suite...</a>
 
                     </p>
 

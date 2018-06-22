@@ -33,7 +33,7 @@ class AdminManager extends Manager
     public function nbReported()
     {
         $db = $this->dbConnect();
-        $req = $db->query('SELECT COUNT(*) AS nbReported
+        $req = $db->query('SELECT COUNT(DISTINCT id_comment_pfk) AS nbReported
                                     FROM report_comment
                                     ');
         $req->execute();
@@ -96,6 +96,49 @@ class AdminManager extends Manager
                                     WHERE id_comment_pfk = :id_comment_pfk
                                     ');
         $req->bindParam(':id_comment_pfk', $commentId, \PDO::PARAM_INT);
+
+        $req->execute();
+
+        $nbComments = $req->fetch();
+
+        return $nbComments;
+    }
+
+    public function getAdminUser()
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT * 
+                                      FROM user 
+                                      WHERE user.deleted_at IS NULL 
+                                      ORDER BY user.register_at ');
+        $req->execute();
+        return $req;
+    }
+
+    public function nbComment($userId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT COUNT(id_comment_pfk)
+                                    FROM report_comment
+                                    WHERE id_user_pfk = :id_user_pfk
+                                    ');
+        $req->bindParam(':id_user_pfk', $userId, \PDO::PARAM_INT);
+
+        $req->execute();
+
+        $nbComments = $req->fetch();
+
+        return $nbComments;
+    }
+
+    public function nbUserReport($userId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT COUNT(*)
+                                    FROM report_comment
+                                    WHERE id_user_pfk = :id_user_pfk
+                                    ');
+        $req->bindParam(':id_user_pfk', $userId, \PDO::PARAM_INT);
 
         $req->execute();
 

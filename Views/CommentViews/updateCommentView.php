@@ -11,7 +11,8 @@
                     <?= htmlspecialchars($post['title']) ?>
                 </h3>
                 <div class="text-muted">
-                    <em>le <?= $post['created_at_fr'] ?></em>
+                    <em>le <?php $date = new DateTime($post['created_at_fr']);
+                        echo $date->format('d-m-Y H:i:s'); ?></em>
                 </div>
             </div>
 

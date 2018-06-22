@@ -11,7 +11,8 @@
                 <?= htmlspecialchars($post['title']) ?>
             </h3>
             <div class="text-muted">
-                <em>le <?= $post['created_at_fr'] ?></em>
+                <em>le <?php $date = new DateTime($post['created_at_fr']);
+                    echo $date->format('d-m-Y H:i:s'); ?></em>
             </div>
             <?php
                 if(Authentication::isLogged()){
@@ -60,7 +61,8 @@
 
                             </div>
                             <div class="col-md-5 headComment">
-                                <p> <i class="far fa-clock"></i><?= $comment['created_comment_at_fr'] ?>
+                                <p> <i class="far fa-clock"></i><?php $date = new DateTime($comment['created_comment_at_fr']);
+                                    echo $date->format('d-m-Y H:i:s'); ?>
                                     <a href="index.php?action=updateComment&amp;id=<?= $comment['id'] ?>"
                                        class="btn btn-xs btn-primary">
                                         <i class="fas fa-pencil-alt"></i>

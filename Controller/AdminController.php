@@ -32,7 +32,7 @@ function dashBoard()
     $nbUsers = $userAdminManager->nbUsers();
 
     $nbReported = $reportAdminManager->nbReported();
-    require ('Views/AdminViews/DashBoardView.php');
+    require ('Views/AdminViews/dashBoardView.php');
 }
 
 function getModeration($page)
@@ -47,5 +47,15 @@ function getModeration($page)
     $comments = $adminManager->getModeration($page);
     $totalPages = $pagingService->getCommentPaging();
 
-    require ('Views/AdminViews/ModeratorView.php');
+    require ('Views/AdminViews/moderatorView.php');
+}
+
+function getAdminUser()
+{
+    $adminManager = new AdminManager();
+    $nbCommentManager = new AdminManager();
+    $nbUserReportManager = new AdminManager();
+    $users = $adminManager->getAdminUser();
+
+    require ('Views/AdminViews/adminUserView.php');
 }

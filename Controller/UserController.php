@@ -94,3 +94,31 @@ function logOut()
 
     require('Views/UsersViews/logInView.php');
 }
+
+function deleteUser($userId)
+{
+    $userManager = new UserManager();
+    $deleteUser = $userManager->deleteUser($userId);
+
+    $flash = new Flash();
+
+    if($deleteUser === false) {
+        $flash->setFlash('Impossible de supprimer l\'utilisateur', 'danger');
+    } else {
+        $flash->setFlash('L\'utilisateur a bien été supprimé', 'success');
+    }
+}
+
+function deleteSoftUser($userId)
+{
+    $userManager = new UserManager();
+    $deleteUser = $userManager->deleteSoftUser($userId);
+
+    $flash = new Flash();
+
+    if($deleteUser === false) {
+        $flash->setFlash('Impossible de désactiver l\'utilisateur', 'danger');
+    } else {
+        $flash->setFlash('L\'utilisateur a bien été désactivé', 'success');
+    }
+}

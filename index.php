@@ -185,6 +185,20 @@ try {
                         $currentPage = 1;
                         getModeration($currentPage);
                     }
+                } elseif ($_GET['action'] == 'getAdminUser') {
+                    getAdminUser();
+                } elseif ($_GET['action'] == 'deleteUser') {
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        deleteUser($_GET['id']);
+                    } else {
+                        throw new Exception('Le Commentaire ne peut être supprimer');
+                    }
+                } elseif ($_GET['action'] == 'deleteSoftUser') {
+                    if (isset($_GET['id']) && $_GET['id'] > 0) {
+                        deleteSoftUser($_GET['id']);
+                    } else {
+                        throw new Exception('Le Commentaire ne peut être supprimer');
+                    }
                 }
             }
         }

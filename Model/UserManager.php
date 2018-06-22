@@ -85,5 +85,23 @@ class UserManager extends Manager
         return $checkuser;
     }
 
+    public function deleteUser($userId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('DELETE FROM user WHERE id = :id');
 
+        $req->bindParam(':id',$userId, \PDO::PARAM_INT);
+
+        $delete = $req->execute();
+    }
+
+    public function deleteSoftUser($userId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('UPDATE user SET deleted_at = NOW() WHERE id = :id');
+
+        $req->bindParam(':id',$userId, \PDO::PARAM_INT);
+
+        $delete = $req->execute();
+    }
 }

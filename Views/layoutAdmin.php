@@ -60,21 +60,21 @@ if (session_status() === PHP_SESSION_NONE) {
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="index.php?action=dashBoard">
                     <i class="far fa-newspaper"></i>
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                <a class="nav-link" href="charts.html">
-                    <i class="fa fa-fw fa-area-chart"></i>
-                    <span class="nav-link-text">Charts</span>
+                <a class="nav-link" href="index.php?action=getModeration">
+                    <i class="far fa-comments"></i>
+                    <span class="nav-link-text"> Commentaires</span>
                 </a>
             </li>
             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                <a class="nav-link" href="tables.html">
-                    <i class="fa fa-fw fa-table"></i>
-                    <span class="nav-link-text">Tables</span>
+                <a class="nav-link" href="index.php?action=getAdminUser">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-link-text"> Utilisateurs</span>
                 </a>
             </li>
         </ul>
