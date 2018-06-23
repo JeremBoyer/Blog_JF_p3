@@ -4,12 +4,16 @@
     <h1>Blog de Jean Forteroche!</h1>
     <p>Derniers billets du blog :</p>
 
-<?php
-if(isset($flash)){
-    $flash->flash();
-}
-?>
+
 <div class="container">
+    <?php
+    if (isset($flashPass)) {
+        $flashPass->flash();
+    }
+    if (isset($flash)) {
+        $flash->flash();
+    }
+    ?>
     <div class="card card-outline-secondary">
         <div class="card-header">
             <h3>Modifier les informations de mon profil</h3>

@@ -11,11 +11,11 @@
                 <?= htmlspecialchars($post['title']) ?>
             </h3>
             <div class="text-muted">
-                <em>le <?php $date = new DateTime($post['created_at_fr']);
-                    echo $date->format('d-m-Y H:i:s'); ?></em>
+                <em>le <?php $date = new DateTime($post['created_at']);
+                    echo $date->format('d-m-Y'); ?></em>
             </div>
             <?php
-                if(Authentication::isLogged()){
+                if(Authentication::isAdmin()){
             ?>
             <div>
                 <p><a href="index.php?action=updatePost&amp;id=<?= $post['id'] ?>" >Modifier l'article</a></p>
@@ -39,7 +39,7 @@
         <ul class="nav nav-tabs" role="tablist">
             <li class="active"><a><h4
                             class="reviews text-capitalize">Les commentaires</h4></a></li>
-            <li><a href="index.php?action=addComment&amp;id=<?= $post['id'] ?>"><h4 ><i class="far fa-plus-square"></i></h4>
+            <li><a href="index.php?action=addComment&amp;id=<?= $post['id'] ?>">  <h4 ><i class="far fa-plus-square"></i></h4>
                 </a></li>
         </ul>
 
@@ -56,29 +56,34 @@
                                 <h4 class="media-heading text-uppercase reviews"><?= htmlspecialchars($comment['username']) ?> </h4>
 
                                 <p class="media-comment">
-                                    <?= nl2br(htmlspecialchars($comment['comment'])) ?>
+                                    <?= $comment['comment'] ?>
                                 </p>
 
                             </div>
                             <div class="col-md-5 headComment">
-                                <p> <i class="far fa-clock"></i><?php $date = new DateTime($comment['created_comment_at_fr']);
-                                    echo $date->format('d-m-Y H:i:s'); ?>
-                                    <a href="index.php?action=updateComment&amp;id=<?= $comment['id'] ?>"
-                                       class="btn btn-xs btn-primary">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </a>
-                                    <a href="index.php?action=deleteSoftComment&amp;id=<?= $comment['id'] ?>"
-                                       class="btn btn-danger btn-xs">
+                                <p> <i class="far fa-clock"></i> <em>le <?php $date = new DateTime($comment['created_at']);
+                                    echo $date->format('d-m-Y H:i:s'); ?></em>
+                            <?php
+                                $checkUser = $userManager->checkUser($_SESSION['user']['email'], $_SESSION['user']['username'], $_SESSION['user']['role'], $comment[0], $comment['id']);
+                                if ($checkUser != false) {
+                            ?>
+                                    <a href="index.php?action=deleteSoftComment&amp;id=<?= $comment['0'] ?>"
+                                       class="text-danger">
                                         <i class="far fa-trash-alt"></i>
                                     </a>
+                                    <a href="index.php?action=updateComment&amp;id=<?= $comment['0'] ?>"
+                                       class="text-primary">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </a>
                             <?php
+                                }
                                 if (Authentication::isLogged()) {
 
-                                $isReport = $reportManager->checkReport(intval($comment['id']), $_SESSION['user']['id']);
+                                $isReport = $reportManager->checkReport(intval($comment['0']), $_SESSION['user']['id']);
                                     if ($isReport == false) {
                                         ?>
-                                        <a href="index.php?action=report&amp;id_comment_pfk=<?= $comment['id'] ?>"
-                                           class="btn btn-warning btn-xs">
+                                        <a href="index.php?action=report&amp;id_comment_pfk=<?= $comment['0'] ?>"
+                                           class="text-warning">
                                             <i class="far fa-flag"></i>
                                         </a>
                             <?php

@@ -1,16 +1,18 @@
 <?php
 use Blog\Model\UserManager;
 use Blog\Model\PostManager;
-use Blog\Model\CommentManager;
+use Blog\Model\CategoryManager;
 use Blog\Model\ReportManager;
 use Blog\Model\AdminManager;
 use Blog\Model\Paging;
 
-/*require_once('Services/Flash.php');
+/*
 require_once ('Services/Authentication.php');
-require_once('Model/CategoryManager.php');
+
 require_once ('Model/ReportManager.php');*/
 
+require_once('Model/CategoryManager.php');
+require_once('Services/Flash.php');
 require_once('Services/Paging.php');
 require_once ('Model/AdminManager.php');
 require_once ('Model/ReportManager.php');
@@ -58,4 +60,16 @@ function getAdminUser()
     $users = $adminManager->getAdminUser();
 
     require ('Views/AdminViews/adminUserView.php');
+}
+
+function getAdminPost($page)
+{
+    $postManager = new PostManager();
+    $nbCommentManager = new AdminManager();
+    $categoryManager = new AdminManager();
+    $pagingService = new Paging();
+    $totalPages = $pagingService->getPaging();
+    $posts = $postManager->getPosts($page);
+
+    require ('Views/AdminViews/adminPostView.php');
 }

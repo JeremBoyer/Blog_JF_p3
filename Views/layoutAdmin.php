@@ -77,6 +77,12 @@ if (session_status() === PHP_SESSION_NONE) {
                     <span class="nav-link-text"> Utilisateurs</span>
                 </a>
             </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+                <a class="nav-link" href="index.php?action=getAdminPost">
+                    <i class="far fa-file-alt"></i>
+                    <span class="nav-link-text"> Articles</span>
+                </a>
+            </li>
         </ul>
 
         <ul class="navbar-nav ml-auto">

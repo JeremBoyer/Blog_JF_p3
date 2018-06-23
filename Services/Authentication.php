@@ -18,4 +18,5 @@ class Authentication
             return false;
         }
     }
+
 }

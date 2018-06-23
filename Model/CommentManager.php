@@ -9,7 +9,7 @@ class CommentManager extends Manager
     public function getComments($postId)
     {
         $db = $this->dbConnect();
-        $comments = $db->prepare('SELECT comment.id, user.username, comment.comment, DATE_FORMAT(comment.created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_comment_at_fr 
+        $comments = $db->prepare('SELECT * 
                                   FROM comment 
                                   LEFT JOIN user 
                                   ON comment.user_id_fk = user.id

@@ -115,7 +115,7 @@ class AdminManager extends Manager
         return $req;
     }
 
-    public function nbComment($userId)
+    public function nbCommentPerUser($userId)
     {
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT COUNT(id_comment_pfk)
@@ -145,6 +145,35 @@ class AdminManager extends Manager
         $nbComments = $req->fetch();
 
         return $nbComments;
+    }
+
+    public function nbCommentPerPost($postId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT COUNT(id)
+                                    FROM comment
+                                    WHERE post_id_fk = :post_id_fk
+                                    ');
+        $req->bindParam(':post_id_fk', $postId, \PDO::PARAM_INT);
+
+        $req->execute();
+
+        $nbComments = $req->fetch();
+
+        return $nbComments;
+    }
+
+    public function getCategory($categoryId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT *
+                                      FROM category
+                                      WHERE id = :id');
+
+        $req->bindParam(':id', $categoryId, \PDO::PARAM_INT);
+        $req->execute();
+        $category = $req->fetch();
+        return $category;
     }
 
 }

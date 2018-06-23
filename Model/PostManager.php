@@ -52,7 +52,7 @@ class PostManager extends Manager
     public function getPost($postId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT id, title, content, category_id_fk, DATE_FORMAT(created_at, \'%d/%m/%Y à %Hh%imin%ss\') AS created_at_fr 
+        $req = $db->prepare('SELECT * 
                                       FROM post 
                                       WHERE deleted_at IS NULL && id = :id');
 

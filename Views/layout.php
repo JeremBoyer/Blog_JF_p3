@@ -92,9 +92,9 @@ if (session_status() === PHP_SESSION_NONE) {
                         if(isset($_SESSION['user'])) {
                     ?>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $_SESSION['user']['username']?></a>
-                        <div class="dropdown-menu">
-                            <a class="nav-link dropdown-item" href="index.php?action=profile&amp;id=<?= $_SESSION['user']['id']?>"><i class="fas fa-user"></i> Profil </a>
+                        <a class="nav-link dropdown-item dropdown-toggle text-white bg-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $_SESSION['user']['username']?></a>
+                        <div class="dropdown-menu bg-dark">
+                            <a class="nav-link dropdown-item " href="index.php?action=profile&amp;id=<?= $_SESSION['user']['id']?>"><i class="fas fa-user"></i> Profil </a>
 
                             <a class="nav-link dropdown-item" href="index.php?action=logOut"><i class="fas fa-sign-out-alt"></i> Deconnexion </a>
 
@@ -127,7 +127,25 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <!-- Footer -->
     <footer class="container-fluid footer">
+        <nav class="navbar navbar-expand-md bg-dark">
+            <div class="container">
+                <div class="col-4">
 
+                </div>
+                <div class="col-4">
+                    <?php
+                        if (Authentication::isAdmin()) {
+                    ?>
+                            <a class="nav-link text-center" href="index.php?action=dashBoard"> Administration </a>
+                    <?php
+                        }
+                    ?>
+                </div>
+                <div class="col-4">
+
+                </div>
+            </div>
+        </nav>
     </footer>
     <!-- End Footer -->
 </body>

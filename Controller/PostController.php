@@ -5,6 +5,7 @@ use Blog\Model\CommentManager;
 use Blog\Model\CategoryManager;
 use Blog\Model\Paging;
 use Blog\Model\ReportManager;
+use Blog\Model\UserManager;
 
 
 require_once('Services/Flash.php');
@@ -13,6 +14,7 @@ require_once ('Services/Authentication.php');
 require_once ('Model/ReportManager.php');
 require_once('Model/PostManager.php');
 require_once('Model/CommentManager.php');
+require_once('Model/UserManager.php');
 require_once('Model/CategoryManager.php');
 require_once ('Model/ReportManager.php');
 
@@ -34,6 +36,7 @@ function post()
 {
     $postManager = new PostManager();
     $commentManager = new CommentManager();
+    $userManager = new UserManager();
     $reportManager = new ReportManager();
     $post = $postManager->getPost($_GET['id']);
     $comments = $commentManager->getComments($_GET['id']);

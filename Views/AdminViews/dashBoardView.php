@@ -31,7 +31,7 @@
                     <div class="card-body display-4 text-center">
                         <div class="mr-5">Votre communauté compte<?=$nbUsers['nbUsers']?> membres!</div>
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
+                    <a class="card-footer text-white clearfix small z-1" href="index.php?action=getAdminUser">
                         <span class="float-left">Voir la liste!</span>
                         <span class="float-right">
                 <i class="fa fa-angle-right"></i>
@@ -47,7 +47,7 @@
                     <div class="card-body display-4 text-center">
                         <div class="mr-5">Il y a <?=$nbComments['nbComments']?> commentaires sur le blog.</div>
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
+                    <a class="card-footer text-white clearfix small z-1" href="index.php?action=getModeration">
                         <span class="float-left">Voir la liste!</span>
                         <span class="float-right">
                 <i class="fa fa-angle-right"></i>
@@ -63,7 +63,7 @@
                     <div class="card-body display-4 text-center">
                         <div class="mr-5"><?=$nbReported['nbReported']?> commentaires ont été signalés.</div>
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
+                    <a class="card-footer text-white clearfix small z-1" href="index.php?action=getModeration">
                         <span class="float-left">Voir le détail!</span>
                         <span class="float-right">
                 <i class="fa fa-angle-right"></i>

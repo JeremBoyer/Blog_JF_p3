@@ -26,19 +26,31 @@ function signUp($username = null, $email = null, $pass = null, $role = null)
 function profile($userId, $username = null, $email = null, $pass = null)
 {
     $userManager = new UserManager();
+    $passManager = new UserManager();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $addUser = $userManager->profile($userId, $username, $email, $pass);
+        $userCheckManager = new UserManager();
 
-        $session = new Flash();
-        if ($addUser === false) {
-            $session->setFlash('Impossible de modfier votre profile', 'danger');
-
+        $userCheck = $userCheckManager->getUser($userId);
+        if (!empty($_POST['pass'])) {
+            $upPass = $passManager->updatePass($userId, $pass);
         } else {
-            $session->setFlash('Vous avez modifié votre profil =)!', 'success');
+            $checkUpPass = true;
+        }
+
+        if ($_POST['username'] == $userCheck['username'] || $_POST['email'] == $userCheck['email']) {
+            $upUser = $userManager->profile($userId, $username, $email);
+        }
+        $flash = new Flash();
+
+        if (!empty($checkUpPass) && ($_POST['username'] == $userCheck['username'] && $_POST['email'] == $userCheck['email'])) {
+            $flash->setFlash('Pour modifier votre profil, veuillez modifier les informations...', 'danger');
+        } elseif (!empty($upPass) === true && ($_POST['username'] == $userCheck['username'] && $_POST['email'] == $userCheck['email'])) {
+            $flash->setFlash('Vous avez modifié votre mot de passe =)!', 'success');
+        } elseif ($upUser === true) {
+            $flash->setFlash('Vous avez modifié votre profil =)!', 'success');
         }
     }
-
     $user = $userManager->getUser($userId);
     require('Views/UsersViews/profileView.php');
 }

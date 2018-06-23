@@ -11,7 +11,7 @@
                     <?= htmlspecialchars($post['title']) ?>
                 </h3>
                 <div class="text-muted">
-                    <em>le <?php $date = new DateTime($post['created_at_fr']);
+                    <em>le <?php $date = new DateTime($post['created_at']);
                         echo $date->format('d-m-Y H:i:s'); ?></em>
                 </div>
             </div>
@@ -34,7 +34,7 @@
             <form action="index.php?action=updateComment&amp;id=<?= $comment['id'] ?>" method="post">
                     <div class="form-group">
                         <label for="comment"><h2>Modifiez le commentaire</h2></label><br />
-                        <textarea class="form-control" id="comment" name="comment" ><?= $comment['comment'] ?></textarea>
+                        <textarea class="form-control" id="mytextarea" name="comment" ><?= $comment['comment'] ?></textarea>
                     </div>
                     <div>
                         <input class="btn btn-primary" type="submit" />

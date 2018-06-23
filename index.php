@@ -117,7 +117,7 @@ try {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if (!empty($_POST['username']) &&
                         !empty($_POST['email'])) {
-                        profile($_GET['id'], $_POST['username'], $_POST['email'], $_POST['pass']);
+                        profile($_GET['id'], $_POST['username'], $_POST['email']);
                     } else {
                         echo 'Erreur : tous les champs ne sont pas remplis !';
                     }
@@ -184,6 +184,14 @@ try {
                     } else {
                         $currentPage = 1;
                         getModeration($currentPage);
+                    }
+                } elseif ($_GET['action'] == 'getAdminPost') {
+                    if(!empty($_GET['page']) AND $_GET['page'] > 0 ) {
+                        $page = intval($_GET['page']);
+                        getAdminPost($page);
+                    } else {
+                        $currentPage = 1;
+                        getAdminPost($currentPage);
                     }
                 } elseif ($_GET['action'] == 'getAdminUser') {
                     getAdminUser();

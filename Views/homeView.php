@@ -13,12 +13,14 @@
                     <div class="col-md-9">
                         <h2 class="display-5"> Bienvenue sur le blog de Jean Forteroche</h2>
                         <hr>
-                        <h4>
+                        <h4 class="text-left text-secondary">
                             Le mot de l'auteur :
                         </h4>
-                        <blockquote class="blockquote text-justify">
-                            <p>
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tortor libero, ultrices eget magna non, blandit sodales eros. Nulla dignissim sit amet augue sed rutrum. Pellentesque mi velit, dignissim non arcu nec, vulputate ultricies arcu. Ut tempor est in neque varius tempus. Nulla eu feugiat elit. Pellentesque ornare massa a nulla tincidunt molestie. Quisque vel dui mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce malesuada molestie nunc, quis blandit turpis. Vivamus id bibendum dolor. Sed nibh nibh, mattis ac gravida viverra, pretium ac lacus. Donec neque dui, fermentum et arcu sit amet, venenatis mattis risus. Proin non pretium erat. "
+                        <blockquote class="blockquote text-justify ">
+                            <p class="bd-callout bd-callout-info">
+                                <em>
+                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tortor libero, ultrices eget magna non, blandit sodales eros. Nulla dignissim sit amet augue sed rutrum. Pellentesque mi velit, dignissim non arcu nec, vulputate ultricies arcu. Ut tempor est in neque varius tempus. Nulla eu feugiat elit. Pellentesque ornare massa a nulla tincidunt molestie. Quisque vel dui mauris. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Fusce malesuada molestie nunc, quis blandit turpis. Vivamus id bibendum dolor. Sed nibh nibh, mattis ac gravida viverra, pretium ac lacus. Donec neque dui, fermentum et arcu sit amet, venenatis mattis risus. Proin non pretium erat. "
+                                </em>
                             </p>
                             <footer class="blockquote-footer text-dark"> <cite title="Source Title"><strong>Jean Forteroche</strong></cite></footer>
                         </blockquote>
@@ -29,7 +31,7 @@
                 </div>
                 <div class="section-btn">
                     <a type="button" href="" class="btn btn-primary">Plus d'info sur l'auteur</a>
-                    <a type="button" href="" class="btn btn-outline-primary ">Les oeuvres</a>
+                    <a type="button" href="" class="btn btn-outline-light" ">Les oeuvres</a>
                 </div>
 
 
@@ -47,19 +49,15 @@
                 <div class="list-group">
                     <h3>Les catégories :</h3>
                     <?php
-                    while ($category = $categories->fetch()) {
-                        ?>
-
-
-                        <div>
-                            <a href="index.php?action=getPostsCategory&amp;category_id_fk=<?= $category['id'] ?>"
-                                class="list-group-item"><?= $category['title'] ?>
-                            </a>
-                        </div>
-
-
-                        <?php
-                    }
+                        while ($category = $categories->fetch()) {
+                    ?>
+                            <div>
+                                <a href="index.php?action=getPostsCategory&amp;category_id_fk=<?= $category['id'] ?>"
+                                    class="list-group-item"><?= $category['title'] ?>
+                                </a>
+                            </div>
+                    <?php
+                        }
                     ?>
                 </div>
             </div>

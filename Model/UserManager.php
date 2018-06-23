@@ -38,21 +38,34 @@ class UserManager extends Manager
         return $signUp;
     }
 
-    public function profile($userId, $username, $email, $pass)
+    public function profile($userId, $username, $email)
     {
         $db = $this->dbConnect();
 
-        $req = $db->prepare('UPDATE user SET username = :username, email = :email, pass = :pass WHERE id = :id');
+        $req = $db->prepare('UPDATE user SET username = :username, email = :email WHERE id = :id');
 
 
         $req->bindParam(':id',$userId, \PDO::PARAM_INT);
         $req->bindParam(':username',$username, \PDO::PARAM_STR);
         $req->bindParam(':email',$email, \PDO::PARAM_STR);
-        $req->bindParam(':pass',$pass, \PDO::PARAM_STR);
 
         $profile = $req->execute();
 
         return $profile;
+    }
+
+    public function updatePass($userId, $pass) {
+        $db = $this->dbConnect();
+        $pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
+
+        $req = $db->prepare('UPDATE user SET pass = :pass WHERE id = :id');
+
+        $req->bindParam(':id',$userId, \PDO::PARAM_INT);
+        $req->bindParam(':pass',$pass, \PDO::PARAM_STR);
+
+        $upPass = $req->execute();
+
+        return $upPass;
     }
 
     public function logIn($email)
@@ -103,5 +116,26 @@ class UserManager extends Manager
         $req->bindParam(':id',$userId, \PDO::PARAM_INT);
 
         $delete = $req->execute();
+    }
+
+    public function checkUser($email, $username, $role, $commentId, $userId)
+    {
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT * 
+                                      FROM user 
+                                      LEFT JOIN comment
+                                      ON comment.user_id_fk = user.id
+                                      WHERE user.email = :email AND user.username = :username AND user.role = :role AND comment.id = :id AND user.id = :userId');
+
+        $req->bindParam(':email',$email, \PDO::PARAM_STR);
+        $req->bindParam(':username',$username, \PDO::PARAM_STR);
+        $req->bindParam(':role',$role, \PDO::PARAM_STR);
+        $req->bindParam(':id',$commentId, \PDO::PARAM_INT);
+        $req->bindParam(':userId',$userId, \PDO::PARAM_INT);
+
+        $req->execute();
+        $user = $req->fetch();
+
+        return $user;
     }
 }

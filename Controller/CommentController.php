@@ -2,16 +2,19 @@
 use Blog\Model\PostManager;
 use Blog\Model\CommentManager;
 use Blog\Model\ReportManager;
+use Blog\Model\UserManager;
 
 
 require_once('Model/PostManager.php');
 require_once('Model/CommentManager.php');
 require_once ('Model/ReportManager.php');
+require_once ('Model/UserManager.php');
 
 function addComment($postId = null, $user = null , $comment = null, $commentId = null, $userId = null)
 {
     $postManager = new PostManager();
     $commentManager = new CommentManager();
+    $userManager = new UserManager();
     $post = $postManager->getPost($_GET['id']);
     $reportManager = new ReportManager();
 

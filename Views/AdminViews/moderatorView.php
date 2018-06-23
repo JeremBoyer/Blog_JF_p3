@@ -1,13 +1,13 @@
-<?php $title = htmlspecialchars('Tableau de Bord'); ?>
+<?php $title = htmlspecialchars('Modération des commentaires'); ?>
 
 <?php ob_start(); ?>
 
 
 <div class="container">
     <?php
-    if(isset($flash)){
-        $flash->flash();
-    }
+        if(isset($flash)){
+            $flash->flash();
+        }
     ?>
     <div class="row">
     <div class="col-1"></div>
