@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
 <h1>Blog de Jean Forteroche!</h1>
-<p><a href="index.php" class="btn btn-xs btn-primary">Retour à la liste des billets</a></p>
+<p><a href="index.php" class="ml-3 btn btn-info">Retour à la liste des billets</a></p>
 
 <div class="row">
     <div class="container card">
@@ -64,6 +64,7 @@
                                 <p> <i class="far fa-clock"></i> <em>le <?php $date = new DateTime($comment['created_at']);
                                     echo $date->format('d-m-Y H:i:s'); ?></em>
                             <?php
+                            if (Authentication::isLoggedView()) {
                                 $checkUser = $userManager->checkUser($_SESSION['user']['email'], $_SESSION['user']['username'], $_SESSION['user']['role'], $comment[0], $comment['id']);
                                 if ($checkUser != false) {
                             ?>
@@ -77,7 +78,8 @@
                                     </a>
                             <?php
                                 }
-                                if (Authentication::isLogged()) {
+                            }
+                                if (Authentication::isLoggedView()) {
 
                                 $isReport = $reportManager->checkReport(intval($comment['0']), $_SESSION['user']['id']);
                                     if ($isReport == false) {

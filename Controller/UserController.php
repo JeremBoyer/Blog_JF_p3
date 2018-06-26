@@ -1,23 +1,49 @@
 <?php
 
 use Blog\Model\UserManager;
+use Blog\Model\Validator;
 
 require_once 'Services/Flash.php';
+require_once 'Services/Validator.php';
 require_once 'Model/UserManager.php';
 
 
 function signUp($username = null, $email = null, $pass = null, $role = null)
 {
     $userManager = new UserManager();
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $addUser = $userManager->signUp($username, $email, $pass, $role);
+        $validator = new Validator();
+        $checkMail = $validator->checkMail();
+        $checkUsername = $validator->checkUsername();
+        $checkPass = $validator->checkPass();
 
-        $session = new Flash();
-        if ($addUser === false) {
-            $session->setFlash('Impossible de vous inscrire :', 'danger');
+        $flash = new Flash();
+        if ($checkMail !== true) {
+            $flash->setFlash($checkMail, 'danger');
+        } elseif ($checkUsername !== true) {
+            $flash->setFlash($checkUsername, 'danger');
+        } elseif ($checkPass !== true) {
+            $flash->setFlash($checkPass, 'danger');
+        } elseif ($checkMail === true && $checkUsername === true && $checkPass === true) {
+            $addUser = $userManager->signUp($username, $email, $pass, $role);
+            if ($addUser === false) {
+                $flash->setFlash('Impossible de vous inscrire :', 'danger');
 
+            } else {
+                $flash->setFlash('Votre profil a été crée =)', 'success');
+                $userIdManager = new UserManager();
+                $userId = $userIdManager->getUserId($_POST['username']);
+
+                $_SESSION['user'] = [
+                    'id'       => $userId['id'],
+                    'username' => $_POST['username'],
+                    'email'    => $_POST['email'],
+                    'role'     => $_POST['role']
+                ];
+            }
         } else {
-            $session->setFlash('Votre profil a été crée =)', 'success');
+            $flash->setFlash('Erreur! Veuillez contacter l\'administrateur', 'danger');
         }
     }
     require('Views/UsersViews/signUpView.php');
@@ -63,11 +89,10 @@ function logIn($email = null)
         $user = $userManager->logIn($email);
         $flash = new Flash();
 
-        $isPasswordCorrect = password_verify($_POST['pass'], $user['pass']);
         if ($user === false) {
             $flash->setFlash('Votre mail ne correspond pas !', 'danger');
 
-        } elseif($isPasswordCorrect === false) {
+        } elseif(password_verify($_POST['pass'], $user['pass']) === false) {
             $flash->setFlash('Votre mot de passe n\'est pas valide!', 'danger');
 
         } else {
@@ -85,15 +110,6 @@ function logIn($email = null)
     }
 
     require('Views/UsersViews/logInView.php');
-}
-
-function checkMail($email)
-{
-    $userManager = new UserManager();
-
-    $checkMail = $userManager->checkMail($email);
-
-    return $checkMail;
 }
 
 function logOut()
@@ -114,11 +130,7 @@ function deleteUser($userId)
 
     $flash = new Flash();
 
-    if($deleteUser === false) {
-        $flash->setFlash('Impossible de supprimer l\'utilisateur', 'danger');
-    } else {
-        $flash->setFlash('L\'utilisateur a bien été supprimé', 'success');
-    }
+    header('Location: index.php?action=getAdminUser');
 }
 
 function deleteSoftUser($userId)
@@ -128,9 +140,5 @@ function deleteSoftUser($userId)
 
     $flash = new Flash();
 
-    if($deleteUser === false) {
-        $flash->setFlash('Impossible de désactiver l\'utilisateur', 'danger');
-    } else {
-        $flash->setFlash('L\'utilisateur a bien été désactivé', 'success');
-    }
+    header('Location: index.php?action=getAdminUser');
 }

@@ -64,7 +64,4 @@ class ReportManager extends Manager
         return $deleteReport;
     }
 
-    // admin
-
-
 }

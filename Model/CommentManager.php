@@ -28,7 +28,7 @@ class CommentManager extends Manager
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT *
                             FROM comment 
-                            WHERE deleted_at IS NULL && id = :id');
+                            WHERE id = :id');
 
         $req->bindParam(':id',$getCommentId, \PDO::PARAM_INT);
 

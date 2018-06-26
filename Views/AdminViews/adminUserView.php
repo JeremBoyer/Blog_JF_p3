@@ -17,7 +17,7 @@
                 <i class="fa fa-table"></i>  Administration des utilisateurs</div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
                             <th>Pseudo</th>
@@ -39,7 +39,7 @@
                                     echo $date->format('d-m-Y H:i:s'); ?></td>
                                 <td>
                                     <?php
-                                        $nbComment = $nbCommentManager->nbComment($user['0']);
+                                        $nbComment = $nbCommentManager->nbCommentPerUser($user['0']);
                                         if ($nbComment == false) {
                                             echo 0;
                                         } else {
@@ -51,7 +51,7 @@
                                 </td>
                                 <td>
                                     <?php
-                                    $nbUserReport = $nbUserReportManager->nbComment($user['0']);
+                                    $nbUserReport = $nbUserReportManager->nbUserReport($user['0']);
                                     if ($nbUserReport == false) {
                                         echo 0;
                                     } else {
@@ -78,7 +78,21 @@
                     </table>
                     <div class="container">
                         <ul class="pagination">
-
+                            <?php
+                            for($i=1;$i<=$totalPages;$i++) {
+                                ?>
+                                <li class="page-item">
+                                    <?php
+                                    if($i == $page) {
+                                        echo '<li class="page-item disabled"><a class="page-link" href="index.php?action=getAdminUser&amp;page='.$i.'">'.$i.'</a></li> ';
+                                    } else {
+                                        echo '<a class="page-link" href="index.php?action=getAdminUser&amp;page='.$i.'">'.$i.'</a> ';
+                                    }
+                                    ?>
+                                </li>
+                                <?php
+                            }
+                            ?>
                         </ul>
                     </div>
 

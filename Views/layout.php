@@ -127,22 +127,25 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <!-- Footer -->
     <footer class="container-fluid footer">
+
         <nav class="navbar navbar-expand-md bg-dark">
-            <div class="container">
-                <div class="col-4">
+            <div class="container-fluid m-4 p-4">
+                <div class="container">
+                    <div class="col-4">
 
-                </div>
-                <div class="col-4">
-                    <?php
-                        if (Authentication::isAdmin()) {
-                    ?>
-                            <a class="nav-link text-center" href="index.php?action=dashBoard"> Administration </a>
-                    <?php
-                        }
-                    ?>
-                </div>
-                <div class="col-4">
+                    </div>
+                    <div class="col-4">
+                        <?php
+                            if (Authentication::isAdmin()) {
+                        ?>
+                                <a class="nav-link text-center" href="index.php?action=dashBoard"> Administration </a>
+                        <?php
+                            }
+                        ?>
+                    </div>
+                    <div class="col-4">
 
+                    </div>
                 </div>
             </div>
         </nav>

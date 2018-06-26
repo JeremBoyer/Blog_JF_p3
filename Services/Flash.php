@@ -9,6 +9,10 @@ class Flash
         }
     }
 
+    /**
+     * @param string $message
+     * @param string $type
+     */
     public function setFlash($message, $type = 'danger')
     {
         $_SESSION['flash'] = [

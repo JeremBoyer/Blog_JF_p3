@@ -1,8 +1,7 @@
 <?php $title = 'Blog de Jean Forteroche'; ?>
 
 <?php ob_start(); ?>
-    <h1>Blog de Jean Forteroche!</h1>
-    <p>Derniers billets du blog :</p>
+    <h1 class="p-4 m-4">Blog de Jean Forteroche!</h1>
 
 
 <div class="container">
@@ -21,7 +20,7 @@
         <div class="card-body">
             <form action="index.php?action=profile&id=<?= $user['id'] ?>" method="post">
                 <div>
-                    <label for="username">Pseudo</label><br/>
+                    <label for="username"></label><h4>Pseudo</h4>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-user"></i></span>
@@ -30,7 +29,7 @@
                     </div>
                 </div>
                 <div>
-                    <label for="email">Email</label><br/>
+                    <label for="email"></label><h4>Email</h4>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-at"></i></span>
@@ -39,7 +38,7 @@
                     </div>
                 </div>
                 <div>
-                    <label for="pass">Password</label><br/>
+                    <label for="pass"></label><h4>Password</h4>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-key"></i></span>
@@ -49,7 +48,7 @@
                 </div>
                 <div>
                     <hr>
-                    <input type="submit" class="btn btn-dark btn-block" value="Modifier mes informations"/>
+                    <input type="submit" class="btn btn-dark btn-block btn-lg" value="Modifier mes informations"/>
                 </div>
             </form>
         </div>

@@ -33,42 +33,7 @@ try {
             }
         } elseif ($_GET['action'] == 'signUp') {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $username = htmlspecialchars($_POST['username']);
-                $mail = htmlspecialchars($_POST['email']);
-                $mail2 = htmlspecialchars($_POST['confirmation_mail']);
-                $pass = sha1($_POST['pass']);
-                $pass2 = sha1($_POST['confirmation_pass']);
-                if (!empty($_POST['username']) &&
-                    !empty($_POST['email']) &&
-                    !empty($_POST['pass']) &&
-                    !empty($_POST['role'])) {
-                    $usernameLength = strlen($username);
-                    if($username <= 255) {
-                        if($mail == $mail2) {
-                            if(filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-                                $checkMail = checkMail($mail);
-                                if($checkMail == 0) {
-                                    if ($pass == $pass2) {
-                                        signUp($_POST['username'], $_POST['email'], $_POST['pass'], $_POST['role']);
-                                    } else {
-                                        $e = "Vos mots de passe ne correspondent pas";
-                                    }
-                                } else {
-                                    $e = "Votre mot de passe est dejà utilisé";
-                                }
-                            } else {
-                                $e = "Vos mots de passe ne correspondent pas";
-                            }
-                        } else {
-                            $e = "Vos emails ne correspondent pas";
-                        }
-                    } else {
-                        $e = "Votre pseudo est beaucoup trop long!";
-                    }
-
-                } else {
-                    echo 'Erreur : tous les champs ne sont pas remplis !';
-                }
+                signUp($_POST['username'], $_POST['email'], $_POST['pass'], $_POST['role']);
             } else {
                 signUp();
             }
@@ -194,7 +159,13 @@ try {
                         getAdminPost($currentPage);
                     }
                 } elseif ($_GET['action'] == 'getAdminUser') {
-                    getAdminUser();
+                    if(!empty($_GET['page']) AND $_GET['page'] > 0 ) {
+                        $page = intval($_GET['page']);
+                        getAdminUser($page);
+                    } else {
+                        $currentPage = 1;
+                        getAdminUser($currentPage);
+                    }
                 } elseif ($_GET['action'] == 'deleteUser') {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
                         deleteUser($_GET['id']);
@@ -215,5 +186,6 @@ try {
         getPosts($currentPage);
     }
 } catch(Exception $e){
-    echo 'Erreur :' . $e;
+    $error =  'Il y a une erreur sur cette page : ' . $e->getMessage();
+    require('Views/errorViews/errorView.php');
 }

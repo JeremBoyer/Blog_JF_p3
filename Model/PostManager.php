@@ -117,7 +117,4 @@ class PostManager extends Manager
         $deleteSoft = $req->execute();
     }
 
-    // Administration
-
-
 }

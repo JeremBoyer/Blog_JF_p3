@@ -52,12 +52,15 @@ function getModeration($page)
     require ('Views/AdminViews/moderatorView.php');
 }
 
-function getAdminUser()
+function getAdminUser($page)
 {
     $adminManager = new AdminManager();
     $nbCommentManager = new AdminManager();
     $nbUserReportManager = new AdminManager();
-    $users = $adminManager->getAdminUser();
+    $pagingService = new Paging();
+
+    $users = $adminManager->getAdminUser($page);
+    $totalPages = $pagingService->getUserPaging();
 
     require ('Views/AdminViews/adminUserView.php');
 }

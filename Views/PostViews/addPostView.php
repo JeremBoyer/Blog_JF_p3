@@ -3,7 +3,7 @@ $title = 'Blog de Jean Forteroche';
 ?>
 
 <?php ob_start(); ?>
-    <h1>Ajoutez un article.</h1>
+    <h1 class="p-4 m-4">Ajoutez un article.</h1>
     <p>Derniers billets du blog :</p>
 
 

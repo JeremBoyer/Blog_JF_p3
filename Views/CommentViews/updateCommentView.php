@@ -1,8 +1,8 @@
 <?php $title = "Blog de JF"; ?>
 
 <?php ob_start(); ?>
-    <h1>Blog de Jean Forteroche!</h1>
-    <p><a href="index.php" class="btn btn-xs btn-primary">Retour à la liste des billets</a></p>
+    <h1 class="p-4 m-4">Blog de Jean Forteroche!</h1>
+    <p><a href="index.php?action=post&amp;id=<?=$post['id']?>" class="ml-3 btn btn-info">Retour à l'article.</a></p>
 <div class="container">
     <div class="row">
         <div class="container card">
@@ -25,7 +25,8 @@
     </div>
 </div>
 
-        <div class="container">
+        <div class="container-fluid m-4 p-4">
+            <div class="container">
             <?php
             if(isset($flash)){
             $flash->flash();
@@ -40,6 +41,7 @@
                         <input class="btn btn-primary" type="submit" />
                     </div>
             </form>
+            </div>
         </div>
 
 

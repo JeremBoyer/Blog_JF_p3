@@ -88,25 +88,15 @@ function updatePost($postId, $postTitle = null, $postContent = null)
 function deletePost($deletePId)
 {
     $postManager = new PostManager();
-    $affectedPost = $postManager->deletePost($deletePId);
-    $flash = new Flash();
+    $postManager->deletePost($deletePId);
 
-    if($affectedPost === false) {
-        $flash->setFlash('Impossible de supprimer l\'article', 'danger');
-    } else {
-        $flash->setFlash('Votre article a bien été supprimé', 'success');
-    }
+    header('Location: index.php?action=getAdminPost');
 }
 
 function deleteSoftPost($deletePId)
 {
     $postManager = new PostManager();
-    $deletedPost = $postManager->deleteSoftPost($deletePId);
-    $flash = new Flash();
+    $postManager->deleteSoftPost($deletePId);
 
-    if($deletedPost === false) {
-        $flash->setFlash('Impossible de désactiver l\'article', 'danger');
-    } else {
-        $flash->setFlash('Votre article a bien été désactivé', 'success');
-    }
+    header('Location: index.php?action=getAdminPost');
 }

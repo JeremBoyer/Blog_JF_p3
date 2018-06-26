@@ -14,7 +14,6 @@ class UserManager extends Manager
 
         $req->bindParam(':id',$userId, \PDO::PARAM_INT);
 
-
         $req->execute();
         $user = $req->fetch();
 
@@ -83,21 +82,6 @@ class UserManager extends Manager
         return $user;
     }
 
-    public function checkMail($email)
-    {
-        $db = $this->dbConnect();
-
-        $req = $db->prepare('SELECT * FROM user WHERE email = :email');
-
-        $req->bindParam(':email',$email, \PDO::PARAM_STR);
-
-        $req->execute();
-
-        $checkuser = $req->rowCount();
-
-        return $checkuser;
-    }
-
     public function deleteUser($userId)
     {
         $db = $this->dbConnect();
@@ -137,5 +121,19 @@ class UserManager extends Manager
         $user = $req->fetch();
 
         return $user;
+    }
+
+    public function getUserId($username)
+    {
+        $db = $this->dbConnect();
+
+        $req = $db->prepare('SELECT id FROM user WHERE username = :username');
+
+        $req->bindParam(':username',$username, \PDO::PARAM_STR);
+
+        $req->execute();
+
+        $userId = $req->fetch();
+        return $userId;
     }
 }

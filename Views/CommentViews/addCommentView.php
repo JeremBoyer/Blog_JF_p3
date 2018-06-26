@@ -2,7 +2,7 @@
 
 <?php ob_start(); ?>
     <h1>Mon super blog !</h1>
-    <p><a href="index.php">Retour à la liste des billets</a></p>
+    <a href="index.php?action=post&amp;id=<?=$post['id']?>" class="ml-3 btn btn-info">Retour à l'article</a>
 
     <div class="row">
         <div class="container card">
@@ -66,20 +66,22 @@ while ($comment = $comments->fetch())
                 <p> <i class="far fa-clock"></i> <em>le  <?php $date = new DateTime($comment['created_at']);
                     echo $date->format('d-m-Y H:i:s'); ?> </em>
                 <?php
-                $checkUser = $userManager->checkUser($_SESSION['user']['email'], $_SESSION['user']['username'], $_SESSION['user']['role'], $comment[0], $comment['id']);
-                if ($checkUser != false) {
-                    ?>
-                    <a href="index.php?action=updateComment&amp;id=<?= $comment[0] ?>"
-                       class="text-primary">
-                        <i class="fas fa-pencil-alt"></i>
-                    </a>
-                    <a href="index.php?action=deleteSoftComment&amp;id=<?= $comment[0] ?>"
-                       class="text-danger">
-                        <i class="far fa-trash-alt"></i>
-                    </a>
-                    <?php
+                if (Authentication::isLoggedView()) {
+                    $checkUser = $userManager->checkUser($_SESSION['user']['email'], $_SESSION['user']['username'], $_SESSION['user']['role'], $comment[0], $comment['id']);
+                    if ($checkUser != false) {
+                        ?>
+                        <a href="index.php?action=updateComment&amp;id=<?= $comment[0] ?>"
+                           class="text-primary">
+                            <i class="fas fa-pencil-alt"></i>
+                        </a>
+                        <a href="index.php?action=deleteSoftComment&amp;id=<?= $comment[0] ?>"
+                           class="text-danger">
+                            <i class="far fa-trash-alt"></i>
+                        </a>
+                        <?php
+                    }
                 }
-                        if (Authentication::isLogged()) {
+                        if (Authentication::isLoggedView()) {
 
                             $isReport = $reportManager->checkReport(intval($comment[0]), $_SESSION['user']['id']);
                             if ($isReport == false) {

@@ -15,7 +15,7 @@
                     <div class="card-body display-4 text-center">
                         <div class="mr-5">Vous avez publié <?=$nbPosts['nbPosts']?> articles!</div>
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="#">
+                    <a class="card-footer text-white clearfix small z-1" href="index.php?action=getAdminPost">
                         <span class="float-left">Voir la liste!</span>
                         <span class="float-right">
                 <i class="fa fa-angle-right"></i>

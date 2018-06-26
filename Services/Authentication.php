@@ -6,6 +6,15 @@ class Authentication
         if (isset($_SESSION['user']) && isset($_SESSION['user']['username'])) {
             return true;
         } else {
+            header('Location: index.php?action=logIn');
+        }
+    }
+
+    static function isLoggedView()
+    {
+        if (isset($_SESSION['user']) && isset($_SESSION['user']['username'])) {
+            return true;
+        } else {
             return false;
         }
     }

@@ -11,6 +11,7 @@ class AdminManager extends Manager
         $db = $this->dbConnect();
         $req = $db->query('SELECT COUNT(*) AS nbComments
                                     FROM comment
+                                    WHERE comment.deleted_at IS NULL
                                     ');
         $req->execute();
 
@@ -23,7 +24,8 @@ class AdminManager extends Manager
     {
         $db = $this->dbConnect();
         $req = $db->query('SELECT COUNT(*) AS nbPosts
-                                      FROM post');
+                                      FROM post
+                                      WHERE post.deleted_at IS NULL');
 
         $req->execute();
         $nbPost = $req->fetch();
@@ -48,7 +50,8 @@ class AdminManager extends Manager
         $db = $this->dbConnect();
 
         $req = $db->prepare('SELECT COUNT(*) AS nbUsers
-                                       FROM user');
+                                       FROM user
+                                       WHERE user.deleted_at IS NULL');
 
         $req->execute();
         $nbUsers = $req->fetch();
@@ -104,13 +107,17 @@ class AdminManager extends Manager
         return $nbComments;
     }
 
-    public function getAdminUser()
+    public function getAdminUser($currentPage)
     {
         $db = $this->dbConnect();
+        $userPerPage = 10;
+        $start = ($currentPage-1)*$userPerPage;
         $req = $db->prepare('SELECT * 
                                       FROM user 
                                       WHERE user.deleted_at IS NULL 
-                                      ORDER BY user.register_at ');
+                                      ORDER BY user.register_at 
+                                      DESC LIMIT ' . $start  . ', ' . $userPerPage
+                                      );
         $req->execute();
         return $req;
     }
@@ -152,7 +159,7 @@ class AdminManager extends Manager
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT COUNT(id)
                                     FROM comment
-                                    WHERE post_id_fk = :post_id_fk
+                                    WHERE post_id_fk = :post_id_fk AND comment.deleted_at IS NULL
                                     ');
         $req->bindParam(':post_id_fk', $postId, \PDO::PARAM_INT);
 

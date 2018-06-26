@@ -40,7 +40,7 @@
     </div>
         <!-- End Banner -->
 
-    <h2 id="subTitle">Derniers billets du blog :</h2>
+    <h2 class="m-3 p-4" id="subTitle">Derniers billets du blog :</h2>
     <div class="container-fluid">
         <div class="row">
             <!--Side Bar-->
@@ -81,7 +81,7 @@
                                     </h3>
                                 </div>
 
-                                <div class="postList">
+                                <div class="postList card-body">
                                 <p>
                                     <?= (substr($post['content'], 0, 200)) ?>
                                     <br/>

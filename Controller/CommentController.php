@@ -9,6 +9,7 @@ require_once('Model/PostManager.php');
 require_once('Model/CommentManager.php');
 require_once ('Model/ReportManager.php');
 require_once ('Model/UserManager.php');
+require_once ('Services/Authentication.php');
 
 function addComment($postId = null, $user = null , $comment = null, $commentId = null, $userId = null)
 {
@@ -61,11 +62,8 @@ function deleteComment($deleteCId)
     $affectedComment = $commentManager->deleteComment($deleteCId);
     $flash = new Flash();
 
-    if ($affectedComment === false) {
-        $flash->setFlash('Impossible de supprimer votre commentaire', 'danger');
-    } else {
-        $flash->setFlash('Votre commentaire a été supprimé =)!', 'success');
-    }
+
+    header('Location: index.php?action=getModeration');
 }
 
 function deleteSoftComment($deleteCId)
@@ -74,9 +72,18 @@ function deleteSoftComment($deleteCId)
     $deletedComment = $commentManager->deleteSoftComment($deleteCId);
     $flash = new Flash();
 
-    if ($deletedComment === false) {
-        $flash->setFlash('Impossible de désactiver votre commentaire', 'danger');
-    } else {
-        $flash->setFlash('Votre commentaire a été désactivé =)!', 'success');
+    if (Authentication::isAdmin()) {
+        header('Location: index.php?action=getModeration');
+    } elseif (Authentication::isLogged()) {
+        $postManager = new PostManager();
+        $commentPManager = new CommentManager();
+        $commentsManager = new CommentManager();
+        $userManager = new UserManager();
+        $reportManager = new ReportManager();
+        $getPostId = $commentPManager->getComment($_GET['id']);
+        $post = $postManager->getPost($getPostId['post_id_fk']);
+        $comments = $commentsManager->getComments($getPostId['post_id_fk']);
+
+        require('Views/PostViews/postView.php');
     }
 }
