@@ -76,25 +76,9 @@
                         ?>
                         </tbody>
                     </table>
-                    <div class="container">
-                        <ul class="pagination">
-                            <?php
-                            for($i=1;$i<=$totalPages;$i++) {
-                                ?>
-                                <li class="page-item">
-                                    <?php
-                                    if($i == $page) {
-                                        echo '<li class="page-item disabled"><a class="page-link" href="index.php?action=getAdminUser&amp;page='.$i.'">'.$i.'</a></li> ';
-                                    } else {
-                                        echo '<a class="page-link" href="index.php?action=getAdminUser&amp;page='.$i.'">'.$i.'</a> ';
-                                    }
-                                    ?>
-                                </li>
-                                <?php
-                            }
-                            ?>
-                        </ul>
-                    </div>
+                    <?php
+                    $pagingService->paging($page, $totalPages);
+                    ?>
 
                 </div>
             </div>

@@ -3,9 +3,24 @@ namespace Blog\Model;
 
 require_once ("Model/Manager.php");
 
+/**
+ * Class CommentManager
+ * @package Blog\Model
+ *
+ * All queries related to comment
+ */
 class CommentManager extends Manager
 {
 
+    /**
+     * Request to get comments related to a post.
+     *
+     * Use in CommentController.php: addComment, deleteSoftComment.
+     * Use in PostController.php: post.
+     *
+     * @param int $postId
+     * @return bool|\PDOStatement
+     */
     public function getComments($postId)
     {
         $db = $this->dbConnect();
@@ -23,6 +38,12 @@ class CommentManager extends Manager
         return $comments;
     }
 
+    /**
+     * Request to get a comment with its id.
+     *
+     * @param int $getCommentId
+     * @return bool|\PDOStatement::fetch
+     */
     public function getComment($getCommentId)
     {
         $db = $this->dbConnect();
@@ -38,7 +59,14 @@ class CommentManager extends Manager
         return $getComment;
     }
 
-
+    /**
+     * Request to insert a comment.
+     *
+     * @param int $postId
+     * @param int $user
+     * @param string $comment
+     * @return bool
+     */
     public function addComment($postId, $user, $comment)
     {
         $db = $this->dbConnect();
@@ -48,11 +76,18 @@ class CommentManager extends Manager
         $comments->bindParam(':user_id_fk',$user, \PDO::PARAM_INT);
         $comments->bindParam(':comment',$comment, \PDO::PARAM_STR);
 
-        $affectedLines = $comments->execute();
+        $addedComment = $comments->execute();
 
-        return $affectedLines;
+        return $addedComment;
     }
 
+    /**
+     * Request to update a comment, based on its id.
+     *
+     * @param string $newComment
+     * @param int $commentId
+     * @return bool
+     */
     public function updateComment($newComment, $commentId)
     {
         $db = $this->dbConnect();
@@ -69,6 +104,11 @@ class CommentManager extends Manager
         return $upDatedComments;
     }
 
+    /**
+     * Request to delete a comment, based on its id.
+     *
+     * @param int $deleteCId
+     */
     public function deleteComment($deleteCId)
     {
         $db = $this->dbConnect();
@@ -79,6 +119,12 @@ class CommentManager extends Manager
         $delete = $req->execute();
     }
 
+    /**
+     * Request to up the field deleted_at,
+     * based on its id.
+     *
+     * @param int $deleteCId
+     */
     public function deleteSoftComment($deleteCId)
     {
         $db = $this->dbConnect();
@@ -90,10 +136,6 @@ class CommentManager extends Manager
 
         $deleteSoft = $req->execute();
     }
-
-    //Administration
-
-
 }
 
 

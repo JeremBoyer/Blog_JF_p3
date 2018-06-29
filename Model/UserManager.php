@@ -3,9 +3,20 @@ namespace Blog\Model;
 
 require_once 'Model/Manager.php';
 
+/**
+ * Class UserManager
+ * @package Blog\Model
+ *
+ * All queries related to user
+ */
 class UserManager extends Manager
 {
-
+    /**
+     * Request to get user, based on his id.
+     *
+     * @param int $userId
+     * @return bool|\PDOStatement::fetch
+     */
     public function getUser($userId)
     {
         $db = $this->dbConnect();
@@ -20,6 +31,15 @@ class UserManager extends Manager
         return $user;
     }
 
+    /**
+     * Request to sign up a user.
+     *
+     * @param string $username
+     * @param string $email
+     * @param string $pass
+     * @param string $role
+     * @return bool
+     */
     public function signUp($username, $email, $pass, $role)
     {
         $db = $this->dbConnect();
@@ -37,6 +57,14 @@ class UserManager extends Manager
         return $signUp;
     }
 
+    /**
+     * Request to update a user.
+     *
+     * @param int $userId
+     * @param string $username
+     * @param string $email
+     * @return bool
+     */
     public function profile($userId, $username, $email)
     {
         $db = $this->dbConnect();
@@ -53,6 +81,13 @@ class UserManager extends Manager
         return $profile;
     }
 
+    /**
+     * Request to update password
+     *
+     * @param int $userId
+     * @param string$pass
+     * @return bool
+     */
     public function updatePass($userId, $pass) {
         $db = $this->dbConnect();
         $pass = password_hash($_POST['pass'], PASSWORD_DEFAULT);
@@ -67,6 +102,12 @@ class UserManager extends Manager
         return $upPass;
     }
 
+    /**
+     * Request to select a user with his email
+     *
+     * @param string $email
+     * @return mixed
+     */
     public function logIn($email)
     {
         $db = $this->dbConnect();
@@ -82,6 +123,11 @@ class UserManager extends Manager
         return $user;
     }
 
+    /**
+     * Request to delete a user with his id
+     *
+     * @param int $userId
+     */
     public function deleteUser($userId)
     {
         $db = $this->dbConnect();
@@ -92,6 +138,12 @@ class UserManager extends Manager
         $delete = $req->execute();
     }
 
+    /**
+     * Request to up the field deleted_at,
+     * based on its id.
+     *
+     * @param int $userId
+     */
     public function deleteSoftUser($userId)
     {
         $db = $this->dbConnect();
@@ -102,6 +154,16 @@ class UserManager extends Manager
         $delete = $req->execute();
     }
 
+    /**
+     * Request to get a user.
+     *
+     * @param string $email
+     * @param string $username
+     * @param string $role
+     * @param int $commentId
+     * @param int $userId
+     * @return bool|\PDOStatement::fetch
+     */
     public function checkUser($email, $username, $role, $commentId, $userId)
     {
         $db = $this->dbConnect();
@@ -123,6 +185,12 @@ class UserManager extends Manager
         return $user;
     }
 
+    /**
+     * Request to get user id, based on his username.
+     *
+     * @param string $username
+     * @return bool|\PDOStatement
+     */
     public function getUserId($username)
     {
         $db = $this->dbConnect();

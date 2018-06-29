@@ -42,27 +42,10 @@
 
     <h2 class="m-3 p-4" id="subTitle">Derniers billets du blog :</h2>
     <div class="container-fluid">
+        <div class="container">
         <div class="row">
-            <!--Side Bar-->
-            <div class="col-lg-3">
-                <!--List category-->
-                <div class="list-group">
-                    <h3>Les catégories :</h3>
-                    <?php
-                        while ($category = $categories->fetch()) {
-                    ?>
-                            <div>
-                                <a href="index.php?action=getPostsCategory&amp;category_id_fk=<?= $category['id'] ?>"
-                                    class="list-group-item"><?= $category['title'] ?>
-                                </a>
-                            </div>
-                    <?php
-                        }
-                    ?>
-                </div>
-            </div>
+
             <!-- Extracts -->
-            <div class="col-lg-9">
                 <div class="row">
 
                     <?php
@@ -72,25 +55,45 @@
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
                                 <div class="card-header bg-info text-white">
-                                    <em class="text-muted listPostAt">le <?php $date = new DateTime($post['created_at']);
-                                        echo $date->format('d-m-Y H:i:s'); ?>
-                                    </em>
-
-                                    <h3>
+                                    <h4>
                                         <?= ($post['title']) ?>
-                                    </h3>
+                                    </h4>
+
                                 </div>
 
                                 <div class="postList card-body">
+                                    <em class="text-muted listPostAt text-right"><i class="far fa-clock"></i> le <?php $date = new DateTime($post['created_at']);
+                                        echo $date->format('d-m-Y H:i:s'); ?>
+                                    </em>
                                 <p>
-                                    <?= (substr($post['content'], 0, 200)) ?>
+                                    <?= (substr($post['content'], 0, 200)) ?>...
                                     <br/>
                                 </p>
-                                </div>
-                                <div class="card-footer">
-                                    <a href="index.php?action=post&amp;id=<?= $post['id'] ?>"
-                                       class="btn btn-xs btn-primary">Lire la suite...</a>
+                                    <?php
+                                    $nbComment = $adminManager->nbCommentPerPost($post['0']);
+                                    if ($nbComment == false) {
+                                        echo 0;
+                                    } else {
+                                        ?>
+                                        <div class="text-right">
+                                            <i class="far fa-comments"></i> <?=$nbComment['0']?> commentaire(s)
+                                        </div>
+                                        <div class="text-dark">
 
+                                        </div>
+                                        <?php
+                                    }
+                                    ?>
+
+                                </div>
+                                <div class="card-footer d-flex justify-content-around">
+                                    <div class="text-left pr-4">
+                                    <i class="fas fa-user-circle"></i> Jean Forteroche
+                                    </div>
+                                    <div class="mr-auto pl-4">
+                                        <a href="index.php?action=post&amp;id=<?= $post['id'] ?>"
+                                       class="btn btn-xs btn-primary"><i class="fas fa-glasses"></i> La suite...</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -104,25 +107,9 @@
             </div>
         </div>
     </div>
-<div class="container">
-    <ul class="pagination">
 <?php
-for($i=1;$i<=$totalPages;$i++) {
-    ?>
-    <li class="page-item">
-        <?php
-    if($i == $page) {
-        echo '<li class="page-item disabled"><a class="page-link" href="index.php?action=listPosts&amp;page='.$i.'">'.$i.'</a></li> ';
-    } else {
-        echo '<a class="page-link" href="index.php?action=listPosts&amp;page='.$i.'">'.$i.'</a> ';
-    }
-    ?>
-    </li>
-    <?php
-}
+    $pagingService->paging($page, $totalPages);
 ?>
-    </ul>
-</div>
 
 <?php $content = ob_get_clean(); ?>
 

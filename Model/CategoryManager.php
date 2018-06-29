@@ -1,12 +1,21 @@
 <?php
 namespace Blog\Model;
 
-
 require_once("Model/Manager.php");
 
+/**
+ * Class CategoryManager
+ * @package Blog\Model
+ */
 class CategoryManager extends Manager
 {
 
+    /**
+     * Request to get category related and their posts.
+     *
+     * @param int $categoryId
+     * @return bool|\PDOStatement
+     */
     public function getPostsCategory($categoryId)
     {
         $db = $this->dbConnect();
@@ -26,6 +35,14 @@ class CategoryManager extends Manager
         return $posts;
     }
 
+    /**
+     * Request to get category.
+     *
+     * Use in CategoryController.php: listCategories.
+     * Use in PostController.php: addPost, updatePost.
+     *
+     * @return bool|\PDOStatement
+     */
     public function listCategory()
     {
         $db = $this->dbConnect();
@@ -37,6 +54,10 @@ class CategoryManager extends Manager
         return $category;
     }
 
+    /**
+     * Request to get category
+     * @return bool|\PDOStatement::fetch
+     */
     public function getCategory()
     {
         $db = $this->dbConnect();
@@ -48,7 +69,6 @@ class CategoryManager extends Manager
         $category = $req->fetch();
         return $category;
     }
-
 }
 
 

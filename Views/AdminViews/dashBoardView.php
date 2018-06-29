@@ -29,7 +29,7 @@
                         <i class="fas fa-users"></i> Membres
                     </div>
                     <div class="card-body display-4 text-center">
-                        <div class="mr-5">Votre communauté compte<?=$nbUsers['nbUsers']?> membres!</div>
+                        <div class="mr-5">Votre communauté compte <?=$nbUsers['nbUsers']?> membres!</div>
                     </div>
                     <a class="card-footer text-white clearfix small z-1" href="index.php?action=getAdminUser">
                         <span class="float-left">Voir la liste!</span>

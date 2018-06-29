@@ -13,12 +13,13 @@ require ('Controller/AdminController.php');
 
 try {
     if (isset($_GET['action'])) {
-
         if ($_GET['action'] == 'listPosts') {
             if(!empty($_GET['page']) AND $_GET['page'] > 0 ) {
                 $page = intval($_GET['page']);
                 getPosts($page);
             }
+        } elseif ($_GET['action'] == 'listCategories') {
+            listCategories();
         } elseif ($_GET['action'] == 'getPostsCategory') {
             if (isset($_GET['category_id_fk']) && $_GET['category_id_fk'] > 0) {
                 getPostsCategory($_GET['category_id_fk']);
@@ -109,7 +110,7 @@ try {
                 } elseif ($_GET['action'] == 'updatePost'){
                     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                         if (!empty($_POST['title']) && !empty($_POST['content'])) {
-                            updatePost($_GET['id'], $_POST['title'], $_POST['content']);
+                            updatePost($_GET['id'], $_POST['title'], $_POST['category_id_fk'], $_POST['content']);
                         } else {
                             echo 'Erreur : tous les champs ne sont pas remplis, donc le post n\'est pas modifié !';
                         }

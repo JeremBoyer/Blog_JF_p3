@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class Flash
+ *
+ * All function for flash.
+ */
 class Flash
 {
     public function __construct()
@@ -10,8 +15,10 @@ class Flash
     }
 
     /**
+     * Function to set the flash message and its type
+     *
      * @param string $message
-     * @param string $type
+     * @param string $type (css bootstrap class)
      */
     public function setFlash($message, $type = 'danger')
     {
@@ -21,6 +28,9 @@ class Flash
         ];
     }
 
+    /**
+     * Method for show flash message if it exist.
+     */
     public function flash()
     {
         if (isset($_SESSION['flash'])) {

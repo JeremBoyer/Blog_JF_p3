@@ -3,8 +3,25 @@ namespace Blog\Model;
 
 require_once ('Model/Manager.php');
 
+/**
+ * Class ReportManager
+ * @package Blog\Model
+ *
+ * All queries related to report.
+ */
 class ReportManager extends Manager
 {
+    /**
+     * Request to get the post a comment that has been deleted
+     *
+     * Use in AdminController.php: getModeration.
+     * Use in CommentController.php: addComment, deleteSoftComment.
+     * Use in PostController.php: post.
+     * Use in ReportController.php: report.
+     *
+     * @param int $commentId
+     * @return bool|\PDOStatement
+     */
     public function getPostReport($commentId)
     {
         $db =$this->dbConnect();
@@ -22,6 +39,13 @@ class ReportManager extends Manager
         return $postReport;
     }
 
+    /**
+     *
+     *
+     * @param int $commentId
+     * @param int $userId
+     * @return bool|\PDOStatement::fetch
+     */
     public function checkReport($commentId, $userId)
     {
         $db = $this->dbConnect();
@@ -37,6 +61,14 @@ class ReportManager extends Manager
         return $checkReport;
     }
 
+    /**
+     * Request to report a comment,
+     * based on its user id and its comment id.
+     *
+     * @param int $commentId
+     * @param int $userId
+     * @return bool|\PDOStatement
+     */
     public function report($commentId, $userId)
     {
         $db = $this->dbConnect();
@@ -50,18 +82,4 @@ class ReportManager extends Manager
 
         return $affectedComment;
     }
-
-    public function deleteReport($commentId)
-    {
-        $db = $this->dbConnect();
-        //request is not complete
-        $req = $db->prepare('DELETE FROM report_comment WHERE id_comment_pfk = :id_comment_pfk');
-
-        $req->bindParam(':id_comment_pfk',$commentId, \PDO::PARAM_INT);
-
-        $deleteReport = $req->execute();
-
-        return $deleteReport;
-    }
-
 }

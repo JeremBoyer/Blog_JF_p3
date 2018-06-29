@@ -15,7 +15,7 @@ $title = 'Blog de Jean Forteroche';
         ?>
     <form action="index.php?action=addPost" method="post">
         <div class="form-group">
-            <label for="title"><h3>Titre</h3></label><br />
+            <label for="title"></label><h4>Titres :</h4>
             <input class="form-control" type="text" id="title" name="title" />
         </div>
         <div class="form-group">
@@ -23,7 +23,7 @@ $title = 'Blog de Jean Forteroche';
             <input class="form-control" type="hidden" id="user_id_fk" name="user_id_fk" value="<?= $_SESSION['user']['id']?>" />
         </div>
         <div class="form-group">
-            <label for="category_id_fk"><h3>Livres :</h3></label><br />
+            <label for="category_id_fk"></label><h4>Livres :</h4>
                 <?php
                 while ($category = $categories->fetch()) {
                     ?>
@@ -47,7 +47,7 @@ $title = 'Blog de Jean Forteroche';
 
         </div>
         <div class="form-group">
-            <label for="text"><h3>Article</h3></label><br />
+            <label for="text"></label><h4>Article</h4>
             <textarea id="mytextarea" name="content"></textarea>
         </div>
         <div>

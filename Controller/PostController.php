@@ -6,6 +6,7 @@ use Blog\Model\CategoryManager;
 use Blog\Model\Paging;
 use Blog\Model\ReportManager;
 use Blog\Model\UserManager;
+use Blog\Model\AdminManager;
 
 
 require_once('Services/Flash.php');
@@ -22,9 +23,10 @@ function getPosts($page)
 {
 
     $postManager = new PostManager();
-    $categoryManager = new CategoryManager();
+
+    $adminManager = new AdminManager();
     $pagingService = new Paging();
-    $categories = $categoryManager->listCategory();
+
 
     $posts = $postManager->getPosts($page);
 
@@ -65,21 +67,23 @@ function addPost($postTitle = null, $postContent = null, $userId = null, $catego
     require('Views/PostViews/addPostView.php');
 }
 
-function updatePost($postId, $postTitle = null, $postContent = null)
+function updatePost($postId, $postTitle = null, $categoryId = null, $postContent = null)
 {
 
     $postManager = new PostManager();
+    $categoryManager = new CategoryManager();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $upDatedPost = $postManager->updatePost($postId, $postTitle, $postContent);
+        $upDatedPost = $postManager->updatePost($postId, $postTitle, $categoryId, $postContent);
         $flash = new Flash();
 
         if($upDatedPost === false) {
-            $flash->setFlash('Impossible de modifier un article !', 'success');
+            $flash->setFlash('Impossible de modifier un article !', 'danger');
         } else {
             $flash->setFlash('Votre article a été modifié =)!', 'success');
         }
     }
+    $categories = $categoryManager->listCategory();
     $post = $postManager->getPost($postId);
     require('Views/PostViews/updatePostView.php');
 

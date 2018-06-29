@@ -53,7 +53,7 @@
                     <li class="media">
                         <div class="media-body row">
                             <div class="col-md-7 bodyComment">
-                                <h4 class="media-heading text-uppercase reviews"><?= htmlspecialchars($comment['username']) ?> </h4>
+                                <h4 class="media-heading text-uppercase reviews"><i class="fas fa-user-circle"></i> <?= htmlspecialchars($comment['username']) ?> </h4>
 
                                 <p class="media-comment">
                                     <?= $comment['comment'] ?>
@@ -107,7 +107,7 @@
                 ?>
                 <p>
                     <a href="index.php?action=addComment&amp;id=<?= $post['id'] ?>"
-                       class="btn btn-xs btn-primary">Poster un nouveau commentaire...</a>
+                       class="btn btn-xs btn-primary"><i class="far fa-plus-square"></i> Poster un nouveau commentaire...</a>
                 </p>
             </ul>
         </div>

@@ -1,9 +1,20 @@
 <?php
 namespace Blog\Model;
 
-
+/**
+ * Class Validator
+ * @package Blog\Model
+ *
+ * Queries and function to validate a user.
+ */
 class Validator extends Manager
 {
+    /**
+     * Query to check if email exist in bdd.
+     *
+     * @param $email
+     * @return int
+     */
     private function isMail($email)
     {
         $db = $this->dbConnect();
@@ -19,6 +30,12 @@ class Validator extends Manager
         return $checkMail;
     }
 
+    /**
+     * Query to check if username exist in bdd
+     *
+     * @param $username
+     * @return int
+     */
     private function isPseudo($username)
     {
         $db = $this->dbConnect();
@@ -34,6 +51,11 @@ class Validator extends Manager
         return $checkPseudo;
     }
 
+    /**
+     * All verification for mail, and its errors messages.
+     *
+     * @return bool|string
+     */
     public function checkMail()
     {
         $mail = htmlspecialchars($_POST['email']);
@@ -59,6 +81,11 @@ class Validator extends Manager
         }
     }
 
+    /**
+     * All verification for password, and its errors messages
+     *
+     * @return bool|string
+     */
     public function checkPass()
     {
         $pass = sha1($_POST['pass']);
@@ -75,6 +102,11 @@ class Validator extends Manager
         }
     }
 
+    /**
+     * All verification for username, and its errors messages
+     *
+     * @return bool|string
+     */
     public function checkUsername()
     {
         $username = htmlspecialchars($_POST['username']);

@@ -3,9 +3,19 @@ namespace Blog\Model;
 
 require_once ("Model/Manager.php");
 
+/**
+ * Class AdminManager
+ * @package Blog\Model
+ *
+ * All queries related to Administration
+ */
 class AdminManager extends Manager
 {
 
+    /**
+     * Query to count comments
+     * @return bool|\PDOStatement::fetch
+     */
     public function nbComments()
     {
         $db = $this->dbConnect();
@@ -20,6 +30,10 @@ class AdminManager extends Manager
         return $nbComments;
     }
 
+    /**
+     * Query to count posts
+     * @return bool|\PDOStatement::fetch
+     */
     public function nbPosts()
     {
         $db = $this->dbConnect();
@@ -32,6 +46,10 @@ class AdminManager extends Manager
         return $nbPost;
     }
 
+    /**
+     * Query to count reported comments
+     * @return bool|\PDOStatement::fetch
+     */
     public function nbReported()
     {
         $db = $this->dbConnect();
@@ -45,6 +63,11 @@ class AdminManager extends Manager
         return $nbComments;
     }
 
+    /**
+     * Query to select users
+     *
+     * @return bool|\PDOStatement::fetch
+     */
     public function nbUsers()
     {
         $db = $this->dbConnect();
@@ -58,11 +81,17 @@ class AdminManager extends Manager
         return $nbUsers;
     }
 
-    public function getModeration($currentPage)
+    /**
+     * Request to get comment with paging
+     *
+     * @param int $page
+     * @return bool|\PDOStatement
+     */
+    public function getModeration($page)
     {
         $db = $this->dbConnect();
         $postPerPage = 10;
-        $start = ($currentPage-1)*$postPerPage;
+        $start = ($page-1)*$postPerPage;
         $req = $db->prepare('SELECT * 
                                       FROM comment 
                                       INNER JOIN post ON comment.post_id_fk = post.id 
@@ -77,6 +106,12 @@ class AdminManager extends Manager
         return $req;
     }
 
+    /**
+     * Request to select reported comments, based on their id
+     *
+     * @param int $commentId
+     * @return bool|\PDOStatement::fetch
+     */
     public function checkReportAlert($commentId)
     {
         $db = $this->dbConnect();
@@ -91,6 +126,12 @@ class AdminManager extends Manager
         return $checkReport;
     }
 
+    /**
+     * Request to count how many times a comment has been reported.
+     *
+     * @param int $commentId
+     * @return bool|\PDOStatement::fetch
+     */
     public function nbReport($commentId)
     {
         $db = $this->dbConnect();
@@ -107,11 +148,17 @@ class AdminManager extends Manager
         return $nbComments;
     }
 
-    public function getAdminUser($currentPage)
+    /**
+     * Request to get users with paging.
+     *
+     * @param int $page
+     * @return bool|\PDOStatement
+     */
+    public function getAdminUser($page)
     {
         $db = $this->dbConnect();
         $userPerPage = 10;
-        $start = ($currentPage-1)*$userPerPage;
+        $start = ($page-1)*$userPerPage;
         $req = $db->prepare('SELECT * 
                                       FROM user 
                                       WHERE user.deleted_at IS NULL 
@@ -122,6 +169,12 @@ class AdminManager extends Manager
         return $req;
     }
 
+    /**
+     * Request to count how many times a comment has been reported by a user.
+     *
+     * @param int $userId
+     * @return mixed
+     */
     public function nbCommentPerUser($userId)
     {
         $db = $this->dbConnect();
@@ -138,6 +191,10 @@ class AdminManager extends Manager
         return $nbComments;
     }
 
+    /**
+     * @param int $userId
+     * @return bool|\PDOStatement::fetch
+     */
     public function nbUserReport($userId)
     {
         $db = $this->dbConnect();
@@ -154,6 +211,12 @@ class AdminManager extends Manager
         return $nbComments;
     }
 
+    /**
+     * Request to count how many comments per post
+     *
+     * @param int $postId
+     * @return bool|\PDOStatement::fetch
+     */
     public function nbCommentPerPost($postId)
     {
         $db = $this->dbConnect();
@@ -170,6 +233,12 @@ class AdminManager extends Manager
         return $nbComments;
     }
 
+    /**
+     * Request to get category with its id.
+     *
+     * @param int $categoryId
+     * @return bool|\PDOStatement::fetch
+     */
     public function getCategory($categoryId)
     {
         $db = $this->dbConnect();

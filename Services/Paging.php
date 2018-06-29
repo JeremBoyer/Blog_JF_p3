@@ -1,7 +1,18 @@
 <?php
 namespace Blog\Model;
+/**
+ * Class Paging
+ * @package Blog\Model
+ *
+ * Services paging
+ */
 class Paging extends Manager
 {
+    /**
+     * Query to get total pages of posts with 6 posts per page.
+     *
+     * @return int
+     */
     public function getPaging()
     {
         $db = $this->dbConnect();
@@ -17,6 +28,11 @@ class Paging extends Manager
         return $totalPages;
     }
 
+    /**
+     * Query to get total pages of comments with 10 comments per page.
+     *
+     * @return int
+     */
     public function getCommentPaging()
     {
         $db = $this->dbConnect();
@@ -32,6 +48,11 @@ class Paging extends Manager
         return $totalPages;
     }
 
+    /**
+     * Query to get total pages of users with 10 users per page.
+     *
+     * @return int
+     */
     public function getUserPaging()
     {
         $db = $this->dbConnect();
@@ -45,5 +66,86 @@ class Paging extends Manager
         $totalPages = ceil($num/$per_page);
         $totalPages = intval($totalPages);
         return $totalPages;
+    }
+
+    /**
+     * Block of pagination view.
+     *
+     * @param $page
+     * @param $totalPages
+     */
+    public function paging($page, $totalPages)
+    {
+        if ($totalPages > 1) {
+            if (empty($_GET['action'])) {
+                $action = 'listPosts';
+            } else {
+                $action = $_GET['action'];
+            }
+        ?>
+            <div class="container">
+                <ul class="pagination justify-content-center">
+
+        <?php
+            if ($page == 1) {
+        ?>
+               <li class="page-item disabled">
+                   <a class="page-link" href="#" aria-label="Previous">
+                       <span aria-hidden="true">&laquo;</span>
+                       <span class="sr-only">Previous</span>
+                   </a>
+               </li>
+        <?php
+            } else {
+        ?>
+               <li class="page-item">
+                   <a class="page-link" href="index.php?action=<?= $action ?>&amp;page=<?= $page - 1 ?>"
+                      aria-label="Previous">
+                       <span aria-hidden="true">&laquo;</span>
+                       <span class="sr-only">Previous</span>
+                   </a>
+               </li>
+        <?php
+            }
+            for ($i = 1; $i <= $totalPages; $i++) {
+        ?>
+                <li class="page-item">
+                    <?php
+                    if ($i == $page) {
+                        echo '<li class="page-item disabled"><a class="page-link" href="index.php?action=' . $action . '&amp;page=' . $i . '">' . $i . '</a></li> ';
+                    } else {
+                        echo '<a class="page-link" href="index.php?action=' . $action . '&amp;page=' . $i . '">' . $i . '</a> ';
+                    }
+                    ?>
+                </li>
+        <?php
+            }
+            if ($page == $totalPages) {
+        ?>
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+        <?php
+            } else {
+        ?>
+                <li class="page-item">
+                    <a class="page-link" href="index.php?action=<?= $action ?>&amp;page=<?= $page + 1 ?>"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+        <?php
+            }
+        ?>
+                </ul>
+            </div>
+        <?php
+        } else {
+            echo '';
+        }
     }
 }
