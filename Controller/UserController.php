@@ -55,27 +55,34 @@ function profile($userId, $username = null, $email = null, $pass = null)
     $passManager = new UserManager();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $userCheckManager = new UserManager();
-
-        $userCheck = $userCheckManager->getUser($userId);
-        if (!empty($_POST['pass'])) {
-            $upPass = $passManager->updatePass($userId, $pass);
-        } else {
-            $checkUpPass = true;
-        }
-
-        if ($_POST['username'] == $userCheck['username'] || $_POST['email'] == $userCheck['email']) {
-            $upUser = $userManager->profile($userId, $username, $email);
-        }
         $flash = new Flash();
+        if (!empty($_POST['username']) &&
+            !empty($_POST['email'])) {
+            $userCheckManager = new UserManager();
 
-        if (!empty($checkUpPass) && ($_POST['username'] == $userCheck['username'] && $_POST['email'] == $userCheck['email'])) {
-            $flash->setFlash('Pour modifier votre profil, veuillez modifier les informations...', 'danger');
-        } elseif (!empty($upPass) === true && ($_POST['username'] == $userCheck['username'] && $_POST['email'] == $userCheck['email'])) {
-            $flash->setFlash('Vous avez modifié votre mot de passe =)!', 'success');
-        } elseif ($upUser === true) {
-            $flash->setFlash('Vous avez modifié votre profil =)!', 'success');
+            $userCheck = $userCheckManager->getUser($userId);
+            if (!empty($_POST['pass'])) {
+                $upPass = $passManager->updatePass($userId, $pass);
+            } else {
+                $checkUpPass = true;
+            }
+
+            if ($_POST['username'] == $userCheck['username'] || $_POST['email'] == $userCheck['email']) {
+                $upUser = $userManager->profile($userId, $username, $email);
+            }
+
+
+            if (!empty($checkUpPass) && ($_POST['username'] == $userCheck['username'] && $_POST['email'] == $userCheck['email'])) {
+                $flash->setFlash('Pour modifier votre profil, veuillez modifier les informations...', 'danger');
+            } elseif (!empty($upPass) === true && ($_POST['username'] == $userCheck['username'] && $_POST['email'] == $userCheck['email'])) {
+                $flash->setFlash('Vous avez modifié votre mot de passe =)!', 'success');
+            } elseif ($upUser === true) {
+                $flash->setFlash('Vous avez modifié votre profil =)!', 'success');
+            }
+        } else {
+            $flash->setFlash('Tous les champs sont obigatoires :@', 'danger');
         }
+
     }
     $user = $userManager->getUser($userId);
     require('Views/UsersViews/profileView.php');
@@ -86,26 +93,30 @@ function logIn($email = null)
     $userManager = new UserManager();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $user = $userManager->logIn($email);
         $flash = new Flash();
+        if (!empty($_POST['email']) && !empty($_POST['pass'])) {
+            $user = $userManager->logIn($email);
 
-        if ($user === false) {
-            $flash->setFlash('Votre mail ne correspond pas !', 'danger');
+            if ($user === false) {
+                $flash->setFlash('Votre mail ne correspond pas !', 'danger');
 
-        } elseif(password_verify($_POST['pass'], $user['pass']) === false) {
-            $flash->setFlash('Votre mot de passe n\'est pas valide!', 'danger');
+            } elseif(password_verify($_POST['pass'], $user['pass']) === false) {
+                $flash->setFlash('Votre mot de passe n\'est pas valide!', 'danger');
 
+            } else {
+                $flash->setFlash('Vous êtes connecté =)!', 'success');
+
+                $_SESSION['user'] = [
+                    'id'       => $user['id'],
+                    'username' => $user['username'],
+                    'email'    => $user['email'],
+                    'role'     => $user['role']
+                ];
+
+                header('Location: index.php');
+            }
         } else {
-            $flash->setFlash('Vous êtes connecté =)!', 'success');
-
-            $_SESSION['user'] = [
-                'id'       => $user['id'],
-                'username' => $user['username'],
-                'email'    => $user['email'],
-                'role'     => $user['role']
-            ];
-
-            header('Location: index.php');
+            $flash->setFlash('Tous les champs ne sont pas remplis ;@', 'danger');
         }
     }
 

@@ -7,6 +7,9 @@
  */
 class Flash
 {
+    /**
+     * Flash constructor.
+     */
     public function __construct()
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -34,13 +37,13 @@ class Flash
     public function flash()
     {
         if (isset($_SESSION['flash'])) {
-    ?>
+?>
         <div class="container">
             <div class="alert alert-<?= $_SESSION['flash']['type'] ?>" role="alert">
                 <?php echo $_SESSION['flash']['message'] ?>
             </div>
         </div>
-    <?php
+<?php
             unset($_SESSION['flash']);
         }
     }

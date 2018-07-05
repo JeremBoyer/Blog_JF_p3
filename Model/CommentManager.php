@@ -7,16 +7,13 @@ require_once ("Model/Manager.php");
  * Class CommentManager
  * @package Blog\Model
  *
- * All queries related to comment
+ * All queries related to comment.
  */
 class CommentManager extends Manager
 {
 
     /**
      * Request to get comments related to a post.
-     *
-     * Use in CommentController.php: addComment, deleteSoftComment.
-     * Use in PostController.php: post.
      *
      * @param int $postId
      * @return bool|\PDOStatement
@@ -28,7 +25,7 @@ class CommentManager extends Manager
                                   FROM comment 
                                   LEFT JOIN user 
                                   ON comment.user_id_fk = user.id
-                                  WHERE comment.deleted_at IS NULL && comment.post_id_fk = :id 
+                                  WHERE comment.deleted_at IS NULL && comment.post_id_fk = :id && comment.user_id_fk = user.id
                                   ORDER BY comment.created_at DESC');
 
         $comments->bindParam(':id',$postId, \PDO::PARAM_INT);
@@ -42,7 +39,7 @@ class CommentManager extends Manager
      * Request to get a comment with its id.
      *
      * @param int $getCommentId
-     * @return bool|\PDOStatement::fetch
+     * @return null|array
      */
     public function getComment($getCommentId)
     {
@@ -99,7 +96,6 @@ class CommentManager extends Manager
         $comment->bindParam(':id',$commentId, \PDO::PARAM_INT);
 
         $upDatedComments = $comment->execute();
-
 
         return $upDatedComments;
     }

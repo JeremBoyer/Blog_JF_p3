@@ -18,8 +18,8 @@
                     <a class="card-footer text-white clearfix small z-1" href="index.php?action=getAdminPost">
                         <span class="float-left">Voir la liste!</span>
                         <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
                     </a>
                 </div>
             </div>
@@ -34,8 +34,8 @@
                     <a class="card-footer text-white clearfix small z-1" href="index.php?action=getAdminUser">
                         <span class="float-left">Voir la liste!</span>
                         <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
                     </a>
                 </div>
             </div>
@@ -50,8 +50,8 @@
                     <a class="card-footer text-white clearfix small z-1" href="index.php?action=getModeration">
                         <span class="float-left">Voir la liste!</span>
                         <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
                     </a>
                 </div>
             </div>
@@ -66,8 +66,8 @@
                     <a class="card-footer text-white clearfix small z-1" href="index.php?action=getModeration">
                         <span class="float-left">Voir le détail!</span>
                         <span class="float-right">
-                <i class="fa fa-angle-right"></i>
-              </span>
+                            <i class="fa fa-angle-right"></i>
+                        </span>
                     </a>
                 </div>
             </div>

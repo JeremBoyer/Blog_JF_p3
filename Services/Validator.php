@@ -5,7 +5,7 @@ namespace Blog\Model;
  * Class Validator
  * @package Blog\Model
  *
- * Queries and function to validate a user.
+ * Queries and function to validate a user who register.
  */
 class Validator extends Manager
 {
@@ -31,7 +31,7 @@ class Validator extends Manager
     }
 
     /**
-     * Query to check if username exist in bdd
+     * Query to check if username exist in bdd.
      *
      * @param $username
      * @return int
@@ -82,7 +82,7 @@ class Validator extends Manager
     }
 
     /**
-     * All verification for password, and its errors messages
+     * All verification for password, and its errors messages.
      *
      * @return bool|string
      */

@@ -23,10 +23,8 @@ function getPosts($page)
 {
 
     $postManager = new PostManager();
-
-    $adminManager = new AdminManager();
     $pagingService = new Paging();
-
+    $adminManager = new AdminManager();
 
     $posts = $postManager->getPosts($page);
 
@@ -52,18 +50,24 @@ function addPost($postTitle = null, $postContent = null, $userId = null, $catego
     $postManager = new PostManager();
     $categoryManager = new CategoryManager();
 
-    if($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $affectedPost = $postManager->addPost($postTitle, $postContent, $userId, $categoryId);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $flash = new Flash();
+        if (!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['user_id_fk']) && !empty($_POST['category_id_fk'])) {
+            $addedPost = $postManager->addPost($postTitle, $postContent, $userId, $categoryId);
 
-        if($affectedPost === false) {
-            $flash->setFlash('Impossible d\'ajouter un article !', 'danger');
+            if ($addedPost === false) {
+                $flash->setFlash('Impossible d\'ajouter un article !', 'danger');
+            } else {
+                $flash->setFlash('Votre article a été ajouté =)!', 'success');
+            }
         } else {
-            $flash->setFlash('Votre article a été ajouté =)!', 'success');
+            $flash->setFlash('Tous les champs ne sont pas remplis', 'danger');
         }
+
     }
     $categories = $categoryManager->listCategory();
     $posts = $postManager->listPost();
+
     require('Views/PostViews/addPostView.php');
 }
 
@@ -74,33 +78,38 @@ function updatePost($postId, $postTitle = null, $categoryId = null, $postContent
     $categoryManager = new CategoryManager();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $upDatedPost = $postManager->updatePost($postId, $postTitle, $categoryId, $postContent);
         $flash = new Flash();
+        if (!empty($_POST['title']) && !empty($_POST['content'])) {
+            $upDatedPost = $postManager->updatePost($postId, $postTitle, $categoryId, $postContent);
 
-        if($upDatedPost === false) {
-            $flash->setFlash('Impossible de modifier un article !', 'danger');
+
+            if ($upDatedPost === false) {
+                $flash->setFlash('Impossible de modifier un article !', 'danger');
+            } else {
+                $flash->setFlash('Votre article a été modifié =)!', 'success');
+            }
         } else {
-            $flash->setFlash('Votre article a été modifié =)!', 'success');
+            $flash->setFlash('Il faut remplir tous les champs', 'danger');
         }
     }
     $categories = $categoryManager->listCategory();
     $post = $postManager->getPost($postId);
-    require('Views/PostViews/updatePostView.php');
 
+    require('Views/PostViews/updatePostView.php');
 }
 
-function deletePost($deletePId)
+function deletePost($deleteId)
 {
     $postManager = new PostManager();
-    $postManager->deletePost($deletePId);
+    $postManager->deletePost($deleteId);
 
     header('Location: index.php?action=getAdminPost');
 }
 
-function deleteSoftPost($deletePId)
+function deleteSoftPost($deleteId)
 {
     $postManager = new PostManager();
-    $postManager->deleteSoftPost($deletePId);
+    $postManager->deleteSoftPost($deleteId);
 
     header('Location: index.php?action=getAdminPost');
 }

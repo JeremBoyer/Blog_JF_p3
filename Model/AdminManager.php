@@ -7,14 +7,15 @@ require_once ("Model/Manager.php");
  * Class AdminManager
  * @package Blog\Model
  *
- * All queries related to Administration
+ * All queries related to Administration.
  */
 class AdminManager extends Manager
 {
 
     /**
-     * Query to count comments
-     * @return bool|\PDOStatement::fetch
+     * Query to count comments.
+     *
+     * @return null|array
      */
     public function nbComments()
     {
@@ -31,8 +32,9 @@ class AdminManager extends Manager
     }
 
     /**
-     * Query to count posts
-     * @return bool|\PDOStatement::fetch
+     * Query to count posts.
+     *
+     * @return null|array
      */
     public function nbPosts()
     {
@@ -47,8 +49,9 @@ class AdminManager extends Manager
     }
 
     /**
-     * Query to count reported comments
-     * @return bool|\PDOStatement::fetch
+     * Query to count reported comments.
+     *
+     * @return null|array
      */
     public function nbReported()
     {
@@ -64,9 +67,9 @@ class AdminManager extends Manager
     }
 
     /**
-     * Query to select users
+     * Query to select users.
      *
-     * @return bool|\PDOStatement::fetch
+     * @return null|array
      */
     public function nbUsers()
     {
@@ -82,7 +85,7 @@ class AdminManager extends Manager
     }
 
     /**
-     * Request to get comment with paging
+     * Request to get comment with paging.
      *
      * @param int $page
      * @return bool|\PDOStatement
@@ -92,25 +95,24 @@ class AdminManager extends Manager
         $db = $this->dbConnect();
         $postPerPage = 10;
         $start = ($page-1)*$postPerPage;
-        $req = $db->prepare('SELECT * 
+        $req = $db->prepare('SELECT *, comment.created_at AS commentAt 
                                       FROM comment 
-                                      INNER JOIN post ON comment.post_id_fk = post.id 
-                                      INNER JOIN user ON comment.user_id_fk = user.id 
-                                      WHERE comment.deleted_at IS NULL 
-                                      ORDER BY comment.created_at 
+                                      LEFT JOIN post ON comment.post_id_fk = post.id 
+                                      LEFT JOIN user ON comment.user_id_fk = user.id 
+                                      WHERE comment.deleted_at IS NULL && user.deleted_at IS NULL && comment.user_id_fk = user.id
+                                      ORDER BY comment 
                                       DESC LIMIT ' . $start  . ', ' . $postPerPage
                                       );
-
 
         $req->execute();
         return $req;
     }
 
     /**
-     * Request to select reported comments, based on their id
+     * Request to select reported comments, based on their id.
      *
      * @param int $commentId
-     * @return bool|\PDOStatement::fetch
+     * @return null|array
      */
     public function checkReportAlert($commentId)
     {
@@ -130,7 +132,7 @@ class AdminManager extends Manager
      * Request to count how many times a comment has been reported.
      *
      * @param int $commentId
-     * @return bool|\PDOStatement::fetch
+     * @return null|array
      */
     public function nbReport($commentId)
     {
@@ -173,7 +175,7 @@ class AdminManager extends Manager
      * Request to count how many times a comment has been reported by a user.
      *
      * @param int $userId
-     * @return mixed
+     * @return null|array
      */
     public function nbCommentPerUser($userId)
     {
@@ -192,8 +194,10 @@ class AdminManager extends Manager
     }
 
     /**
+     * Request to count how many comment that reported by a user.
+     *
      * @param int $userId
-     * @return bool|\PDOStatement::fetch
+     * @return null|array
      */
     public function nbUserReport($userId)
     {
@@ -212,10 +216,10 @@ class AdminManager extends Manager
     }
 
     /**
-     * Request to count how many comments per post
+     * Request to count how many comments per post.
      *
      * @param int $postId
-     * @return bool|\PDOStatement::fetch
+     * @return null|array
      */
     public function nbCommentPerPost($postId)
     {
@@ -237,7 +241,7 @@ class AdminManager extends Manager
      * Request to get category with its id.
      *
      * @param int $categoryId
-     * @return bool|\PDOStatement::fetch
+     * @return null|array
      */
     public function getCategory($categoryId)
     {
@@ -251,5 +255,4 @@ class AdminManager extends Manager
         $category = $req->fetch();
         return $category;
     }
-
 }

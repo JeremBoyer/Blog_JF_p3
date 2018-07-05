@@ -19,67 +19,67 @@
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
-                    <tr>
-                        <th>Pseudo</th>
-                        <th>Mail</th>
-                        <th>Dates</th>
-                        <th>Article</th>
-                        <th>Commentaire</th>
-                        <th>Signalé</th>
-                        <th></th>
-                    </tr>
+                        <tr>
+                            <th>Pseudo</th>
+                            <th>Mail</th>
+                            <th>Dates</th>
+                            <th>Article</th>
+                            <th>Commentaire</th>
+                            <th>Signalé</th>
+                            <th></th>
+                        </tr>
                     </thead>
                     <tbody>
                 <?php
                 while ($comment = $comments->fetch()) {
-                    ?>
-                    <tr
-                        <?php
-                            $isReportAdmin = $reportAdmin->checkReportAlert($comment[0]);
-                            if ($isReportAdmin ==  false) {
-                        ?>
-                                class="table-default"
-                        <?php
-                            } else {
-                        ?>
-                                class="bg-danger text-white"
-                        <?php
-                            }
-                        ?>
-                    >
-                        <td><?= htmlspecialchars($comment['username']) ?></td>
-                        <td><?= $comment['email'] ?></td>
-                        <td><i class="far fa-clock"></i><?php $date = new DateTime($comment['created_at']);
-                            echo $date->format('d-m-Y H:i:s'); ?></td>
-                        <td><?= $comment['title'] ?></td>
-                        <td><?= $comment['comment'] ?></td>
-                        <td>
+                ?>
+                        <tr
                             <?php
-                                $nbReport = $nbReportManager->nbReport($comment['0']);
-                                if ($nbReport == false) {
-                                    echo 0;
+                                $isReportAdmin = $reportAdmin->checkReportAlert($comment[0]);
+                                if ($isReportAdmin ==  false) {
+                            ?>
+                                    class="table-default"
+                            <?php
                                 } else {
                             ?>
-                            <?=$nbReport['0']?> <i class="far fa-flag"></i>
+                                    class="bg-danger text-white"
                             <?php
                                 }
                             ?>
-                        </td>
-                        <td>
-                            <a href="index.php?action=updateComment&amp;id=<?= $comment['0'] ?>" title="Modifier">
-                                <i class="fas fa-pencil-alt text-dark"></i>
+                        >
+                            <td><?= htmlspecialchars($comment['username']) ?> </td>
+                            <td><?= htmlspecialchars($comment['email']) ?></td>
+                            <td><i class="far fa-clock"></i><?php $date = new DateTime($comment['commentAt']);
+                                echo $date->format('d-m-Y H:i:s'); ?></td>
+                            <td><?= htmlspecialchars($comment['title']) ?></td>
+                            <td><?= $comment['comment'] ?></td>
+                            <td>
+                                <?php
+                                    $nbReport = $nbReportManager->nbReport($comment['0']);
+                                    if ($nbReport == false) {
+                                        echo 0;
+                                    } else {
+                                ?>
+                                <?=$nbReport['0']?> <i class="far fa-flag"></i>
+                                <?php
+                                    }
+                                ?>
+                            </td>
+                            <td>
+                                <a href="index.php?action=updateComment&amp;id=<?= $comment['0'] ?>" title="Modifier">
+                                    <i class="fas fa-pencil-alt text-dark"></i>
 
-                            </a>
-                            <a href="index.php?action=deleteSoftComment&amp;id=<?= $comment['0'] ?>" title="Désactiver">
-                                <i class="far fa-check-circle text-dark"></i>
-                            </a>
-                            <a href="index.php?action=deleteComment&amp;id=<?= $comment['0'] ?>" title="Supprimer">
-                                <i class="far fa-trash-alt text-dark"></i>
-                            </a>
-                        </td>
-                    </tr>
+                                </a>
+                                <a href="index.php?action=deleteSoftComment&amp;id=<?= $comment['0'] ?>" title="Désactiver">
+                                    <i class="far fa-check-circle text-dark"></i>
+                                </a>
+                                <a href="index.php?action=deleteComment&amp;id=<?= $comment['0'] ?>" title="Supprimer">
+                                    <i class="far fa-trash-alt text-dark"></i>
+                                </a>
+                            </td>
+                        </tr>
 
-                    <?php
+                <?php
                 }
                 ?>
                     </tbody>

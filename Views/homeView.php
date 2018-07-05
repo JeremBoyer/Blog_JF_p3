@@ -30,27 +30,25 @@
                     </div>
                 </div>
                 <div class="section-btn">
-                    <a type="button" href="" class="btn btn-primary">Plus d'info sur l'auteur</a>
-                    <a type="button" href="" class="btn btn-outline-light" ">Les oeuvres</a>
+                    <a type="button" href="index.php?action=listCategories" class="btn btn-primary">Plus d'info sur l'auteur</a>
+                    <a type="button" href="index.php?action=listCategories" class="btn btn-outline-light" ">Les oeuvres sur ce site</a>
                 </div>
-
-
             </div>
         </div>
     </div>
-        <!-- End Banner -->
+    <!-- End Banner -->
 
     <h2 class="m-3 p-4" id="subTitle">Derniers billets du blog :</h2>
     <div class="container-fluid">
         <div class="container">
-        <div class="row">
+            <div class="row">
 
             <!-- Extracts -->
                 <div class="row">
 
                     <?php
                     while ($post = $posts->fetch()) {
-                        ?>
+                    ?>
 
                         <div class="col-lg-4 col-md-6 mb-4">
                             <div class="card h-100">
@@ -58,7 +56,6 @@
                                     <h4>
                                         <?= ($post['title']) ?>
                                     </h4>
-
                                 </div>
 
                                 <div class="postList card-body">
@@ -74,14 +71,14 @@
                                     if ($nbComment == false) {
                                         echo 0;
                                     } else {
-                                        ?>
-                                        <div class="text-right">
+                                    ?>
+                                        <div class="text-right justify-content-end">
                                             <i class="far fa-comments"></i> <?=$nbComment['0']?> commentaire(s)
                                         </div>
                                         <div class="text-dark">
 
                                         </div>
-                                        <?php
+                                    <?php
                                     }
                                     ?>
 
@@ -97,13 +94,13 @@
                                 </div>
                             </div>
                         </div>
-                        <?php
+                    <?php
                     }
 
                     $posts->closeCursor();
-
                     ?>
                 </div>
+                <!-- End Extracts -->
             </div>
         </div>
     </div>

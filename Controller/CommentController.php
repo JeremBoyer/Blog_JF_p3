@@ -16,21 +16,24 @@ function addComment($postId = null, $user = null , $comment = null, $commentId =
     $postManager = new PostManager();
     $commentManager = new CommentManager();
     $userManager = new UserManager();
-    $post = $postManager->getPost($_GET['id']);
     $reportManager = new ReportManager();
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $affectedLines = $commentManager->addComment($postId, $user, $comment);
-        $flash = new Flash();
+    $post = $postManager->getPost($_GET['id']);
 
-        if ($affectedLines === false) {
-            $flash->setFlash('Impossible d\'ajouter votre commentaire', 'danger');
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $flash = new Flash();
+        if (!empty($_POST['user_id_fk']) && !empty($_POST['comment'])) {
+            $addedComment = $commentManager->addComment($postId, $user, $comment);
+
+            if ($addedComment === false) {
+                $flash->setFlash('Impossible d\'ajouter votre commentaire', 'danger');
+            } else {
+                $flash->setFlash('Votre commentaire a été ajouté =)!', 'success');
+            }
         } else {
-            $flash->setFlash('Votre commentaire a été ajouté =)!', 'success');
+            $flash->setFlash('Tous les champs ne sont pas remplis :@', 'danger');
         }
     }
-
-
     $comments = $commentManager->getComments($_GET['id']);
 
     require('Views/CommentViews/addCommentView.php');
@@ -42,34 +45,43 @@ function updateComment($newComment = null,$commentId)
     $postManager = new PostManager();
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $upDatedComments = $commentManager->updateComment($newComment,$commentId);
         $flash = new Flash();
+        if (!empty($_POST['comment'])) {
+            $upDatedComments = $commentManager->updateComment($newComment,$commentId);
 
-        if ($upDatedComments === false) {
-            $flash->setFlash('Impossible de modifier votre commentaire', 'danger');
+            if ($upDatedComments === false) {
+                $flash->setFlash('Impossible de modifier votre commentaire', 'danger');
+            } else {
+                $flash->setFlash('Votre commentaire a été modifié =)!', 'success');
+            }
         } else {
-            $flash->setFlash('Votre commentaire a été modifié =)!', 'success');
+            $flash->setFlash('Le commentaire ne peut être vide!', 'danger');
         }
     }
-    $comment = $commentManager->getComment($_GET['id']);
-    $post = $postManager->getPost($comment['post_id_fk']);
+    $commentToUp = $commentManager->getComment($_GET['id']);
+
+    $post = $postManager->getPost($commentToUp['post_id_fk']);
+
     require('Views/CommentViews/updateCommentView.php');
 }
 
-function deleteComment($deleteCId)
+function deleteComment($deleteId)
 {
     $commentManager = new CommentManager();
-    $affectedComment = $commentManager->deleteComment($deleteCId);
+    $affectedComment = $commentManager->deleteComment($deleteId);
+
     $flash = new Flash();
 
 
     header('Location: index.php?action=getModeration');
 }
 
-function deleteSoftComment($deleteCId)
+function deleteSoftComment($deleteId)
 {
     $commentManager = new CommentManager();
-    $deletedComment = $commentManager->deleteSoftComment($deleteCId);
+
+    $deletedComment = $commentManager->deleteSoftComment($deleteId);
+
     $flash = new Flash();
 
     if (Authentication::isAdmin()) {
@@ -80,6 +92,7 @@ function deleteSoftComment($deleteCId)
         $commentsManager = new CommentManager();
         $userManager = new UserManager();
         $reportManager = new ReportManager();
+
         $getPostId = $commentPManager->getComment($_GET['id']);
         $post = $postManager->getPost($getPostId['post_id_fk']);
         $comments = $commentsManager->getComments($getPostId['post_id_fk']);

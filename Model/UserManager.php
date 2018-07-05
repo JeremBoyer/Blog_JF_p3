@@ -15,7 +15,7 @@ class UserManager extends Manager
      * Request to get user, based on his id.
      *
      * @param int $userId
-     * @return bool|\PDOStatement::fetch
+     * @return null|array
      */
     public function getUser($userId)
     {
@@ -82,7 +82,7 @@ class UserManager extends Manager
     }
 
     /**
-     * Request to update password
+     * Request to update password.
      *
      * @param int $userId
      * @param string$pass
@@ -103,10 +103,10 @@ class UserManager extends Manager
     }
 
     /**
-     * Request to select a user with his email
+     * Request to select a user with his email.
      *
      * @param string $email
-     * @return mixed
+     * @return null|array
      */
     public function logIn($email)
     {
@@ -124,7 +124,7 @@ class UserManager extends Manager
     }
 
     /**
-     * Request to delete a user with his id
+     * Request to delete a user with his id.
      *
      * @param int $userId
      */
@@ -162,7 +162,7 @@ class UserManager extends Manager
      * @param string $role
      * @param int $commentId
      * @param int $userId
-     * @return bool|\PDOStatement::fetch
+     * @return null|array
      */
     public function checkUser($email, $username, $role, $commentId, $userId)
     {

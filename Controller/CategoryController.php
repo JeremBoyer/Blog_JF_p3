@@ -9,6 +9,7 @@ function getPostsCategory($categoryId)
 
     $posts = $categoryManager->getPostsCategory($categoryId);
     $isCategory = $categoryManager->getCategory();
+
     require('Views/CategoriesViews/postsCategoryView.php');
 }
 
@@ -16,6 +17,8 @@ function listCategories()
 {
     $categoryManager = new CategoryManager();
     $postsByCatManager = new CategoryManager();
+
     $categories =  $categoryManager->listCategory();
+
     require('Views/CategoriesViews/listCategoriesView.php');
 }

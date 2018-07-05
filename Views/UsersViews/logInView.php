@@ -1,12 +1,9 @@
 <?php
-$title = 'Blog de Jean Forteroche';
+$title = 'Connexion';
 ?>
 
 <?php ob_start(); ?>
     <h1 class="m-4 p-4">Blog de Jean Forteroche!</h1>
-
-
-
     <div class="container-fluid m-4 p-4">
         <div class="container">
             <?php
@@ -16,7 +13,6 @@ $title = 'Blog de Jean Forteroche';
             ?>
             <div class="card card-outline-secondary">
                 <div class="card-header">
-
                     <div class="text-left">
                         <h3> Connexion</h3>
                     </div>
@@ -24,7 +20,6 @@ $title = 'Blog de Jean Forteroche';
                         <a class="text-muted text-right" href="index.php?action=signUp"><span
                                     class="text-left text-muted">Pas encore membre? Inscrivez-vous ici.</span></a>
                     </div>
-
                 </div>
                 <div class="card-body">
                     <form action="index.php?action=logIn" method="post">

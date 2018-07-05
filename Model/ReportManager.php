@@ -12,12 +12,7 @@ require_once ('Model/Manager.php');
 class ReportManager extends Manager
 {
     /**
-     * Request to get the post a comment that has been deleted
-     *
-     * Use in AdminController.php: getModeration.
-     * Use in CommentController.php: addComment, deleteSoftComment.
-     * Use in PostController.php: post.
-     * Use in ReportController.php: report.
+     * Request to get the post a comment that has been deleted.
      *
      * @param int $commentId
      * @return bool|\PDOStatement
@@ -40,11 +35,11 @@ class ReportManager extends Manager
     }
 
     /**
-     *
+     * Request to check if a comment is reported by a user.
      *
      * @param int $commentId
      * @param int $userId
-     * @return bool|\PDOStatement::fetch
+     * @return null|array
      */
     public function checkReport($commentId, $userId)
     {

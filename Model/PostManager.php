@@ -8,14 +8,14 @@ require_once("Model/Manager.php");
  * Class PostManager
  * @package Blog\Model
  *
- * All queries related to articles
+ * All queries related to articles.
  */
 class PostManager extends Manager
 {
 
 
     /**
-     * Query to select six posts per $page
+     * Query to select six posts per $page.
      *
      * Query to select six posts per $page,
      * that have not been deleted,
@@ -64,21 +64,20 @@ class PostManager extends Manager
     }
 
     /**
-     * Request to select one post, based on its id,
+     * Request to get one post, based on its id,
      * that have not been deleted.
      *
-     * Use in CommentController.php : addComment, deleteSoftComment, updateComment.
-     * Use in PostController.php : post, updatePost.
-     *
      * @param int $postId
-     * @return bool|\PDOStatement::fetch
+     * @return null|array
      */
     public function getPost($postId)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT * 
+        $req = $db->prepare('SELECT *
                                       FROM post 
-                                      WHERE deleted_at IS NULL && id = :id');
+                                      INNER JOIN category
+                                      ON post.category_id_fk = category.id 
+                                      WHERE deleted_at IS NULL && post.id = :id');
 
         $req->bindParam(':id',$postId, \PDO::PARAM_INT);
 
@@ -99,6 +98,7 @@ class PostManager extends Manager
      */
     public function addPost($postTitle, $postContent, $userId, $categoryId)
     {
+
         $db = $this->dbConnect();
         $req = $db->prepare('INSERT INTO post(post.title, post.content, post.user_id_fk, post.category_id_fk, post.created_at) 
                                       VALUES (:title, :content, :user_id_fk, :category_id_fk,NOW())');
@@ -109,7 +109,6 @@ class PostManager extends Manager
         $req->bindParam(':category_id_fk',$categoryId, \PDO::PARAM_INT);
 
         $addedPost = $req->execute();
-
         return $addedPost;
     }
 

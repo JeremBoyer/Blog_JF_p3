@@ -6,11 +6,6 @@ use Blog\Model\ReportManager;
 use Blog\Model\AdminManager;
 use Blog\Model\Paging;
 
-/*
-require_once ('Services/Authentication.php');
-
-require_once ('Model/ReportManager.php');*/
-
 require_once('Model/CategoryManager.php');
 require_once('Services/Flash.php');
 require_once('Services/Paging.php');
@@ -34,17 +29,17 @@ function dashBoard()
     $nbUsers = $userAdminManager->nbUsers();
 
     $nbReported = $reportAdminManager->nbReported();
+
     require ('Views/AdminViews/dashBoardView.php');
 }
 
 function getModeration($page)
 {
     $adminManager = new AdminManager();
+    $pagingService = new Paging();
     $reportManager = new ReportManager();
     $reportAdmin = new AdminManager();
     $nbReportManager = new AdminManager();
-    $pagingService = new Paging();
-
 
     $comments = $adminManager->getModeration($page);
     $totalPages = $pagingService->getCommentPaging();
@@ -55,9 +50,9 @@ function getModeration($page)
 function getAdminUser($page)
 {
     $adminManager = new AdminManager();
+    $pagingService = new Paging();
     $nbCommentManager = new AdminManager();
     $nbUserReportManager = new AdminManager();
-    $pagingService = new Paging();
 
     $users = $adminManager->getAdminUser($page);
     $totalPages = $pagingService->getUserPaging();
@@ -68,9 +63,11 @@ function getAdminUser($page)
 function getAdminPost($page)
 {
     $postManager = new PostManager();
+    $pagingService = new Paging();
     $nbCommentManager = new AdminManager();
     $categoryManager = new AdminManager();
-    $pagingService = new Paging();
+
+
     $totalPages = $pagingService->getPaging();
     $posts = $postManager->getPosts($page);
 

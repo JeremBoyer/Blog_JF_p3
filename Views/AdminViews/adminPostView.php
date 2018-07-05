@@ -10,11 +10,13 @@
         }
         ?>
         <div class="row">
-            <div class="col-1"></div>
+            <div class="col-1">
+            </div>
             <div class="col-11">
                 <div class="card align-self-end mb-3 text-dark">
                     <div class="card-header">
-                        <i class="fa fa-table"></i>  Modération des articles</div>
+                        <i class="fa fa-table"></i>  Modération des articles
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
@@ -31,7 +33,7 @@
                                 <tbody>
                                 <?php
                                 while ($post = $posts->fetch()) {
-                                    ?>
+                                ?>
                                     <tr>
                                         <td><?= htmlspecialchars($post['title']) ?></td>
                                         <td class="text-center"><i class="far fa-clock"></i> le <?php $date = new DateTime($post['created_at']);

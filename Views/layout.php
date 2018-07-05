@@ -37,8 +37,8 @@ if (session_status() === PHP_SESSION_NONE) {
             width: 600,
             height: 300,
             plugins: [
-                'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
-                'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+                'advlist autolink link lists charmap preview hr anchor pagebreak spellchecker',
+                'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime nonbreaking',
                 'save table contextmenu directionality emoticons template paste textcolor'
             ],
             content_css: 'css/content.css',
@@ -54,8 +54,8 @@ if (session_status() === PHP_SESSION_NONE) {
 <body>
     <!-- Header -->
     <section>
-        <nav class="navbar navbar-expand-md bg-dark navbar-fixed-top">
-            <div class="container collapse navbar-collapse">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-fixed-top">
+            <div class="container collapse navbar-collapse" >
                 <a href="index.php" class="logo"> Jean Forteroche</a>
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -137,17 +137,8 @@ if (session_status() === PHP_SESSION_NONE) {
     </section>
     <!-- End Header -->
 
-
-
-    <!-- About -->
-
-
-    <!-- End About -->
-
     <!-- Content -->
-    <!--<div class="container-fluid content">-->
         <?= $content ?>
-    <!--</div>-->
     <!-- End Content -->
 
     <!-- Footer -->
@@ -156,20 +147,22 @@ if (session_status() === PHP_SESSION_NONE) {
         <nav class="navbar navbar-expand-md bg-dark">
             <div class="container-fluid m-4 p-4">
                 <div class="container">
-                    <div class="col-4">
-
-                    </div>
-                    <div class="col-4">
-                        <?php
-                            if (Authentication::isAdmin()) {
-                        ?>
-                                <a class="nav-link text-center" href="index.php?action=dashBoard"> Administration </a>
-                        <?php
-                            }
-                        ?>
-                    </div>
-                    <div class="col-4">
-
+                    <div class="row  text-white text-center">
+                        <div class="col-md-4">
+                            Site école @OpenClassrooms
+                        </div>
+                        <div class="col-md-4">
+                            <?php
+                                if (Authentication::isAdmin()) {
+                            ?>
+                                    <a class="nav-link" href="index.php?action=dashBoard"> Administration </a>
+                            <?php
+                                }
+                            ?>
+                        </div>
+                        <div class="col-md-4 ">
+                            Pour contacter l'auteur écrivez lui via cette adresse <em>jean.forteroche@blog.fr</em>
+                        </div>
                     </div>
                 </div>
             </div>

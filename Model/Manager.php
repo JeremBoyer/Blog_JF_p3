@@ -4,7 +4,7 @@ namespace Blog\Model;
  * Class Manager
  * @package Blog\Model
  *
- * Provides access to database for all model classes
+ * Provides access to database for all model classes.
  */
 class Manager{
 

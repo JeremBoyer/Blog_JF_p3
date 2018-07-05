@@ -1,4 +1,4 @@
-<?php $title = 'Blog de Jean Forteroche'; ?>
+<?php $title = 'Inscription'; ?>
 
 <?php ob_start(); ?>
     <h1 class="m-4 p-4">Blog de Jean Forteroche!</h1>
@@ -65,13 +65,10 @@
                             </div>
                         </div>
                         <div>
-                            <div class="input-group input-select">
-                                <label for="role">Role</label><br/>
-                                <select class="custom-select d-block w-100" id="role" name="role">
-                                    <option value>Role</option>
-                                    <option>Admin</option>
-                                    <option>Contributeur</option>
-                                </select>
+                            <div class="input-group">
+                                <label for="role"></label>
+                                <input class="form-control" type="hidden" id="role"
+                                       name="role" value="Contributeur"/>
                             </div>
                         </div>
                         <div>

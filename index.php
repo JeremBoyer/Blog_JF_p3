@@ -1,6 +1,4 @@
 <?php
-
-
 session_start();
 
 require('Services/Authentication.php');
@@ -40,11 +38,7 @@ try {
             }
         } elseif ($_GET['action'] == 'logIn') {
             if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-                if (!empty($_POST['email'])) {
-                    $checkUser = logIn($_POST['email']);
-                } else {
-                    echo 'Erreur : tous les champs ne sont pas remplis !';
-                }
+                logIn($_POST['email']);
             } else {
                 logIn();
             }
@@ -53,11 +47,7 @@ try {
         } elseif (Authentication::isLogged()) {
             if ($_GET['action'] == 'addComment') {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    if (!empty($_POST['user_id_fk']) && !empty($_POST['comment'])) {
-                        addComment($_GET['id'], $_POST['user_id_fk'], $_POST['comment']);
-                    } else {
-                        echo 'Erreur : tous les champs ne sont pas remplis !';
-                    }
+                    addComment($_GET['id'], $_POST['user_id_fk'], $_POST['comment']);
                 } elseif (isset($_GET['id']) && $_GET['id'] > 0) {
                     addComment($_GET['id']);
                 } else {
@@ -65,11 +55,7 @@ try {
                 }
             } elseif ($_GET['action'] == 'updateComment') {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    if (!empty($_POST['comment'])) {
-                        updateComment($_POST['comment'], $_GET['id']);
-                    } else {
-                        echo 'Erreur : tous les champs ne sont pas remplis, donc le commentaire n\'est pas modifié !';
-                    }
+                    updateComment($_POST['comment'], $_GET['id']);
                 } elseif (isset($_GET['id']) && $_GET['id'] > 0) {
                     updateComment(null, $_GET['id']);
                 }
@@ -81,12 +67,7 @@ try {
                 }
             } elseif ($_GET['action'] == 'profile') {
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    if (!empty($_POST['username']) &&
-                        !empty($_POST['email'])) {
-                        profile($_GET['id'], $_POST['username'], $_POST['email']);
-                    } else {
-                        echo 'Erreur : tous les champs ne sont pas remplis !';
-                    }
+                    profile($_GET['id'], $_POST['username'], $_POST['email']);
                 } else {
                     profile($_GET['id']);
                 }
@@ -99,27 +80,15 @@ try {
             } elseif (Authentication::isAdmin()) {
                 if ($_GET['action'] == 'addPost') {
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                        if (!empty($_POST['title']) && !empty($_POST['content']) && !empty($_POST['user_id_fk']) && !empty($_POST['category_id_fk'])) {
-                            addPost($_POST['title'], $_POST['content'], $_POST['user_id_fk'], $_POST['category_id_fk']);
-                        } else {
-                            echo 'Erreur : tous les champs ne sont pas remplis !';
-                        }
+                        addPost($_POST['title'], $_POST['content'], $_POST['user_id_fk'], $_POST['category_id_fk']);
                     } else {
                         addPost(null);
                     }
                 } elseif ($_GET['action'] == 'updatePost'){
                     if ($_SERVER['REQUEST_METHOD'] === 'POST'){
-                        if (!empty($_POST['title']) && !empty($_POST['content'])) {
-                            updatePost($_GET['id'], $_POST['title'], $_POST['category_id_fk'], $_POST['content']);
-                        } else {
-                            echo 'Erreur : tous les champs ne sont pas remplis, donc le post n\'est pas modifié !';
-                        }
+                        updatePost($_GET['id'], $_POST['title'], $_POST['category_id_fk'], $_POST['content']);
                     } elseif (isset($_GET['id']) && $_GET['id'] > 0 ) {
-                        if (Authentication::isAdmin()) {
-                            updatePost($_GET['id']);
-                        } else {
-                            header('Location: index.php?action=logIn');
-                        }
+                        updatePost($_GET['id']);
                     } else {
                         throw new Exception('Aucun identifiant de billet envoyé');
                     }

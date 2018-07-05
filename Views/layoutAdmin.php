@@ -51,6 +51,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 </head>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+
 <!-- Header -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <a href="index.php" class="navbar-brand"> Jean Forteroche</a>
@@ -83,29 +84,25 @@ if (session_status() === PHP_SESSION_NONE) {
                     <span class="nav-link-text"> Articles</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.php?action=addPost">
+                    <i class="fas fa-feather"></i>
+                    <span>Publier</span> </a>
+            </li>
         </ul>
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                    <i class="fas fa-sign-out-alt"></i>  Logout</a>
+                <a class="nav-link" href="index.php?action=logOut">
+                    <i class="fas fa-sign-out-alt"></i> Deconnexion </a>
             </li>
         </ul>
     </div>
 </nav>
 <!-- End Header -->
 
-
-
-<!-- About -->
-
-
-<!-- End About -->
-
 <!-- Content -->
-<!--<div class="container-fluid content">-->
 <?= $content ?>
-<!--</div>-->
 <!-- End Content -->
 
 <!-- Footer -->

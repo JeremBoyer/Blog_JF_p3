@@ -1,14 +1,14 @@
 <?php $title = htmlspecialchars($post['title']); ?>
 
 <?php ob_start(); ?>
-    <h1>Mon super blog !</h1>
-    <a href="index.php?action=post&amp;id=<?=$post['id']?>" class="ml-3 btn btn-info">Retour à l'article</a>
+    <h1 class="p-4 m-4">Ajouter un commentaire</h1>
+    <a href="index.php?action=post&amp;id=<?=$post[0]?>" class="ml-3 btn btn-info"> Retour à l'article</a>
 
     <div class="row">
-        <div class="container card">
+        <div class="container card mb-3">
             <div class="card-header">
                 <h3>
-                    <?= htmlspecialchars($post['title']) ?>
+                    <?= htmlspecialchars($post[1]) ?>
                 </h3>
                 <div class="text-muted">
                     <em>le <?php $date = new DateTime($post['created_at']);
@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-<div class="container-fluid">
+    <div class="container-fluid">
         <div class="container">
             <?php
             if(isset($flash)){
@@ -31,7 +31,7 @@
             }
             ?>
 
-            <form action="index.php?action=addComment&amp;id=<?= $post['id'] ?>" method="post">
+            <form action="index.php?action=addComment&amp;id=<?= $post[0] ?>" method="post">
                 <div class="form-group">
                     <label for="user_id_fk"></label><br />
                     <input class="form-control" type="hidden" id="user_id_fk" name="user_id_fk" value="<?=$_SESSION['user']['id']?>"/>
@@ -44,7 +44,7 @@
                     <input class="btn btn-primary" type="submit" />
                 </div>
             </form>
-<hr>
+            <hr>
 
             <h2>Les commentaires</h2>
             <hr>
@@ -55,12 +55,13 @@ while ($comment = $comments->fetch())
     <li class="media">
         <div class="media-body row">
             <div class="col-md-7 bodyComment">
-                <h4 class="media-heading text-uppercase reviews"><i class="fas fa-user-circle"></i> <?= htmlspecialchars($comment['username']) ?> </h4>
+                <h4 class="media-heading text-uppercase reviews">
+                    <i class="fas fa-user-circle"></i> <?= htmlspecialchars($comment['username']) ?>
+                </h4>
 
                 <p class="media-comment">
                     <?= $comment['comment'] ?>
                 </p>
-
             </div>
             <div class="col-md-5 headComment">
                 <p> <i class="far fa-clock"></i> <em>le  <?php $date = new DateTime($comment['created_at']);
@@ -69,7 +70,7 @@ while ($comment = $comments->fetch())
                 if (Authentication::isLoggedView()) {
                     $checkUser = $userManager->checkUser($_SESSION['user']['email'], $_SESSION['user']['username'], $_SESSION['user']['role'], $comment[0], $comment['id']);
                     if ($checkUser != false) {
-                        ?>
+                ?>
                         <a href="index.php?action=updateComment&amp;id=<?= $comment[0] ?>"
                            class="text-primary">
                             <i class="fas fa-pencil-alt"></i>
@@ -78,36 +79,36 @@ while ($comment = $comments->fetch())
                            class="text-danger">
                             <i class="far fa-trash-alt"></i>
                         </a>
-                        <?php
+                <?php
                     }
                 }
-                        if (Authentication::isLoggedView()) {
+                if (Authentication::isLoggedView()) {
+                    $isReport = $reportManager->checkReport(intval($comment[0]), $_SESSION['user']['id']);
 
-                            $isReport = $reportManager->checkReport(intval($comment[0]), $_SESSION['user']['id']);
-                            if ($isReport == false) {
-                    ?>
-                                <a href="index.php?action=report&amp;id_comment_pfk=<?= $comment[0] ?>"
-                                   class="text-warning">
-                                    <i class="far fa-flag"></i>
-                                </a>
-                    <?php
-                            } else {
-                    ?>
-                                <p><em>Vous avez signalé ce commentaires!</em></p>
-                    <?php
-                            }
-                        }
-                    ?>
+                    if ($isReport == false) {
+                ?>
+                        <a href="index.php?action=report&amp;id_comment_pfk=<?= $comment[0] ?>"
+                           class="text-warning">
+                            <i class="far fa-flag"></i>
+                        </a>
+                <?php
+                    } else {
+                ?>
+                        <p><em>Vous avez signalé ce commentaires!</em></p>
+                <?php
+                    }
+                }
+                ?>
             </div>
         </div>
     </li>
     <hr>
 
-    <?php
+<?php
 }
 ?>
-            </div>
         </div>
+    </div>
 
 <?php $content = ob_get_clean(); ?>
 

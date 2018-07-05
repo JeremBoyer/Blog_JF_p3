@@ -6,6 +6,8 @@ require_once("Model/Manager.php");
 /**
  * Class CategoryManager
  * @package Blog\Model
+ *
+ * All queries about categories.
  */
 class CategoryManager extends Manager
 {
@@ -31,15 +33,11 @@ class CategoryManager extends Manager
         $posts->bindParam(1,$categoryId, \PDO::PARAM_INT);
 
         $posts->execute();
-
         return $posts;
     }
 
     /**
      * Request to get category.
-     *
-     * Use in CategoryController.php: listCategories.
-     * Use in PostController.php: addPost, updatePost.
      *
      * @return bool|\PDOStatement
      */
@@ -55,8 +53,9 @@ class CategoryManager extends Manager
     }
 
     /**
-     * Request to get category
-     * @return bool|\PDOStatement::fetch
+     * Request to get category.
+     *
+     * @return null|array
      */
     public function getCategory()
     {

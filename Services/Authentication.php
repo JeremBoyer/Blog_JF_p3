@@ -3,28 +3,29 @@
 /**
  * Class Authentication
  *
- * All static function to check @global $_SESSION
+ * All static function to check @global $_SESSION['user'].
  */
 class Authentication
 {
 
     /**
+     * @static Check if user is connected
+     * if he is not, he is redirected on LogIn page.
+     *
      * @return bool
      */
     static function isLogged()
     {
         if (isset($_SESSION['user']) && isset($_SESSION['user']['username'])) {
-            /**
-             * @return true because user is logged.
-             */
             return true;
         } else {
-            // Redirection to logIn page
             header('Location: index.php?action=logIn');
         }
     }
 
     /**
+     * @static Check if user is connected.
+     *
      * @return bool
      */
     static function isLoggedView()
@@ -37,6 +38,8 @@ class Authentication
     }
 
     /**
+     * @static Check if user is  Admin.
+     *
      * @return bool
      */
     static function isAdmin()

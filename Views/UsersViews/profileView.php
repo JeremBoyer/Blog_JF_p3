@@ -1,8 +1,7 @@
-<?php $title = 'Blog de Jean Forteroche'; ?>
+<?php $title = htmlspecialchars($user['username']); ?>
 
 <?php ob_start(); ?>
     <h1 class="p-4 m-4">Blog de Jean Forteroche!</h1>
-
 
 <div class="container">
     <?php

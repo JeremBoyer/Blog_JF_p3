@@ -1,7 +1,9 @@
+<?php $title = htmlspecialchars($isCategory['title']); ?>
+
 <?php ob_start(); ?>
 <h1>Blog de Jean Forteroche!</h1>
 <div class="container">
-    <p><a href="index.php" class="btn btn-xs btn-primary">Retour à la liste des billets</a></p>
+    <p><a href="index.php" class="btn btn-xs btn-info"><i class="fas fa-list-ul"></i> Retour à la liste des billets</a></p>
 </div>
 
         <div class="container-fluid">
