@@ -31,7 +31,7 @@
                 </div>
                 <div class="section-btn">
                     <a type="button" href="index.php?action=listCategories" class="btn btn-primary">Plus d'info sur l'auteur</a>
-                    <a type="button" href="index.php?action=listCategories" class="btn btn-outline-light" ">Les oeuvres sur ce site</a>
+                    <a type="button" href="index.php?action=listCategories" class="btn btn-outline-light"><span class="text-primary">Les oeuvres sur ce site</span></a>
                 </div>
             </div>
         </div>
@@ -88,8 +88,10 @@
                                     <i class="fas fa-user-circle"></i> Jean Forteroche
                                     </div>
                                     <div class="mr-auto pl-4">
-                                        <a href="index.php?action=post&amp;id=<?= $post['id'] ?>"
-                                       class="btn btn-xs btn-primary"><i class="fas fa-glasses"></i> La suite...</a>
+                                        <div class="section-btn">
+                                            <a href="index.php?action=post&amp;id=<?= $post['id'] ?>" type="button"
+                                           class="btn btn-xs btn-primary"><i class="fas fa-glasses"></i> La suite...</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

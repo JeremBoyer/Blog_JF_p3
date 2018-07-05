@@ -1,9 +1,9 @@
 **Blog_JF_p3**
 ==============
-#Projet 3: Créez un blog pour un écrivain. (*Chef de projet multimédia - Développement*)
-##Introduction:
+# Projet 3: Créez un blog pour un écrivain. (*Chef de projet multimédia - Développement*)
+## Introduction:
 Ce projet représente mon projet 3(sur 6) de la formation Chef de projet multimédia - Développement d'[OpenClassrooms](https://openclassrooms.com).
-##Énoncé
+## Énoncé
 _"Vous venez de décrocher un contrat avec Jean Forteroche, acteur et écrivain. Il travaille actuellement sur son prochain roman, "Billet simple pour l'Alaska". Il souhaite innover et le publier par épisode en ligne sur son propre site._
 
 _Seul problème : Jean n'aime pas WordPress et souhaite avoir son propre outil de blog, offrant des fonctionnalités plus simples._
@@ -34,7 +34,7 @@ _Vous développerez en PHP sans utiliser de framework pour vous familiariser ave
 * _Insérer ou modifier les données d’une base_
 * _Récupérer les données d’une base_
 
-##Pour tester mon projet.
+## Pour tester mon projet.
 Pour WAMP: placez le dossier contenant tout le projet à la racine (dans le dossier www\\).
 
 Dans tous les cas n'oubliez pas de modifier le fichier _Manager.php_ avec les identifiants de connexion à votre base de données.
@@ -49,7 +49,7 @@ ses informations de connexion sont:
 * email : jean.forteroche@blog.fr
 * mot de passe : 1234 (C'est juste pour le test, on est d'accord) Merci de ne pas modifier ces informations.
 
-##Pour conclure.
+## Pour conclure.
 Ce projet est une fierté pour moi car il représente ma première expérience en Développement.
 
 Il m'a beaucoup appris. Néanmoins pour rester dans un temps de formation correcte, des axes d'améliorations n'ont pas encore été installés. En voici quelques-uns:
