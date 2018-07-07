@@ -57,12 +57,12 @@
                                                 $category = $categoryManager->getCategory($post['category_id_fk']);
                                             ?>
                                             <div>
-                                                Livres n°<?= $category['id']?>
+                                                Livres n°<?= htmlspecialchars($category['id'])?>
                                             </div>
                                         </td>
                                         <td>
                                             <div>
-                                                <?= $category['title']?>
+                                                <?= htmlspecialchars($category['title'])?>
                                             </div>
                                         </td>
                                         <td>

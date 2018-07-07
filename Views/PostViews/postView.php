@@ -88,7 +88,7 @@
                             <?php
                                 } else {
                             ?>
-                                    <p><em>Vous avez signalé ce commentaires!</em></p>
+                                    <p><em>Vous avez signalé ce commentaire!</em></p>
                             <?php
                                 }
                             }

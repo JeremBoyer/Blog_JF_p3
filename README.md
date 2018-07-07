@@ -54,7 +54,7 @@ Ce projet est une fierté pour moi car il représente ma première expérience e
 
 Il m'a beaucoup appris. Néanmoins pour rester dans un temps de formation correcte, des axes d'améliorations n'ont pas encore été installés. En voici quelques-uns:
 * Amélioration de l'espace membre (gestion d'avatar, prendre plus de données).
-* Conformation au RGPD pour la gestion des données de l'espace membre.
+* Conformité au RGPD pour la gestion des données de l'espace membre.
 * Ajout d'autres niveaux d'autorisations.
 * Remonter les informations des "SoftDelete" sous forme de corbeille.
 * Possibilité d'ajouter, modifier, ou supprimer des catégories.

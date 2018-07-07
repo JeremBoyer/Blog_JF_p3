@@ -72,7 +72,7 @@
                         <a href="index.php?action=getPostsCategory&amp;category_id_fk=<?= $category['id'] ?>"
                            class="nav-link dropdown-item">
                             <li class="list-group-item list-group-item-action list-group-item-info">
-                                <h4>Livre n°<?= $category['id'] ?> : <?= $category['title'] ?></h4>
+                                <h4>Livre n°<?= htmlspecialchars($category['id']) ?> : <?= htmlspecialchars($category['title']) ?></h4>
                             </li>
                         </a>
                     <?php
@@ -82,7 +82,7 @@
                         <a href="index.php?action=post&amp;id=<?= $post[0] ?>" class="text-dark">
                             <li class="list-group-item list-group-item-action list-group-item-dark d-flex">
 
-                                <strong><?=$post['postTitle']?></strong>
+                                <strong><?=htmlspecialchars($post['postTitle'])?></strong>
 
                                 <i class="fas fa-caret-right ml-auto align-content-center"></i>
                             </li>

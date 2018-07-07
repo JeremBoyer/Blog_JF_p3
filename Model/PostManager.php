@@ -35,7 +35,7 @@ class PostManager extends Manager
         $req = $db->query('SELECT *
                                     FROM post 
                                     WHERE deleted_at IS NULL
-                                    ORDER BY created_at 
+                                    ORDER BY post.created_at 
                                     DESC LIMIT ' . $start  . ', ' . $postPerPage );
         $req->execute();
         return $req;

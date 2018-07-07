@@ -100,7 +100,7 @@ class AdminManager extends Manager
                                       LEFT JOIN post ON comment.post_id_fk = post.id 
                                       LEFT JOIN user ON comment.user_id_fk = user.id 
                                       WHERE comment.deleted_at IS NULL && user.deleted_at IS NULL && comment.user_id_fk = user.id
-                                      ORDER BY comment 
+                                      ORDER BY comment.created_at 
                                       DESC LIMIT ' . $start  . ', ' . $postPerPage
                                       );
 

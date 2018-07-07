@@ -140,13 +140,13 @@ try {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
                         deleteUser($_GET['id']);
                     } else {
-                        throw new Exception('Le Commentaire ne peut être supprimer');
+                        throw new Exception('L\'utilisateur ne peut être supprimer');
                     }
                 } elseif ($_GET['action'] == 'deleteSoftUser') {
                     if (isset($_GET['id']) && $_GET['id'] > 0) {
                         deleteSoftUser($_GET['id']);
                     } else {
-                        throw new Exception('Le Commentaire ne peut être supprimer');
+                        throw new Exception('L\'utilisateur ne peut être supprimer');
                     }
                 }
             }
@@ -157,5 +157,5 @@ try {
     }
 } catch(Exception $e){
     $error =  'Il y a une erreur sur cette page : ' . $e->getMessage();
-    require('Views/errorViews/errorView.php');
+    require('Views/errorView.php');
 }

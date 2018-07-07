@@ -9,6 +9,7 @@ if (session_status() === PHP_SESSION_NONE) {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= $title ?></title>
+    <link rel="shortcut icon" href="Public/picture/favicon.png" />
     <!-- Bootstrap core CSS -->
     <link href="Public/bootstrap/bootstrap.min.css" rel="stylesheet"/>
     <!-- Custom CSS -->

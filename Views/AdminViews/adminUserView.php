@@ -35,7 +35,7 @@
                                     ?>
                                     <tr>
                                         <td><?= htmlspecialchars($user['username']) ?></td>
-                                        <td><?= $user['email'] ?></td>
+                                        <td><?= htmlspecialchars($user['email']) ?></td>
                                         <td><i class="far fa-clock"></i><?php $date = new DateTime($user['register_at']);
                                             echo $date->format('d-m-Y H:i:s'); ?></td>
                                         <td>

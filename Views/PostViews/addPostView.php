@@ -43,7 +43,7 @@ $title = 'Ajout d\'un article';
                                                        id="<?= $category['title'] ?>"
                                                        name="category_id_fk"
                                                        value="<?= $category['id'] ?>" />
-                                                       Livres <?= $category['id'] ?> : <?= $category['title'] ?>
+                                                       Livres <?= htmlspecialchars($category['id']) ?> : <?= htmlspecialchars($category['title']) ?>
                                                     </br>
                                                 </label>
                                             </div>
