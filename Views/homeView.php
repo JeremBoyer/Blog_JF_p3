@@ -5,13 +5,22 @@
 <?php ob_start(); ?>
 
     <!-- Banner -->
-
-    <div class="ban">
+    <div class="container">
+        <div class="miniban d-md-none justify-content-center m-4 p-4">
+            <div>
+                <h2 class="display-5 m-3"> Bienvenue sur le blog de Jean Forteroche</h2>
+            </div>
+            <div class="row">
+                <img src="Public/picture/portrait.jpg" class="img-fluid float-right" alt="Responsive image" />
+            </div>
+        </div>
+    </div>
+    <div class="ban d-none d-md-block">
         <div class="caption">
             <div class="container jumbotron text-center" id="jumbo">
                 <div class="row">
+                    <h2 class="display-5"> Bienvenue sur le blog de Jean Forteroche</h2>
                     <div class="col-md-9">
-                        <h2 class="display-5"> Bienvenue sur le blog de Jean Forteroche</h2>
                         <hr>
                         <h4 class="text-left text-secondary">
                             Le mot de l'auteur :
@@ -25,11 +34,11 @@
                             <footer class="blockquote-footer text-dark"> <cite title="Source Title"><strong>Jean Forteroche</strong></cite></footer>
                         </blockquote>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3 p-4">
                         <img src="Public/picture/portrait.jpg" class="img-fluid float-right" alt="Responsive image" />
                     </div>
                 </div>
-                <div class="section-btn">
+                <div class="section-btn d-none d-lg-block">
                     <a type="button" href="index.php?action=listCategories" class="btn btn-primary">Plus d'info sur l'auteur</a>
                     <a type="button" href="index.php?action=listCategories" class="btn btn-outline-light"><span class="text-primary">Les oeuvres sur ce site</span></a>
                 </div>

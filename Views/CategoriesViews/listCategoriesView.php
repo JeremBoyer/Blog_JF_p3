@@ -4,12 +4,12 @@
     <h1 class="p-4 m-4">Blog de Jean Forteroche!</h1>
     <div class="container-fluid">
         <div class="container jumbotron text-center" id="jumbo">
+            <h2 class="display-5 justify-content-center"> Présentation de Jean Forteroche</h2>
             <div class="row">
                 <div class="col-md-3">
                     <img src="Public/picture/portrait.jpg" class="img-fluid float-right" alt="Responsive image" />
                 </div>
                 <div class="col-md-9">
-                    <h2 class="display-5"> Présentation de Jean Forteroche</h2>
                     <hr>
                     <h4 class="text-left text-secondary">
                         Le mot de l'auteur :
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-6">
+                <div class="col-md-6">
                 <h4 class="text-dark">
                     Formation :
                 </h4>
@@ -40,7 +40,7 @@
                         <strong><em>Si rien ne change, rien ne change...</em></strong>
                     </p>
                 </div>
-                <div class="col-6">
+                <div class="col-md-6">
                 <h4 class="text-dark">
                     Bibliographie :
                 </h4>
@@ -67,7 +67,7 @@
         <?php
         while ($category = $categories->fetch()) {
         ?>
-                <div class="col-6">
+                <div class="col-md-6">
                     <ul class="list-group p-4">
                         <a href="index.php?action=getPostsCategory&amp;category_id_fk=<?= $category['id'] ?>"
                            class="nav-link dropdown-item">

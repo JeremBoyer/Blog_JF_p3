@@ -56,85 +56,101 @@ if (session_status() === PHP_SESSION_NONE) {
     <!-- Header -->
     <section>
         <nav class="navbar navbar-expand-lg bg-dark navbar-fixed-top">
-            <div class="container collapse navbar-collapse" >
+            <div class="container">
+                <!-- Navbar brand -->
                 <a href="index.php" class="logo"> Jean Forteroche</a>
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php"><i class="fas fa-home"></i> Accueil </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-item dropdown-toggle text-white bg-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-book"></i> Livres </a>
-                        <div class="dropdown-menu bg-dark">
-                            <?php
-                            $categoryManager = new \Blog\Model\CategoryManager();
-                            $categories =  $categoryManager->listCategory();
-                            while ($category = $categories->fetch()) {
-                                ?>
-                                <div>
-                                    <a href="index.php?action=getPostsCategory&amp;category_id_fk=<?= $category['id'] ?>"
-                                       class="nav-link dropdown-item"><?= $category['title'] ?>
-                                    </a>
-                                </div>
+
+                <!-- Collapse button -->
+                <button class="navbar-toggler toggler-example d-lg-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent1" aria-controls="navbarSupportedContent1"
+                        aria-expanded="false" aria-label="Toggle navigation"><span class="dark-blue-text"><i class="fa fa-bars fa-1x"></i></span></button>
+
+                <!-- Collapsible content -->
+                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent1">
+
+                    <!-- Links -->
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php"><i class="fas fa-home"></i> Accueil </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-item dropdown-toggle text-white bg-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-book"></i> Livres </a>
+                            <div class="dropdown-menu bg-dark">
                                 <?php
-                            }
-                            ?>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=listCategories"><i class="fas fa-address-card"></i> Présentation de l'auteur </a>
-                    </li>
-                    <?php
+                                $categoryManager = new \Blog\Model\CategoryManager();
+                                $categories =  $categoryManager->listCategory();
+                                while ($category = $categories->fetch()) {
+                                    ?>
+                                    <div>
+                                        <a href="index.php?action=getPostsCategory&amp;category_id_fk=<?= $category['id'] ?>"
+                                           class="nav-link dropdown-item"><?= $category['title'] ?>
+                                        </a>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="index.php?action=listCategories"><i class="fas fa-address-card"></i> Présentation de l'auteur </a>
+                        </li>
+                        <?php
                         if (Authentication::isAdmin()) {
-                    ?>
+                            ?>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=addPost"><i class="fas fa-feather"></i> Ajouter un article </a>
-                    </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php?action=addPost"><i class="fas fa-feather"></i> Ajouter un article </a>
+                            </li>
 
-                    <?php
+                            <?php
                         }
                         if(empty($_SESSION['user'])) {
-                    ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=logIn"><i class="fas fa-sign-in-alt"></i> Connexion </a>
-                    </li>
+                            ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php?action=logIn"><i class="fas fa-sign-in-alt"></i> Connexion </a>
+                            </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.php?action=signUp"><i class="fas fa-user-plus"></i> Inscription </a>
-                    </li>
-                    <?php
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.php?action=signUp"><i class="fas fa-user-plus"></i> Inscription </a>
+                            </li>
+                            <?php
                         }
-                    ?>
+                        ?>
 
-                    <?php
+                        <?php
                         if(isset($_SESSION['user'])) {
-                    ?>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-item dropdown-toggle text-white bg-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $_SESSION['user']['username']?></a>
-                        <div class="dropdown-menu bg-dark">
-                            <a class="nav-link dropdown-item " href="index.php?action=profile&amp;id=<?= $_SESSION['user']['id']?>"><i class="fas fa-user"></i> Profil </a>
+                            ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-item dropdown-toggle text-white bg-dark" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $_SESSION['user']['username']?></a>
+                                <div class="dropdown-menu bg-dark">
+                                    <a class="nav-link dropdown-item " href="index.php?action=profile&amp;id=<?= $_SESSION['user']['id']?>"><i class="fas fa-user"></i> Profil </a>
+
+                                    <?php
+                                    if (Authentication::isAdmin()) {
+                                        ?>
+                                        <a class="nav-link dropdown-item" href="index.php?action=dashBoard"><i class="far fa-newspaper"></i> Administration </a>
+
+                                        <?php
+                                    }
+                                    ?>
+
+                                    <a class="nav-link dropdown-item" href="index.php?action=logOut"><i class="fas fa-sign-out-alt"></i> Deconnexion </a>
+
+                                </div>
+                            </li>
 
                             <?php
-                            if (Authentication::isAdmin()) {
-                                ?>
-                            <a class="nav-link dropdown-item" href="index.php?action=dashBoard"><i class="far fa-newspaper"></i> Administration </a>
-
-                                <?php
-                            }
-                            ?>
-
-                            <a class="nav-link dropdown-item" href="index.php?action=logOut"><i class="fas fa-sign-out-alt"></i> Deconnexion </a>
-
-                        </div>
-                    </li>
-
-                    <?php
                         }
-                    ?>
+                        ?>
 
-                </ul>
+                    </ul>
+                    <!-- Links -->
+                </div>
             </div>
+            <!-- Collapsible content -->
+
         </nav>
+        <!--/.Navbar-->
+
     </section>
     <!-- End Header -->
 
