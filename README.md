@@ -3,28 +3,7 @@
 # Projet 3: Créez un blog pour un écrivain. (*Chef de projet multimédia - Développement*)
 ## Introduction:
 Ce projet représente mon projet 3(sur 6) de la formation Chef de projet multimédia - Développement d'[OpenClassrooms](https://openclassrooms.com).
-## Énoncé
-_"Vous venez de décrocher un contrat avec Jean Forteroche, acteur et écrivain. Il travaille actuellement sur son prochain roman, "Billet simple pour l'Alaska". Il souhaite innover et le publier par épisode en ligne sur son propre site._
-
-_Seul problème : Jean n'aime pas WordPress et souhaite avoir son propre outil de blog, offrant des fonctionnalités plus simples._
-
-_Le livre de Jean Forteroche reste à écrire... mais il sera publié en ligne !_
-_Le livre de Jean Forteroche reste à écrire... mais il sera publié en ligne !_
-_Vous développerez une application de blog simple en PHP et avec une base de données MySQL. Elle doit fournir une interface frontend (lecture des billets) et une interface backend (administration des billets pour l'écriture). On doit y retrouver tous les éléments d'un CRUD :_
-
-* _Create : création de billets_
-* _Read : lecture de billets_
-* _Update : mise à jour de billets_
-* _Delete : suppression de billets_
-
-_Chaque billet doit permettre l'ajout de commentaires, qui pourront être modérés dans l'interface d'administration au besoin._
-_Les lecteurs doivent pouvoir "signaler" les commentaires pour que ceux-ci remontent plus facilement dans l'interface d'administration pour être modérés._
-
-_L'interface d'administration sera protégée par mot de passe. La rédaction de billets se fera dans une interface WYSIWYG basée sur TinyMCE, pour que Jean n'ait pas besoin de rédiger son histoire en HTML (on comprend qu'il n'ait pas très envie !)._
-
-_Vous développerez en PHP sans utiliser de framework pour vous familiariser avec les concepts de base de la programmation. Le code sera construit sur une architecture MVC. Vous développerez autant que possible en orienté objet (au minimum, le modèle doit être construit sous forme d'objet)."_
-
-### Compétences à valider:
+## Compétences à valider:
 * _Créer un site Internet, de sa conception à sa livraison_
 * _Organiser le code en langage PHP_
 * _Récupérer la saisie d’un formulaire utilisateur en langage PHP_
